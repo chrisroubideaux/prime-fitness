@@ -1,38 +1,148 @@
-.App {
-  text-align: center;
+html, body {
+  height: 100%;
+  background-color: black;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.menu {
+  height: 100vh; 
+  background-image: url('../public/images/banner/background.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.layout {
+  height: 100vh;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.session {
+  height: 35rem;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+.cover {
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 35rem;
+  width: 100%;
+  object-fit: cover;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.slider {
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 35rem;
+  border-radius: 30px;
+  object-fit: cover;
+}
+
+/* buttons */
+.btn {
+  background-color:  #F94C66;
+  color: #fafafa;
+  border-radius: 30px;
+  font-weight: bold;
+}
+
+.btn:hover {
+  transform: scale(1.07);
+  background-color:  #fc9fad;
+}
+
+.image {
+  height: auto;
+  border-radius: 10px;
+  margin: auto;
+  object-fit: contain;
+  box-shadow: 0.1rem 0.1rem 0.8rem #1a1919;
+}
+
+ /* images */
+ img {
+  min-height: 200px;
+  max-width: 200px;
+}
+
+h1 {
+  font-family: 'Alfa Slab One', cursive;
+}
+
+h2 {
+  font-family: 'Kanit', sans-serif;
+  color: #02dabd; 
+}
+
+h3 {
+  color: #02dabd; 
+  font-family: 'Kaushan Script', cursive;
+}
+
+h4 {
+  color: #02dabd; 
+  font-family: 'Kanit', sans-serif;
+}
+
+h5 {
+  color: #02dabd; 
+  font-family: 'Kaushan Script', cursive;
+}
+
+h6 {
+  color: #02dabd; 
+  font-family: 'Kanit', sans-serif;
+}
+
+
+.par {
+  color: #02dabd; 
+  font-family: 'Kanit', sans-serif;
+}
+
+/* icons */
+.social-icons {
+  color: #F94C66; 
+  font-size: 20px;
+}
+
+.social-icon {
+  color: #EF9F9F; 
+  font-size: 20px;
+}
+
+.button-icon {
+  font-size: 20px;
+}
+
+.icon {
+  font-size: 10px;
+}
+
+.card-icon {
+  color: #02dabd; 
+  font-size: 20px;
+}
+  
+.social-icon:hover {
+  color: #F94C66;
+}  
+    
+.social-icons:hover {
+  color: #EF9F9F; 
+}
+
+.input-icons i {
+  position: absolute;
 }

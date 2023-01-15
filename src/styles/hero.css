@@ -1,0 +1,9 @@
+
+.jumbotron {
+    background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
+      url('https://images.pexels.com/photos/942317/pexels-photo-942317.jpeg?cs=srgb&dl=pexels-tim-mossholder-942317.jpg&fm=jpg');
+    height: 25rem;
+    border-radius: 30px;
+    background-size: cover;
+    background-position: center;
+  }
