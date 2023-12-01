@@ -1,0 +1,19 @@
+.footer {
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: 'Kanit', sans-serif;  
+}
+    
+.nav-links {
+  color: #f1f8f7;   
+}
+.nav-links :hover {
+  color: #02dabd; 
+}
+
+.hr {
+  width: 100%;
+  color:  #F94C66;
+  align-items: center;
+}
+
