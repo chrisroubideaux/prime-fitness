@@ -4,16 +4,19 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently \"npm run realtors\" \"npm run backend\"",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "realtors": "next dev",
+    "backend": "cd backend && npm start"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "@stripe/stripe-js": "^2.2.0",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.0",
+    "concurrently": "^8.2.2",
     "date-fns": "^2.30.0",
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.4",
