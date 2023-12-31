@@ -373,7 +373,7 @@ export default function Amenities({ members }) {
                   <div className=" d-lg-flex ">
                     <span>
                       <h6 className="mt-2">
-                        © 2023 Prime Fitness All Rights Reserved
+                        © 2024 Prime Fitness All Rights Reserved
                       </h6>
                     </span>
                   </div>

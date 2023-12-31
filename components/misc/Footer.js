@@ -13,20 +13,22 @@ export default function Footer() {
         <footer className="container-fluid pt-4 py-5">
           <div className="row py-5">
             <div className="col-12 col-md">
+              {/*}
               <Image
                 className="mb-2"
                 src={icon1}
                 alt=""
-                width={60}
-                height={40}
+                width={40}
+                height={30}
               />
+              */}
               <small className="d-block mb-3 text-white">
-                &copy; 2023 Prime Fitness
+                &copy; 2024 Prime Fitness
               </small>
             </div>
             <div className="col-6 col-md">
               <h2 className=" fw-normal">Contact</h2>
-              <ul className="list-unstyled fw-semibold">
+              <ul className="list-unstyled fw-normal">
                 <li className="">
                   <Link
                     className="nav-links text-white fs-5"

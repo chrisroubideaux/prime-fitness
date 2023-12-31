@@ -145,7 +145,7 @@ export default function Login() {
                   </div>
                   <div className="container mt-3"></div>
                   <p className=" mt-5 mb-3 text-white">
-                    &copy; Prime Fitness, 2023
+                    &copy; Prime Fitness, 2024
                   </p>
                 </form>
               </div>
