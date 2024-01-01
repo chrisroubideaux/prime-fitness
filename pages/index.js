@@ -45,7 +45,7 @@ export default function Home() {
                 </Link>
               </li>
             </ul>
-            <p className="text-light pt-1">© Copyright 2023 Prime Fitness</p>
+            <p className="text-light pt-1">© Copyright 2024 Prime Fitness</p>
           </div>
         </div>
       </div>
