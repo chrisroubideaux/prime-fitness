@@ -12,7 +12,7 @@ import Amenities from '@/components/sessions/Amenities';
 import Maps from '@/components/maps/Maps';
 import Footer from '@/components/misc/Footer';
 // data
-import sessions from '@/data/sessions';
+//import sessions from '@/data/sessions';
 
 export default function Instructors({ params }) {
   //  const session = sessions.find((session) => session.id === params.id);
