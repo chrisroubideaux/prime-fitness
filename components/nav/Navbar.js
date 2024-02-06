@@ -6,7 +6,7 @@ export default function Navbar() {
     <div>
       <nav className="navbar navbar-expand-sm mx-auto fw-bold fixed-top">
         <div className="container-fluid">
-          <Link className="nav-link fs-4 fw-normal pb-3" href="/">
+          <Link className="nav-link fs-4 pb-2" href="/">
             Prime
           </Link>
           <button
@@ -32,7 +32,7 @@ export default function Navbar() {
                   <div className="input-group">
                     <Link
                       href="/"
-                      className="nav-link dropwdown-toggle fs-4 fw-normal"
+                      className="nav-link dropwdown-toggle fs-4 "
                       type="button"
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
@@ -45,7 +45,7 @@ export default function Navbar() {
                     <ul className="dropdown-menu" style={{ width: '15rem' }}>
                       <li>
                         <Link
-                          className="dropdown-item fs-4 fw-normal"
+                          className="dropdown-item fs-4 "
                           href="/sessions/Session/"
                         >
                           Classes
@@ -53,7 +53,7 @@ export default function Navbar() {
                       </li>
                       <li>
                         <Link
-                          className="dropdown-item fs-4 fw-normal"
+                          className="dropdown-item fs-4 "
                           href="/trainers/Trainers/"
                         >
                           Trainers
@@ -61,33 +61,27 @@ export default function Navbar() {
                       </li>
                       <li>
                         <Link
-                          className="dropdown-item fs-4 fw-normal"
+                          className="dropdown-item fs-4 "
                           href="/guides/Guides/"
                         >
                           Tours
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          className="dropdown-item fs-4 fw-normal"
-                          href="/team/Team/"
-                        >
+                        <Link className="dropdown-item fs-4" href="/team/Team/">
                           Staff
                         </Link>
                       </li>
                       <li>
                         <Link
-                          className="dropdown-item fs-4 fw-normal"
+                          className="dropdown-item fs-4 "
                           href="/event/Events/"
                         >
                           Events
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          className="dropdown-item fs-4 fw-normal"
-                          href="/contact/Contact/"
-                        >
+                        <Link className="dropdown-item fs-4 " href="/Contact/">
                           Contact
                         </Link>
                       </li>
@@ -95,18 +89,26 @@ export default function Navbar() {
                   </div>
                 </li>
                 <li className="nav-item mt-1">
-                  <Link
-                    className="nav-link fs-4 fw-normal"
-                    href="/members/Members/"
-                  >
+                  <Link className="nav-link fs-4 " href="/members/Members/">
                     Memberships
                   </Link>
                 </li>
-                <li className="nav-item mt-1 fs-4 fw-normal">
+                <li className="nav-item mt-1 fs-4 ">
+                  <Link className="nav-link" href="/login/Login/">
+                    About
+                  </Link>
+                </li>
+                <li className="nav-item mt-1 fs-4">
+                  <Link className="nav-link" href="/contact/">
+                    Contact
+                  </Link>
+                </li>
+                <li className="nav-item mt-1 fs-4">
                   <Link className="nav-link" href="/login/Login/">
                     Login
                   </Link>
                 </li>
+                {/*
                 <div
                   className="input-group mb-3 m-3"
                   style={{ width: '20rem' }}
@@ -129,6 +131,7 @@ export default function Navbar() {
                   </button>
                   <ul className="dropdown-menu dropdown-menu-end"></ul>
                 </div>
+                */}
               </ul>
             </div>
           </div>

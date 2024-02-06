@@ -1,27 +1,26 @@
 /*nav*/
 .navbar {
-background-image: url('../public/images/navbar3.png');
-font-size: 1.2rem;
-font-family: 'Kanit', sans-serif;
-border-top: 1px solid #3a3a3a; 
-border-bottom: 1px solid #3a3a3a;  
+  background-image: url('../public/images/navbar3.png');
+  font-size: 1.2rem;
+  font-family: 'Kanit', sans-serif;
+  border-top: 1px solid #2f4d5a; 
+  border-bottom: 1px solid #2f4d5a;  
+  border-radius: 30px;
 }
     
 .nav-item {
-font-size: 1.2rem;
-color: #f1f8f7; 
-color: #02dabd; 
- 
+  font-size: 1.2rem;
+  color: #f1f8f7; 
+  color: #02dabd;  
 }
 
 .nav-item :hover{
-font-size: 1.2rem;
-color: #02dabd; 
+  color: #02dabd; 
 }
     
 .nav-link {
-font-size: 1.2;
-color: #f1f8f7; 
+  font-size: 1.2;
+  color: #f1f8f7; 
 }
 .nav-link :hover {
   color: #02dabd; 
@@ -37,8 +36,7 @@ li a:hover {
   color: #f1f8f7;  
 }
 
-li {
-   
+li {   
   color: #f1f8f7;  
   font-size: 1.2rem;
 }
@@ -60,8 +58,7 @@ li :hover {
 .dropdown-item {
   color: #faebeb;
   font-size: 1.5rem;
-  border-radius:10px ;
-
+  border-radius:10px;
 }
 
 .dropdown-item :hover {
