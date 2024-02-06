@@ -17,14 +17,13 @@ import Footer from '@/components/misc/Footer';
 export default function Details({}) {
   // const guide = guides.find((guide) => guide.id === params.id);
 
-  const [guide, setGuide] = useState([]); // initialize state variable for trainers
-  const router = useRouter(); // Use the useRouter hook to access route parameters
-  const { id } = router.query; // Get the 'id' parameter from the route
+  const [guide, setGuide] = useState([]);
+  const router = useRouter();
+  const { id } = router.query;
 
   // useEffect hook to fetch data from the API
   useEffect(() => {
     if (id) {
-      // Ensure 'id' is defined before making the API requests
       axios
         .get(`http://localhost:3001/guides/${id}`)
         .then((response) => {
