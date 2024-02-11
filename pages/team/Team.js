@@ -32,7 +32,7 @@ export default function Team() {
   // useEffect for feching tour guide data from the server
   useEffect(() => {
     axios
-      .get('https://fitness-server-c1a2fb04992c.herokuapp.com/owners')
+      .get('https://fitness-server-c1a2fb04992c.herokuapp.com/guides')
       .then((response) => {
         setGuides(response.data);
       })
