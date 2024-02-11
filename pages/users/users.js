@@ -1,5 +1,4 @@
 // profile page
-
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -12,11 +11,9 @@ export default function Users({}) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // GET request to fetch users by id from server
     axios
-      .get(`http://localhost:3001/auth/`)
+      .get(`https://fitness-server-c1a2fb04992c.herokuapp.com/auth/`)
       .then((response) => {
-        // Update the state with the fetched apartments
         setUsers(response.data);
       })
       .catch((error) => {

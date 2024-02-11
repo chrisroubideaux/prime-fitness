@@ -2,28 +2,23 @@
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/router'; // Correct import statement
+import { useRouter } from 'next/router';
 // component imports
 import Navbar from '@/components/nav/Navbar';
 import Nav from '@/components/owners/Nav';
 import Bio from '@/components/owners/Bio';
 import Toolbar from '@/components/owners/Toolbar';
 import Footer from '@/components/misc/Footer';
-// data
-//import owners from '@/data/owners';
 
 export default function OwnerDetails({}) {
-  //  const owner = owners.find((owner) => owner.id === params.id);
-
-  const [owner, setOwner] = useState([]); // initialize state variable for owners
-  const router = useRouter(); // Use the useRouter hook to access route parameters
-  const { id } = router.query; // Get the 'id' parameter from the route
+  const [owner, setOwner] = useState([]);
+  const router = useRouter();
+  const { id } = router.query;
 
   useEffect(() => {
     if (id) {
-      // Ensure 'id' is defined before making the API request
       axios
-        .get(`http://localhost:3001/owners/${id}`)
+        .get(`https://fitness-server-c1a2fb04992c.herokuapp.com/owners/${id}`)
         .then((response) => {
           setOwner(response.data);
         })
@@ -71,11 +66,11 @@ export default function OwnerDetails({}) {
   );
 }
 
-// Fetch data using server side using getServerSideProps
+// getServerSideProps
 export async function getServerSideProps({ params }) {
   try {
     const response = await axios.get(
-      `http://localhost:3001/owners/${params.id}`
+      `https://fitness-server-c1a2fb04992c.herokuapp.com/owners/${params.id}`
     );
     const owner = response.data;
 

@@ -1,7 +1,7 @@
 //details page
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/router'; // Correct import statement
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 // components
 import Navbar from '@/components/nav/Navbar';
@@ -12,21 +12,16 @@ import Avatar from '@/components/sessions/Avatar';
 import Amenities from '@/components/sessions/Amenities';
 import Maps from '@/components/maps/Maps';
 import Footer from '@/components/misc/Footer';
-// data
-//import sessions from '@/data/sessions';
 
 function Details({}) {
-  //  const session = sessions.find((session) => session.id === params.id);
-
   const [session, setSession] = useState([]);
-  const router = useRouter(); // Use the useRouter hook to access route parameters
-  const { id } = router.query; // Get the 'id' parameter from the route
+  const router = useRouter();
+  const { id } = router.query;
 
   useEffect(() => {
     if (id) {
-      // Ensure 'id' is defined before making the API request
       axios
-        .get(`http://localhost:3001/sessions/${id}`)
+        .get(`https://fitness-server-c1a2fb04992c.herokuapp.com/sessions/${id}`)
         .then((response) => {
           setSession(response.data);
         })
@@ -111,11 +106,11 @@ function Details({}) {
 
 export default Details;
 
-// Fetch data using server side using getServerSideProps
+//getServerSideProps
 export async function getServerSideProps({ params }) {
   try {
     const response = await axios.get(
-      `http://localhost:3001/sessions/${params.id}`
+      `https://fitness-server-c1a2fb04992c.herokuapp.com/sessions/${params.id}`
     );
     const session = response.data;
 

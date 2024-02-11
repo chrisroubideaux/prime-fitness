@@ -1,5 +1,4 @@
 // crud opertions for owner routes
-// CRUD operations for owner routes
 const express = require('express');
 const ownerRoutes = express.Router();
 const Owner = require('./owner');

@@ -28,14 +28,12 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      // Send a POST request to the login endpoint using Axios
       const response = await axios.post(
         'http://localhost:3001/auth/login',
         formData
       );
 
       if (response.status === 200) {
-        // Redirect to the profile page after successful login
         window.location.href = '/user';
       } else {
         const data = response.data;
@@ -49,13 +47,11 @@ export default function Login() {
 
   // Add Google login function
   const handleGoogleLogin = () => {
-    // Redirect the user to Google OAuth login
     window.location.href = 'http://localhost:3001/auth/google/login';
   };
 
   // Facebook registration function
   const handleFacebookLogin = () => {
-    // Define the Facebook OAuth registration URL
     const facebookOAuthURL = 'http://localhost:3001/auth/facebook/register';
 
     // Open the Facebook OAuth URL in a popup window

@@ -2,7 +2,7 @@
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/router'; // Correct import statement
+import { useRouter } from 'next/router';
 // component imports
 import Navbar from '@/components/nav/Navbar';
 import Nav from '@/components/memberships/Nav';
@@ -10,26 +10,19 @@ import Amenities from '@/components/memberships/Amenities';
 import Member from '@/components/memberships/Member';
 import Checkout from '@/components/payments/Checkout';
 import Footer from '@/components/misc/Footer';
-// data
-//import members from '@/data/members';
-//import guides from '@/data/guides';
 
 // react icon imports
 import { FaAward, FaStar } from 'react-icons/fa';
 
 export default function Details({ params }) {
-  //  const member = members.find((member) => member.id === params.id);
-  //  const guide = guides.find((guide) => guide.id === params.id);
-
-  const [member, setMember] = useState([]); // initialize state variable for trainers
-  const router = useRouter(); // Use the useRouter hook to access route parameters
-  const { id } = router.query; // Get the 'id' parameter from the route
+  const [member, setMember] = useState([]);
+  const router = useRouter();
+  const { id } = router.query;
 
   useEffect(() => {
     if (id) {
-      // Ensure 'id' is defined before making the API request
       axios
-        .get(`http://localhost:3001/members/${id}`)
+        .get(`https://fitness-server-c1a2fb04992c.herokuapp.com/members/${id}`)
         .then((response) => {
           setMember(response.data);
         })
@@ -116,7 +109,7 @@ export default function Details({ params }) {
   );
 }
 
-// Fetch data using server side using getServerSideProps
+// getServerSideProps
 export async function getServerSideProps({ params }) {
   try {
     const response = await axios.get(

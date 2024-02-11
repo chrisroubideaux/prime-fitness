@@ -2,7 +2,7 @@
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/router'; // Correct import statement
+import { useRouter } from 'next/router';
 // component imports
 import Navbar from '@/components/nav/Navbar';
 import Nav from '@/components/guides/Nav';
@@ -11,21 +11,15 @@ import Bookings from '@/components/guides/tours/Bookings';
 import Toolbar from '@/components/guides/Toolbar';
 import Footer from '@/components/misc/Footer';
 
-// data
-//import guides from '@/data/guides';
-
 export default function Details({}) {
-  // const guide = guides.find((guide) => guide.id === params.id);
-
   const [guide, setGuide] = useState([]);
   const router = useRouter();
   const { id } = router.query;
 
-  // useEffect hook to fetch data from the API
   useEffect(() => {
     if (id) {
       axios
-        .get(`http://localhost:3001/guides/${id}`)
+        .get(`https://fitness-server-c1a2fb04992c.herokuapp.com/guides/${id}`)
         .then((response) => {
           setGuide(response.data);
         })
@@ -78,11 +72,11 @@ export default function Details({}) {
   );
 }
 
-// Fetch data using server side using getServerSideProps
+// getServerSideProps
 export async function getServerSideProps({ params }) {
   try {
     const response = await axios.get(
-      `http://localhost:3001/guides/${params.id}`
+      `https://fitness-server-c1a2fb04992c.herokuapp.com/guides/${params.id}`
     );
     const guide = response.data;
 

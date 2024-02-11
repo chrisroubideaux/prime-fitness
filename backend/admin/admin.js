@@ -1,10 +1,12 @@
 // admin authentication
+{
+  /* 
 const express = require('express');
 const Admin = require('./adminModel');
 const adminRoutes = express.Router();
 const { registerAdmin, loginAdmin } = require('./adminController');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+
 const validator = require('validator');
 
 require('dotenv').config();
@@ -101,3 +103,5 @@ adminRoutes.post('/login', async (req, res) => {
 });
 
 module.exports = adminRoutes;
+  */
+}

@@ -1,7 +1,7 @@
 // register page
 import Link from 'next/link';
-import { useState, useEffect } from 'react'; // Import useState
-import axios from 'axios'; // Import Axios
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Head from 'next/head';
@@ -10,7 +10,7 @@ import Navbar from '@/components/nav/Navbar';
 import jumbotron3 from '@/public/images/jumbotron/jumbotron3.jpg';
 
 export default function Register() {
-  const router = useRouter(); // Initialize the router
+  const router = useRouter();
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -36,18 +36,18 @@ export default function Register() {
 
     try {
       const response = await axios.post(
-        'http://localhost:3001/auth/register',
+        'https://fitness-server-c1a2fb04992c.herokuapp.com/auth/register',
         formData
       );
 
       if (response.status === 201) {
-        // Registration successful, store the token and redirect
-        const { token } = response.data; // Assuming the token is in the response
-        localStorage.setItem('token', token); // Store the token in localStorage
+        // Registration successful
+        const { token } = response.data;
+        localStorage.setItem('token', token);
 
         // Check if redirectTo is present in the response
         if (response.data.redirectTo) {
-          router.push(response.data.redirectTo); // Redirect to the specified URL
+          router.push(response.data.redirectTo);
         }
 
         // Display a success message

@@ -12,24 +12,16 @@ import Owners from '@/components/owners/Owners';
 import Iconbar from '@/components/misc/Iconbar';
 import Footer from '@/components/misc/Footer';
 
-//data
-//import owners from '@/data/owners';
-//import guides from '@/data/guides';
-//import sessions from '@/data/sessions';
-//import trainers from '@/data/trainers';
-
 export default function Team() {
-  const [owners, setOwners] = useState([]); // initialize state variable for owners
-  const [guides, setGuides] = useState([]); // initialize state variable for tour guides
-  const [sessions, setSessions] = useState([]); // initialize state variable for instructors
-  const [trainers, setTrainers] = useState([]); // initialize state variable for trainers
+  const [owners, setOwners] = useState([]);
+  const [guides, setGuides] = useState([]);
+  const [sessions, setSessions] = useState([]);
+  const [trainers, setTrainers] = useState([]);
 
   useEffect(() => {
-    // Make a GET request to fetch owner data from server
     axios
-      .get('http://localhost:3001/owners')
+      .get('https://fitness-server-c1a2fb04992c.herokuapp.com/owners')
       .then((response) => {
-        // Update the state with the fetched owner data
         setOwners(response.data);
       })
       .catch((error) => {
@@ -39,25 +31,20 @@ export default function Team() {
 
   // useEffect for feching tour guide data from the server
   useEffect(() => {
-    // Make a GET request to fetch tour guide data from server
     axios
-      .get('http://localhost:3001/guides')
+      .get('https://fitness-server-c1a2fb04992c.herokuapp.com/owners')
       .then((response) => {
-        // Update the state with the fetched tour guide data
         setGuides(response.data);
       })
       .catch((error) => {
         console.error('Error fetching tour guides', error);
       });
   }, []);
-  // useEffect for feching session data from the server
 
   useEffect(() => {
-    // Make a GET request to fetch intructors from server
     axios
-      .get('http://localhost:3001/sessions')
+      .get('https://fitness-server-c1a2fb04992c.herokuapp.com/sessions')
       .then((response) => {
-        // Update the state with the fetched intructors
         setSessions(response.data);
       })
       .catch((error) => {
@@ -65,20 +52,17 @@ export default function Team() {
       });
   }, []);
 
-  // useEffect for feching trainer data from the server
   useEffect(() => {
-    // Make a GET request to fetch intructors from  server
     axios
-      .get('http://localhost:3001/trainers')
+      .get('https://fitness-server-c1a2fb04992c.herokuapp.com/trainers')
       .then((response) => {
-        // Update the state with the fetched intructors
         setTrainers(response.data);
       })
       .catch((error) => {
         console.error('Error fetching instructors:', error);
       });
   }, []);
-  // start of return
+
   return (
     <>
       <Head>

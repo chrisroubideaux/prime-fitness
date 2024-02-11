@@ -11,7 +11,7 @@ export default function Bookings({
   onUpdateAppointment,
   onDeleteAppointment,
 }) {
-  const [selectedSlot, setSelectedSlot] = useState(''); // State to store the selected time slot
+  const [selectedSlot, setSelectedSlot] = useState('');
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
@@ -29,27 +29,27 @@ export default function Bookings({
     e.preventDefault();
 
     if (!selectedSlot) {
-      // Handle validation or show an error message
       return;
     }
     try {
       // Send a POST request to create or reschedule the appointment
-      const response = await axios.post('http://localhost:3001/appointments', {
-        guideId: guides._id, // Send the guide ID
-        selectedSlot, // Send the selected time slot
-        appointmentId: selectedAppointment ? selectedAppointment._id : null, // Send the existing appointment ID if rescheduling
-      });
+      const response = await axios.post(
+        'https://fitness-server-c1a2fb04992c.herokuapp.com/appointments',
+        {
+          guideId: guides._id,
+          selectedSlot,
+          appointmentId: selectedAppointment ? selectedAppointment._id : null,
+        }
+      );
 
       // Handle successful appointment creation or rescheduling
       console.log('Appointment created or rescheduled:', response.data);
 
       if (selectedAppointment) {
-        // Appointment has been rescheduled
         showAlertMessage(
           `Your appointment has been rescheduled ${selectedSlot}.`
         );
       } else {
-        // New appointment has been created
         showAlertMessage(
           `Your appointment has been successfully created for one hour from ${selectedSlot}.`
         );
@@ -72,15 +72,13 @@ export default function Bookings({
   // Function to delete an appointment
   const handleDeleteAppointment = async (appointmentId) => {
     try {
-      // Send a DELETE request to delete the appointment
       const response = await axios.delete(
-        `http://localhost:3001/appointments/${appointmentId}`
+        `https://fitness-server-c1a2fb04992c.herokuapp.com/appointments/${appointmentId}`
       );
 
       // Handle successful appointment deletion
       console.log('Appointment deleted:', response.data);
 
-      // Close the modal or perform any other desired actions
       alert('Appointment has been canceled successfully.');
 
       onDeleteAppointment(appointmentId);
@@ -88,7 +86,6 @@ export default function Bookings({
       // Handle errors (e.g., show an error message)
       console.error('Error deleting appointment:', error);
 
-      // Display an error message to the user
       alert('Error deleting appointment. Please try again later.');
     }
   };

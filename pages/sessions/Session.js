@@ -5,25 +5,21 @@ import axios from 'axios';
 // components
 import Navbar from '@/components/nav/Navbar';
 import Sliders from '@/components/misc/Sliders';
-
 import Iconbar from '@/components/misc/Iconbar';
 import Instructors from '@/components/sessions/Instructors';
 import Features from '@/components/misc/Features';
 import Details from '@/components/misc/Details';
 import Footer from '@/components/misc/Footer';
-// data
+
 import banners from '@/data/banners';
-//import sessions from '@/data/sessions';
 
 const Session = () => {
-  const [sessions, setSessions] = useState([]); // initialize state variable for instructors
+  const [sessions, setSessions] = useState([]);
 
   useEffect(() => {
-    // Make a GET request to fetch intructors from your server
     axios
-      .get('http://localhost:3001/sessions')
+      .get('https://fitness-server-c1a2fb04992c.herokuapp.com/sessions')
       .then((response) => {
-        // Update the state with the fetched intructors
         setSessions(response.data);
       })
       .catch((error) => {
@@ -82,10 +78,12 @@ const Session = () => {
 
 export default Session;
 
-// Fetch data using server side using getServerSideProps
+// getServerSideProps
 export async function getServerSideProps() {
   try {
-    const response = await axios.get('http://localhost:3001/sessions');
+    const response = await axios.get(
+      'https://fitness-server-c1a2fb04992c.herokuapp.com/sessions'
+    );
     const sessions = response.data;
 
     return {

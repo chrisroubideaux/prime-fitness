@@ -11,18 +11,14 @@ import Trainers from '@/components/trainers/Trainers';
 import Features from '@/components/misc/Features';
 import Details from '@/components/misc/Details';
 import Footer from '@/components/misc/Footer';
-//
-//import trainers from '@/data/trainers';
 
 export default function Trainer() {
-  const [trainers, setTrainers] = useState([]); // initialize state variable for instructors
+  const [trainers, setTrainers] = useState([]);
 
   useEffect(() => {
-    // Make a GET request to fetch intructors from server
     axios
-      .get('http://localhost:3001/trainers')
+      .get('https://fitness-server-c1a2fb04992c.herokuapp.com/trainers')
       .then((response) => {
-        // Update the state with the fetched intructors
         setTrainers(response.data);
       })
       .catch((error) => {
@@ -74,10 +70,12 @@ export default function Trainer() {
   );
 }
 
-// Fetch data using server side using getServerSideProps
+// getServerSideProps
 export async function getServerSideProps() {
   try {
-    const response = await axios.get('http://localhost:3001/trainers');
+    const response = await axios.get(
+      'https://fitness-server-c1a2fb04992c.herokuapp.com/trainers'
+    );
     const trainers = response.data;
 
     return {

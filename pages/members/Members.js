@@ -11,18 +11,14 @@ import Members from '@/components/memberships/Members';
 import Features from '@/components/misc/Features';
 import Details from '@/components/misc/Details';
 import Footer from '@/components/misc/Footer';
-// data
-//import members from '@/data/members';
 
 export default function Memberships() {
-  const [members, setMembers] = useState([]); // initialize state variable for instructors
+  const [members, setMembers] = useState([]);
 
   useEffect(() => {
-    // Make a GET request to fetch membership data from your server
     axios
-      .get('http://localhost:3001/members')
+      .get('https://fitness-server-c1a2fb04992c.herokuapp.com/members')
       .then((response) => {
-        // Update the state with the fetched membership data
         setMembers(response.data);
       })
       .catch((error) => {
@@ -73,10 +69,12 @@ export default function Memberships() {
   );
 }
 
-// Fetch data using server side using getServerSideProps
+// getServerSideProps
 export async function getServerSideProps() {
   try {
-    const response = await axios.get('http://localhost:3001/members');
+    const response = await axios.get(
+      'https://fitness-server-c1a2fb04992c.herokuapp.com/members'
+    );
     const members = response.data;
 
     return {

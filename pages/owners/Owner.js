@@ -6,16 +6,13 @@ import Owners from '@/components/owners/Owners';
 import Features from '@/components/misc/Features';
 import Details from '@/components/misc/Details';
 import Footer from '@/components/misc/Footer';
-//
-//import owners from '@/data/owners';
 
 export default function Owner() {
-  const [owners, setOwners] = useState([]); // initialize state variable for owners
+  const [owners, setOwners] = useState([]);
 
   useEffect(() => {
-    // Make a GET request to fetch owner data from your server
     axios
-      .get('http://localhost:3001/owners')
+      .get('https://fitness-server-c1a2fb04992c.herokuapp.com/owners')
       .then((response) => {
         // Update the state with the fetched owner data
         setOwners(response.data);

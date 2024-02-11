@@ -3,14 +3,13 @@ const express = require('express');
 const session = require('express-session');
 const { json, urlencoded } = require('body-parser');
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const passport = require('passport');
 
 // auth routes
 const appointmentRoutes = require('./appointments/appointments');
-const authRoutes = require('./routes/auth');
+//const authRoutes = require('./routes/auth');
 const sessionRoutes = require('./sessions/sessions');
 const trainerRoutes = require('./trainers/trainers');
 const memberRoutes = require('./members/members');
@@ -18,7 +17,7 @@ const memberRoutes = require('./members/members');
 //const profileRoutes = require('./routes/profile');
 const guideRoutes = require('./guides/guides');
 const ownerRoutes = require('./owners/owners');
-const adminRoutes = require('./admin/admin');
+//const adminRoutes = require('./admin/admin');
 const userRoutes = require('./routes/user'); // Import the userRoutes module
 const User = require('./models/user'); // Import the User model
 
@@ -41,7 +40,7 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 require('dotenv').config();
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 const mongoURI = process.env.MONGO_URI;
 
@@ -57,7 +56,7 @@ mongoose
 
 // cors
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: 'https://client-prime-5b6b37e08f74.herokuapp.com',
 };
 
 //
@@ -90,14 +89,16 @@ function verifyToken(req, res, next) {
 
 // Configure session middleware
 const sessionMiddleware = session({
-  secret: process.env.SESSION_SECRET || 'default-secret-key',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
 });
+{
+  /*
 // Configure session middleware
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || 'default-secret-key',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -105,6 +106,8 @@ app.use(
     },
   })
 );
+*/
+}
 app.use(sessionMiddleware);
 
 // Initialize Passport and restore authentication state
@@ -219,7 +222,7 @@ passport.deserializeUser(async (id, done) => {
 // routes
 
 // cover page
-app.get('/cover', (req, res) => {
+app.get('/', (req, res) => {
   res.send('cover page.');
 });
 
@@ -243,12 +246,12 @@ app.use('/owners', ownerRoutes);
 app.use('/appointments', appointmentRoutes);
 
 // admin routes
-app.use('/admin', adminRoutes);
+//app.use('/admin', adminRoutes);
 
 // auth routes and profile routes
-app.use('/auth', authRoutes);
+//app.use('/auth', authRoutes);
 
-app.post('/auth', authRoutes);
+//app.post('/auth', authRoutes);
 
 app.use('/user', userRoutes);
 

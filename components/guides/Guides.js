@@ -1,5 +1,5 @@
 // guides component
-// imports
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { FaEnvelope, FaFacebookF, FaInstagram, FaTiktok } from 'react-icons/fa';

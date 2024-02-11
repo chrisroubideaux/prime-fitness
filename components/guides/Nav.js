@@ -1,5 +1,5 @@
 // nav component
-'use client';
+
 import Link from 'next/link';
 import { FaDumbbell, FaHouseUser, FaIdBadge } from 'react-icons/fa';
 

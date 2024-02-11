@@ -1,6 +1,5 @@
 // users model
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 require('dotenv').config(); // Load environment variables
 const jwt = require('jsonwebtoken');
 
@@ -28,6 +27,8 @@ const userSchema = new mongoose.Schema(
 );
 
 // Add a pre-save hook to hash the password before saving it to the database
+{
+  /*
 userSchema.pre('save', async function (next) {
   try {
     if (this.isModified('password')) {
@@ -41,5 +42,6 @@ userSchema.pre('save', async function (next) {
     next(error);
   }
 });
-
+*/
+}
 module.exports = mongoose.model('User', userSchema);

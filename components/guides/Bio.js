@@ -1,5 +1,4 @@
 // bio component
-
 import Image from 'next/image';
 
 function Avatar({ guides }) {

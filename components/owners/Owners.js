@@ -1,4 +1,5 @@
 // owners component
+
 import Link from 'next/link';
 import { FaEnvelope, FaFacebookF, FaInstagram, FaTiktok } from 'react-icons/fa';
 

@@ -1,3 +1,5 @@
+{
+  /*
 // admin controller
 const admin = require('./admin');
 const bcrypt = require('bcrypt');
@@ -102,3 +104,6 @@ module.exports = {
   register,
   login,
 };
+
+*/
+}

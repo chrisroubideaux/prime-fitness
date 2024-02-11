@@ -1,6 +1,6 @@
 // Hero component
 import Link from 'next/link';
-import Search from '../nav/Search';
+//import Search from '../nav/Search';
 import { FaFacebook, FaInstagram, FaTiktok, FaYoutube } from 'react-icons/fa';
 
 export default function Hero({}) {

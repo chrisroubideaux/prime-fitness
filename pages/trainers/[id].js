@@ -19,17 +19,14 @@ import trainers from '@/data/trainers';
 //
 
 const Details = ({}) => {
-  //  const trainer = trainers.find((trainer) => trainer.id === params.id);
-
-  const [trainer, setTrainer] = useState([]); // initialize state variable for trainers
-  const router = useRouter(); // Use the useRouter hook to access route parameters
-  const { id } = router.query; // Get the 'id' parameter from the route
+  const [trainer, setTrainer] = useState([]);
+  const router = useRouter();
+  const { id } = router.query;
 
   useEffect(() => {
     if (id) {
-      // Ensure 'id' is defined before making the API request
       axios
-        .get(`http://localhost:3001/trainers/${id}`)
+        .get(`https://fitness-server-c1a2fb04992c.herokuapp.com/trainers/${id}`)
         .then((response) => {
           setTrainer(response.data);
         })
@@ -118,7 +115,7 @@ export default Details;
 export async function getServerSideProps({ params }) {
   try {
     const response = await axios.get(
-      `http://localhost:3001/trainers/${params.id}`
+      `https://fitness-server-c1a2fb04992c.herokuapp.com/trainers/${params.id}`
     );
     const trainer = response.data;
 

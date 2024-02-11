@@ -1,5 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
 // slider component
+
+import Image from 'next/image';
 import { useRef, useState } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -33,12 +34,15 @@ export default function Slider({ banners }) {
           className="mySwiper"
         >
           <SwiperSlide className="swiper">
-            <img
+            <Image
               src={banners.image1}
               className="slider img-fluid"
               loading="lazy"
               alt=""
+              width={500}
+              height={500}
             />
+
             <div className="container">
               {/* carousel-caption */}
               <div className="carousel-caption mb-5">

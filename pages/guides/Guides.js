@@ -9,18 +9,14 @@ import Iconbar from '@/components/misc/Iconbar';
 import Guides from '@/components/guides/Guides';
 import Footer from '@/components/misc/Footer';
 //import Reviews from '@/components/misc/Reviews';
-// data
-//import guides from '@/data/guides';
 
 export default function Guide() {
-  const [guides, setGuides] = useState([]); // initialize state variable for tour guides
+  const [guides, setGuides] = useState([]);
 
   useEffect(() => {
-    // Make a GET request to fetch tour guide data from server
     axios
-      .get('http://localhost:3001/guides')
+      .get('https://fitness-server-c1a2fb04992c.herokuapp.com/guides')
       .then((response) => {
-        // Update the state with the fetched tour guide data
         setGuides(response.data);
       })
       .catch((error) => {
@@ -73,10 +69,12 @@ export default function Guide() {
   );
 }
 
-// Fetch data using server side using getServerSideProps
+// getServerSideProps
 export async function getServerSideProps() {
   try {
-    const response = await axios.get('http://localhost:3001/guides');
+    const response = await axios.get(
+      'https://fitness-server-c1a2fb04992c.herokuapp.com/guides'
+    );
     const guides = response.data;
 
     return {

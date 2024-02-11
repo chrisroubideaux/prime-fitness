@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 // avatar component
 import Image from 'next/image';
 

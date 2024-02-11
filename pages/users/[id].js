@@ -4,21 +4,20 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import Link from 'next/link';
+// component imports
 import Navbar from '@/components/nav/Navbar';
 import Footer from '@/components/misc/Footer';
 import User from '@/components/profile/User';
 
 export default function UserInfo({}) {
   const [user, setUser] = useState([]);
-  const router = useRouter(); // Use the useRouter hook to access route parameters
-  const { id } = router.query; // Get the 'id' parameter from the route
+  const router = useRouter();
+  const { id } = router.query;
 
   useEffect(() => {
     if (id) {
-      // Ensure 'id' is defined before making the API request
       axios
-        .get(`http://localhost:3001/users/${id}`)
+        .get(`https://fitness-server-c1a2fb04992c.herokuapp.com/users/${id}`)
         .then((response) => {
           setUser(response.data);
         })
@@ -64,7 +63,7 @@ export default function UserInfo({}) {
               <div className="col-lg-9 col-md-8">
                 <User users={user} />
 
-                {/* Replace 'user.name' with the actual property name */}
+                {/*  */}
               </div>
             </div>
           </div>

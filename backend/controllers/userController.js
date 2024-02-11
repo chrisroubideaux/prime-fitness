@@ -1,7 +1,6 @@
 // userController from controllers folder
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
 
 require('dotenv').config();
 
@@ -17,10 +16,13 @@ const createUser = async (req, res) => {
       return res.status(400).json({ message: 'Email already in use' });
     }
 
+    {
+      /*
     // Hash the password before saving it to the database
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-
+*/
+    }
     // Create a new user instance
     const newUser = new User({
       fullName,
@@ -117,7 +119,8 @@ const updateUser = async (req, res) => {
     if (email) {
       user.email = email;
     }
-
+    {
+      /*
     // Update password if newPassword is provided
     if (newPassword) {
       // Hash the new password
@@ -125,7 +128,8 @@ const updateUser = async (req, res) => {
       const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
       user.password = hashedPassword;
     }
-
+*/
+    }
     // Save the updated user data
     await user.save();
 

@@ -1,3 +1,4 @@
+// badges component
 import Link from 'next/link';
 
 export default function Badges({ guides }) {
