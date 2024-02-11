@@ -1,5 +1,5 @@
 // guide controller
-// Import the Guide model
+
 const Guide = require('./guide');
 
 // Get a list of all guides

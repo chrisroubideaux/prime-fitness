@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const memberSchema = new mongoose.Schema(
   {
     id: String,
-    // Stripe Subscription ID
+
     stripeSubscriptionId: String,
     title: String,
     price: String,

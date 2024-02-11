@@ -14,7 +14,6 @@ passport.use(
     // ... other options ...
     async (_accessToken, _refreshToken, profile, done) => {
       try {
-        // Check if the Facebook user is already registered in your database
         const existingUser = await User.findOne({ 'facebook.id': profile.id });
 
         if (existingUser) {
@@ -45,13 +44,13 @@ passport.use(
 // passport facebook serialize and deserialize
 
 passport.serializeUser((user, done) => {
-  done(null, user.id); // Store the user's ID in the session
+  done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
   try {
     const user = await User.findById(id);
-    done(null, user); // Attach the user object to the request (req.user)
+    done(null, user);
   } catch (err) {
     done(err);
   }

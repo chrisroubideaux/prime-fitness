@@ -1,6 +1,6 @@
 // stripe membership controller
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const Membership = require('../models/membership'); // Import your Membership model here
+const Membership = require('../models/membership');
 
 // Create a new membership
 const createMembership = async (name, description) => {
@@ -13,7 +13,7 @@ const createMembership = async (name, description) => {
 
     const price = await stripe.prices.create({
       product: product.id,
-      unit_amount: 1000, // Set the desired price amount in cents
+      unit_amount: 1000,
       currency: 'usd',
     });
 

@@ -1,6 +1,6 @@
 // facebook controller
 const passport = require('passport');
-const jwt = require('jsonwebtoken'); // Import JWT library
+const jwt = require('jsonwebtoken');
 
 // Facebook OAuth registration route
 function authenticateWithFacebookRegister(req, res, next) {

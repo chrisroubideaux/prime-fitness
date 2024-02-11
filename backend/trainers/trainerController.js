@@ -1,5 +1,5 @@
 // trainer controller
-// Import the Trainer model
+
 const Trainer = require('./trainer');
 
 // Get a list of all trainers

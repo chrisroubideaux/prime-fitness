@@ -7,18 +7,18 @@ const jwt = require('jsonwebtoken');
 const userSchema = new mongoose.Schema(
   {
     id: String,
-    email: { type: String, unique: true, sparse: true }, // Make it optional
-    password: { type: String, required: false }, // Make it optional
+    email: { type: String, unique: true, sparse: true },
+    password: { type: String, required: false },
     fullName: { type: String },
-    facebookId: { type: String }, // Store Facebook user ID
-    facebookDisplayName: { type: String }, // Store Facebook display name
-    facebookEmail: { type: String }, // Store Facebook email
+    facebookId: { type: String },
+    facebookDisplayName: { type: String },
+    facebookEmail: { type: String },
     // Make it optional
-    stripeCustomerId: String, // Store the Stripe Customer ID
+    stripeCustomerId: String,
     currentSubscription: {
-      subscriptionId: String, // ID of the current subscription
-      plan: String, // Name or type of the subscription plan
-      billingCycle: String, // e.g., "monthly" or "yearly"
+      subscriptionId: String,
+      plan: String,
+      billingCycle: String,
 
       // Other user fields here
     },

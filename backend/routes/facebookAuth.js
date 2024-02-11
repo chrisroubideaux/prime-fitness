@@ -20,14 +20,13 @@ facebookRoutes.get(
 facebookRoutes.get(
   '/facebook/callback/register',
   passport.authenticate('facebook', {
-    failureRedirect: '/login', // Redirect to login page on failure
+    failureRedirect: '/login',
   }),
   async (req, res) => {
     try {
       // Successful authentication, extract user data from req.user (provided by passport)
       const { _id } = req.user;
 
-      // Capture the registration timestamp
       const registrationTimestamp = new Date();
 
       // Generate a JWT token for the user
@@ -57,7 +56,7 @@ facebookRoutes.get(
 facebookRoutes.get(
   '/facebook/callback/login',
   passport.authenticate('facebook', {
-    failureRedirect: '/login', // Redirect to login page on failure
+    failureRedirect: '/login',
   }),
   (req, res) => {
     // Successful authentication, generate and send a JWT token

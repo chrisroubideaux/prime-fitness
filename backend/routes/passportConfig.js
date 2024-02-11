@@ -81,14 +81,14 @@ passport.use(
 
 // Serialize user data to store in the session
 passport.serializeUser((user, done) => {
-  done(null, user.id); // Store the user's ID in the session
+  done(null, user.id);
 });
 
 // Deserialize user data when retrieving from the session
 passport.deserializeUser(async (id, done) => {
   try {
     const user = await User.findById(id);
-    done(null, user); // Attach the user object to the request (req.user)
+    done(null, user);
   } catch (err) {
     done(err);
   }

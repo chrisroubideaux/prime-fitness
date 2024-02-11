@@ -35,7 +35,7 @@ const createUser = async (req, res) => {
 
     // Generate a JWT token for the newly created user
     const token = jwt.sign({ userId: savedUser._id }, process.env.JWT_SECRET, {
-      expiresIn: '1h', // You can set the expiration time as needed
+      expiresIn: '1h',
     });
 
     res.status(201).json({ message: 'User created successfully', token });
@@ -63,7 +63,6 @@ const getUser = async (req, res) => {
     const userUserData = {
       fullName: user.fullName,
       email: user.email,
-      // Add other user fields here as needed
     };
 
     res.status(200).json({ message: 'User profile data', user: userUserData });
@@ -76,9 +75,8 @@ const getUser = async (req, res) => {
 
 const getUserById = async (req, res) => {
   try {
-    const userId = req.userId; // Assuming userId is available from middleware
+    const userId = req.userId;
 
-    // Fetch user data from the database using userId
     const user = await User.findById(userId);
 
     if (!user) {
@@ -102,7 +100,7 @@ const getUserById = async (req, res) => {
 // Function to update user profile
 const updateUser = async (req, res) => {
   try {
-    const userId = req.userId; // Assuming userId is available from middleware
+    const userId = req.userId;
     const { fullName, email, newPassword } = req.body;
 
     // Fetch user data from the database
@@ -143,7 +141,7 @@ const updateUser = async (req, res) => {
 // Function to delete user profile
 const deleteUser = async (req, res) => {
   try {
-    const userId = req.userId; // Assuming userId is available from middleware
+    const userId = req.userId;
 
     // Delete user data from the database
     await User.findByIdAndRemove(userId);

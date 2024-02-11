@@ -1,4 +1,4 @@
-// crud opertions for appointment routes/ appointment routes for booking appointments
+// crud opertions for appointments
 
 const express = require('express');
 

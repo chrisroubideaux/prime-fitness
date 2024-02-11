@@ -29,7 +29,7 @@ const appointmentSchema = new mongoose.Schema(
   },
 
   {
-    timestamps: true, // Add createdAt and updatedAt fields
+    timestamps: true,
   }
 );
 

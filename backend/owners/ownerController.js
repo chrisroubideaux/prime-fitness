@@ -1,6 +1,5 @@
 // owner controller
 
-// Import the Owner model
 const Owner = require('./owner');
 
 // Get a list of all owners
