@@ -54,9 +54,8 @@ export default function Login() {
   // Facebook registration function
   const handleFacebookLogin = () => {
     const facebookOAuthURL =
-      'https://fitness-server-c1a2fb04992c.herokuapp.com/auth/facebook/register';
+      'https://fitness-server-c1a2fb04992c.herokuapp.com/auth/facebook/login';
 
-    // Open the Facebook OAuth URL in a popup window
     window.open(
       facebookOAuthURL,
       'Facebook OAuth',

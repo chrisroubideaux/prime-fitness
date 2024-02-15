@@ -12,7 +12,9 @@ export default function Users({}) {
 
   useEffect(() => {
     axios
-      .get(`https://fitness-server-c1a2fb04992c.herokuapp.com/auth/`)
+      .get(
+        `https://fitness-server-c1a2fb04992c.herokuapp.com/auth/google/callback`
+      )
       .then((response) => {
         setUsers(response.data);
       })
