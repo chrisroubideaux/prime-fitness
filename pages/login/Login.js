@@ -29,7 +29,7 @@ export default function Login() {
 
     try {
       const response = await axios.post(
-        'http://localhost:3001/auth/login',
+        'https://fitness-server-c1a2fb04992c.herokuapp.com/auth/login',
         formData
       );
 
