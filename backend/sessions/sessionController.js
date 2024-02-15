@@ -1,5 +1,5 @@
 // instructor Controller
-const Session = require('./session'); // Import the Session model
+const Session = require('./session');
 
 // Create a new session
 const createSession = async (req, res) => {

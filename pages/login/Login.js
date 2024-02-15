@@ -47,12 +47,14 @@ export default function Login() {
 
   // Add Google login function
   const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:3001/auth/google/login';
+    window.location.href =
+      'https://fitness-server-c1a2fb04992c.herokuapp.com/auth/google/login';
   };
 
   // Facebook registration function
   const handleFacebookLogin = () => {
-    const facebookOAuthURL = 'http://localhost:3001/auth/facebook/register';
+    const facebookOAuthURL =
+      'https://fitness-server-c1a2fb04992c.herokuapp.com/auth/facebook/register';
 
     // Open the Facebook OAuth URL in a popup window
     window.open(

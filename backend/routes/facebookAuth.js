@@ -28,7 +28,9 @@ facebookRoutes.get(
 
       const registrationTimestamp = new Date();
 
-      const token = jwt.sign({ _id }, process.env.JWT_SECRET);
+      const token = jwt.sign({ email, fullName }, process.env.JWT_SECRET, {
+        expiresIn: '30 min',
+      });
 
       const newUser = new User({
         _id,
@@ -36,7 +38,6 @@ facebookRoutes.get(
         registrationTimestamp,
       });
 
-      // Save the new user
       await newUser.save();
 
       res.json({ token });
@@ -54,8 +55,9 @@ facebookRoutes.get(
     failureRedirect: '/login',
   }),
   (req, res) => {
-    const token = jwt.sign({ _id: req.user._id }, process.env.JWT_SECRET);
-
+    const token = jwt.sign({ email, fullName }, process.env.JWT_SECRET, {
+      expiresIn: '30 min',
+    });
     res.json({ token });
   }
 );

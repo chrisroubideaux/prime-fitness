@@ -7,9 +7,7 @@ const {
   updateUser,
   deleteUser,
 } = require('../controllers/userController');
-const User = require('../models/user'); // Import User model
-
-// Define the verifyToken middleware function
+const User = require('../models/user');
 
 function verifyToken(req, res, next) {
   const token = req.headers['authorization'];
@@ -34,7 +32,6 @@ function verifyToken(req, res, next) {
 // GET all users profile page (protected route)
 
 userRoutes.get('/', async (req, res) => {
-  // Get all users from the database
   try {
     const user = await User.find();
     res.status(200).json(user);
@@ -47,9 +44,8 @@ userRoutes.get('/', async (req, res) => {
 userRoutes.get('/:id', verifyToken, async (req, res) => {
   try {
     const userId = req.params.id;
-    console.log('User ID:', userId); // Check the value of userId
+    console.log('User ID:', userId);
     const userData = await User.findById(userId);
-    // ... rest of the code
   } catch (error) {
     console.error('Error fetching user profile by ID:', error);
     res.status(500).json({ error: 'Internal server error' });

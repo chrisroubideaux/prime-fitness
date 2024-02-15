@@ -13,7 +13,6 @@ const userSchema = new mongoose.Schema(
     facebookId: { type: String },
     facebookDisplayName: { type: String },
     facebookEmail: { type: String },
-    // Make it optional
     stripeCustomerId: String,
     currentSubscription: {
       subscriptionId: String,

@@ -6,7 +6,6 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const bcrypt = require('bcrypt');
 const User = require('./models/user');
 const jwt = require('jsonwebtoken');
-// Load environment variables from .env file
 
 require('dotenv').config(); //
 
@@ -58,16 +57,14 @@ passport.use(
           return done(null, existingUser);
         }
 
-        // Create a new user with Google account details
         const newUser = new User({
           googleId: profile.id,
           displayName: profile.displayName,
           email: profile.emails[0].value,
           fullName: profile.displayName,
-          password: '', // Placeholder for Google users
+          password: '',
         });
 
-        // Save the new user to the database
         await newUser.save();
 
         return done(null, newUser);

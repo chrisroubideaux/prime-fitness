@@ -21,7 +21,9 @@ function handleFacebookRegisterCallback(req, res, next) {
       return next(err);
     }
 
-    const token = jwt.sign({ _id: req.user._id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ email, fullName }, process.env.JWT_SECRET, {
+      expiresIn: '30 min',
+    });
 
     res.json({ token });
   });
