@@ -3,10 +3,9 @@ const Session = require('./session'); // Import the Session model
 
 // Create a new session
 const createSession = async (req, res) => {
-  // Update function name
   try {
-    const newSession = new Session(req.body); // Update model name
-    const savedSession = await newSession.save(); // Update model name
+    const newSession = new Session(req.body);
+    const savedSession = await newSession.save();
     res.status(201).json(savedSession);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -15,9 +14,8 @@ const createSession = async (req, res) => {
 
 // Get all sessions
 const getAllSessions = async (req, res) => {
-  // Update function name
   try {
-    const sessions = await Session.find(); // Update model name
+    const sessions = await Session.find();
     res.status(200).json(sessions);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -26,15 +24,14 @@ const getAllSessions = async (req, res) => {
 
 // Get a single session by ID
 const getSessionById = async (req, res) => {
-  // Update function name
   try {
-    const sessionId = req.params.id; // Update variable name
+    const sessionId = req.params.id;
     if (!sessionId) {
-      return res.status(400).json({ error: 'Invalid session ID' }); // Update error message
+      return res.status(400).json({ error: 'Invalid session ID' });
     }
-    const session = await Session.findById(sessionId); // Update model name
+    const session = await Session.findById(sessionId);
     if (!session) {
-      return res.status(404).json({ error: 'Session not found' }); // Update error message
+      return res.status(404).json({ error: 'Session not found' });
     }
     res.status(200).json(session);
   } catch (err) {
@@ -45,7 +42,6 @@ const getSessionById = async (req, res) => {
 
 // Update a session by ID
 const updateSessionById = async (req, res) => {
-  // Update function name
   try {
     const updatedSession = await Session.findByIdAndUpdate(
       req.params.id,
@@ -53,7 +49,7 @@ const updateSessionById = async (req, res) => {
       { new: true, runValidators: true }
     );
     if (!updatedSession) {
-      return res.status(404).json({ error: 'Session not found' }); // Update error message
+      return res.status(404).json({ error: 'Session not found' });
     }
     res.status(200).json(updatedSession);
   } catch (err) {
@@ -63,13 +59,12 @@ const updateSessionById = async (req, res) => {
 
 // Delete a session by ID
 const deleteSessionById = async (req, res) => {
-  // Update function name
   try {
     const deletedSession = await Session.deleteOne({
       _id: req.params.id,
     });
     if (deletedSession.deletedCount === 0) {
-      return res.status(404).json({ error: 'Session not found' }); // Update error message
+      return res.status(404).json({ error: 'Session not found' });
     }
     res.status(200).json({ message: 'Session deleted' });
   } catch (err) {

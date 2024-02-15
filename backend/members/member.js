@@ -30,7 +30,7 @@ const memberSchema = new mongoose.Schema(
     verified: String,
   },
   {
-    timestamps: true, // Add createdAt and updatedAt fields
+    timestamps: true,
   }
 );
 

@@ -18,8 +18,8 @@ const memberRoutes = require('./members/members');
 const guideRoutes = require('./guides/guides');
 const ownerRoutes = require('./owners/owners');
 //const adminRoutes = require('./admin/admin');
-const userRoutes = require('./routes/user'); // Import the userRoutes module
-const User = require('./models/user'); // Import the User model
+const userRoutes = require('./routes/user');
+const User = require('./models/user');
 
 // stripe routes
 const stripeRoutes = require('./stripe/stripe');
@@ -121,11 +121,10 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL:
         process.env.GOOGLE_CALLBACK_URL ||
-        'http://localhost:3001/auth/google/callback',
+        'https://fitness-server-c1a2fb04992c.herokuapp.com/auth/google/callback',
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        // Check if Google user is already registered in database
         const existingUser = await User.findOne({
           email: profile.emails[0].value,
         });
@@ -134,13 +133,11 @@ passport.use(
           return done(null, existingUser);
         }
 
-        // Create a new user with Google account details
         const newUser = new User({
           email: profile.emails[0].value,
           fullName: profile.displayName,
         });
 
-        // Save the new user to the database
         await newUser.save();
 
         return done(null, newUser);
@@ -155,7 +152,7 @@ passport.use(
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
-// google passport oAuth serialize and deserialize
+
 passport.deserializeUser(async (id, done) => {
   try {
     const user = await User.findById(id);
@@ -172,31 +169,27 @@ passport.use(
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
       callbackURL:
         process.env.FACEBOOK_CALLBACK_URL ||
-        'http://localhost:3001/auth/facebook/callback',
+        'https://fitness-server-c1a2fb04992c.herokuapp.com/auth/facebook/callback',
       profileFields: ['id', 'displayName', 'photos', 'emails'],
     },
     async (accessToken, refreshToken, profile, done) => {
       console.log('Facebook Profile Data:', profile); // inspect profile data
 
       try {
-        // Check if the Facebook user is already registered in database
         const existingUser = await User.findOne({ 'facebook.id': profile.id });
 
         if (existingUser) {
           return done(null, existingUser);
         }
 
-        // Create a new user with Facebook account details
         const newUser = new User({
           facebook: {
             id: profile.id,
             displayName: profile.displayName,
             email: profile.emails[0].value,
           },
-          // Add other user properties as needed
         });
 
-        // Save the new user to the database
         await newUser.save();
 
         return done(null, newUser);
@@ -208,13 +201,13 @@ passport.use(
 );
 // facebook passport oAuth serialize and deserialize
 passport.serializeUser((user, done) => {
-  done(null, user.id); // Store the user's ID in the session
+  done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
   try {
     const user = await User.findById(id);
-    done(null, user); // Attach the user object to the request (req.user)
+    done(null, user);
   } catch (err) {
     done(err);
   }
@@ -272,9 +265,7 @@ app.get(
   '/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
-    // Successful registration/authentication
-    // Redirect to the user profile page or any other desired destination
-    res.redirect('http://localhost:3000/user'); // Make sure this URL is correct
+    res.redirect('https://client-prime-5b6b37e08f74.herokuapp.com/user');
   }
 );
 
@@ -291,12 +282,9 @@ app.get(
   '/auth/google/callback/login',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
-    // Successful login/authentication
-    // Redirect to the user profile page or any other desired destination
-    res.redirect('http://localhost:3000/user'); // Make sure this URL is correct
+    res.redirect('https://client-prime-5b6b37e08f74.herokuapp.com/user');
   }
 );
-// end of google oAuth
 
 // Facebook OAuth registration route
 app.get(
@@ -314,11 +302,10 @@ app.get(
 app.get(
   '/auth/facebook/callback/register',
   passport.authenticate('facebook', {
-    failureRedirect: '/login', // Redirect to login page on failure
+    failureRedirect: '/login',
   }),
   (req, res) => {
-    // Successful authentication, redirect to a page or send a response as needed
-    res.redirect('http://localhost:3000/users'); // Replace with the appropriate redirect URL
+    res.redirect('https://client-prime-5b6b37e08f74.herokuapp.com/users');
   }
 );
 
@@ -326,22 +313,20 @@ app.get(
 app.get(
   '/auth/facebook/callback',
   passport.authenticate('facebook', {
-    failureRedirect: '/login', // Redirect to login page on failure
+    failureRedirect: '/login',
   }),
   (req, res) => {
-    // Successful authentication, you can redirect to the home page or any other desired destination
-    res.redirect('http://localhost:3000/users');
+    res.redirect('https://client-prime-5b6b37e08f74.herokuapp.com/users');
   }
 );
 // stripe routes
-app.use('/stripe', stripeRoutes); // Stripe routes for Stripe-related operations
+app.use('/stripe', stripeRoutes);
 
 // Backend route to fetch Stripe subscription ID based on selected card ID
 app.get('/api/get-stripe-subscription', async (req, res) => {
   try {
-    const { id } = req.query; // Get the selected card's ID from the query parameters
+    const { id } = req.query;
 
-    // Implement the logic to map the selected card's ID to the corresponding Stripe subscription ID
     const stripeSubscriptionId = await stripeSubscriptionId(id);
 
     res.status(200).json({ stripeSubscriptionId });

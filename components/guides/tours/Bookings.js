@@ -19,7 +19,6 @@ export default function Bookings({
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleDayClick = (date) => {
-    // Handle the selected day
     setSelectedDay(date);
     setSelectedDate(date);
   };
@@ -32,7 +31,6 @@ export default function Bookings({
       return;
     }
     try {
-      // Send a POST request to create or reschedule the appointment
       const response = await axios.post(
         'https://fitness-server-c1a2fb04992c.herokuapp.com/appointments',
         {
@@ -42,7 +40,6 @@ export default function Bookings({
         }
       );
 
-      // Handle successful appointment creation or rescheduling
       console.log('Appointment created or rescheduled:', response.data);
 
       if (selectedAppointment) {
@@ -55,35 +52,29 @@ export default function Bookings({
         );
       }
 
-      // Close the modal or perform any other desired actions
       setSelectedAppointment(null);
       setSelectedSlot('');
     } catch (error) {
-      // Handle errors (e.g., show an error message)
       console.error('Error creating or rescheduling appointment:', error);
 
-      // Display an error message to the user
       showAlertMessage(
         `Selected time slot is not available. Please choose another time slot ${selectedSlot}.`
       );
     }
   };
 
-  // Function to delete an appointment
   const handleDeleteAppointment = async (appointmentId) => {
     try {
       const response = await axios.delete(
         `https://fitness-server-c1a2fb04992c.herokuapp.com/appointments/${appointmentId}`
       );
 
-      // Handle successful appointment deletion
       console.log('Appointment deleted:', response.data);
 
       alert('Appointment has been canceled successfully.');
 
       onDeleteAppointment(appointmentId);
     } catch (error) {
-      // Handle errors (e.g., show an error message)
       console.error('Error deleting appointment:', error);
 
       alert('Error deleting appointment. Please try again later.');

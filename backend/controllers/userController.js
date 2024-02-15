@@ -9,7 +9,6 @@ const createUser = async (req, res) => {
   try {
     const { fullName, email, password } = req.body;
 
-    // Check if a user with the same email already exists
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
@@ -30,10 +29,8 @@ const createUser = async (req, res) => {
       password: hashedPassword,
     });
 
-    // Save the new user to the database
     const savedUser = await newUser.save();
 
-    // Generate a JWT token for the newly created user
     const token = jwt.sign({ userId: savedUser._id }, process.env.JWT_SECRET, {
       expiresIn: '1h',
     });
@@ -49,17 +46,14 @@ const createUser = async (req, res) => {
 
 const getUser = async (req, res) => {
   try {
-    // Assuming you have userId available from middleware
     const userId = req.userId;
 
-    // Fetch user data from the database using userId
     const user = await User.findById(userId);
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Customize the user profile data you want to send to the client
     const userUserData = {
       fullName: user.fullName,
       email: user.email,
@@ -83,11 +77,9 @@ const getUserById = async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Customize the user profile data you want to send to the client
     const userData = {
       fullName: user.fullName,
       email: user.email,
-      // Add other user fields here as needed
     };
 
     res.status(200).json({ message: 'User profile data', user: userData });
@@ -143,7 +135,6 @@ const deleteUser = async (req, res) => {
   try {
     const userId = req.userId;
 
-    // Delete user data from the database
     await User.findByIdAndRemove(userId);
 
     res.status(200).json({ message: 'User profile deleted successfully' });

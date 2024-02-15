@@ -26,7 +26,7 @@ const trainerSchema = new mongoose.Schema(
     rating: String,
   },
   {
-    timestamps: true, // Add createdAt and updatedAt fields
+    timestamps: true,
   }
 );
 

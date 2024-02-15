@@ -17,7 +17,7 @@ export default function Register() {
     password: '',
     confirmPassword: '',
   });
-  // success and error messages
+
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
@@ -41,31 +41,26 @@ export default function Register() {
       );
 
       if (response.status === 201) {
-        // Registration successful
         const { token } = response.data;
         localStorage.setItem('token', token);
 
-        // Check if redirectTo is present in the response
         if (response.data.redirectTo) {
           router.push(response.data.redirectTo);
         }
 
-        // Display a success message
         setSuccessMessage('Registration successful!.');
       } else {
-        // Registration failed, display error message
         setErrorMessage(response.data.message);
       }
     } catch (error) {
-      // Handle network or other errors
       console.error('Error during registration:', error);
       setErrorMessage('Internal server error');
     }
   };
   // Google registration function
   const handleGoogleRegister = () => {
-    // Define the Google OAuth registration URL
-    const googleOAuthURL = 'http://localhost:3001/auth/google/register';
+    const googleOAuthURL =
+      'https://client-prime-5b6b37e08f74.herokuapp.com/auth/google/register';
 
     // Open the Google OAuth URL in a popup window
     window.open(
@@ -79,7 +74,8 @@ export default function Register() {
 
   const handleFacebookRegister = () => {
     // Define the Facebook OAuth registration URL
-    const facebookOAuthURL = 'http://localhost:3001/auth/facebook/register';
+    const facebookOAuthURL =
+      'https://client-prime-5b6b37e08f74.herokuapp.com/auth/facebook/register';
 
     // Open the Facebook OAuth URL in a popup window
     window.open(

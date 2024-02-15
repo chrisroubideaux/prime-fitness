@@ -5,7 +5,6 @@ const Membership = require('../models/membership');
 // Create a new membership
 const createMembership = async (name, description) => {
   try {
-    // Use the Stripe API to create a product and price
     const product = await stripe.products.create({
       name,
       description,
@@ -17,7 +16,6 @@ const createMembership = async (name, description) => {
       currency: 'usd',
     });
 
-    // Create a new membership record in your database
     const newMembership = new Membership({
       name,
       description,
@@ -36,7 +34,6 @@ const createMembership = async (name, description) => {
 // Retrieve a membership by ID
 const getMembershipById = async (membershipId) => {
   try {
-    // Retrieve the membership record from your database
     const membership = await Membership.findById(membershipId);
 
     if (!membership) {
@@ -52,14 +49,12 @@ const getMembershipById = async (membershipId) => {
 // Update a membership
 const updateMembership = async (membershipId, updates) => {
   try {
-    // Retrieve the membership record from your database
     const membership = await Membership.findById(membershipId);
 
     if (!membership) {
       return { success: false, error: 'Membership not found' };
     }
 
-    // Update the membership record in your database
     membership.name = updates.name || membership.name;
     membership.description = updates.description || membership.description;
 
@@ -74,18 +69,15 @@ const updateMembership = async (membershipId, updates) => {
 // Delete a membership
 const deleteMembership = async (membershipId) => {
   try {
-    // Retrieve the membership record from your database
     const membership = await Membership.findById(membershipId);
 
     if (!membership) {
       return { success: false, error: 'Membership not found' };
     }
 
-    // Use the Stripe API to delete the product and price associated with the membership
     await stripe.products.del(membership.productId);
     await stripe.prices.del(membership.priceId);
 
-    // Delete the membership record from your database
     await membership.remove();
 
     return { success: true };

@@ -5,7 +5,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const bcrypt = require('bcrypt');
 const User = require('./models/user');
-const jwt = require('jsonwebtoken'); // Import JWT library
+const jwt = require('jsonwebtoken');
 // Load environment variables from .env file
 
 require('dotenv').config(); //
@@ -45,8 +45,7 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL:
         process.env.GOOGLE_CALLBACK_URL ||
-        'http://localhost:3001/auth/google/callback',
-      //  Google redirects to this path after authentication
+        'https://fitness-server-c1a2fb04992c.herokuapp.com/auth/google/callback',
     },
     async (accessToken, refreshToken, profile, done) => {
       try {

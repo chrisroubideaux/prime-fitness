@@ -15,7 +15,7 @@ const ownerSchema = new mongoose.Schema(
     cover: String,
   },
   {
-    timestamps: true, // Adds createdAt and updatedAt fields with timestamps
+    timestamps: true,
   }
 );
 

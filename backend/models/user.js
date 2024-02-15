@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema(
       // Other user fields here
     },
   },
-  { timestamps: true } // Add timestamps to the schema
+  { timestamps: true }
 );
 
 // Add a pre-save hook to hash the password before saving it to the database

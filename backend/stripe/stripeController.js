@@ -6,17 +6,15 @@ const createMonthlySubscription = async (req, res) => {
   try {
     const { customerId, priceId } = req.body;
 
-    // Create a subscription with Stripe
     const subscription = await stripe.subscriptions.create({
       customer: customerId,
       items: [{ price: priceId }],
     });
 
-    // Send a success message and redirect to the home page
     res.status(200).json({
       message: 'Monthly subscription created successfully',
       subscription,
-      redirectUrl: '/', // redirect URL
+      redirectUrl: '/',
     });
   } catch (error) {
     console.error('Error creating monthly subscription:', error);
@@ -31,17 +29,15 @@ const createAnnualSubscription = async (req, res) => {
   try {
     const { customerId, priceId } = req.body;
 
-    // Create a subscription with Stripe
     const subscription = await stripe.subscriptions.create({
       customer: customerId,
       items: [{ price: priceId }],
     });
 
-    // Send a success message and redirect to the home page
     res.status(200).json({
       message: 'Annual subscription created successfully',
       subscription,
-      redirectUrl: '/', // Replace with your desired redirect URL
+      redirectUrl: '/',
     });
   } catch (error) {
     console.error('Error creating annual subscription:', error);
@@ -56,7 +52,6 @@ const getSubscriptionById = async (req, res) => {
   try {
     const { subscriptionId } = req.params;
 
-    // Retrieve the subscription with Stripe
     const subscription = await stripe.subscriptions.retrieve(subscriptionId);
 
     if (!subscription) {
@@ -79,10 +74,8 @@ const updateSubscription = async (req, res) => {
     const { subscriptionId } = req.params;
     const { priceId } = req.body;
 
-    // Retrieve the existing subscription
     const subscription = await stripe.subscriptions.retrieve(subscriptionId);
 
-    // Update the subscription with the new price
     await stripe.subscriptions.update(subscriptionId, {
       items: [{ id: subscription.items.data[0].id, price: priceId }],
     });
@@ -101,7 +94,6 @@ const cancelSubscription = async (req, res) => {
   try {
     const { subscriptionId } = req.params;
 
-    // Cancel the subscription with Stripe
     await stripe.subscriptions.del(subscriptionId);
 
     res.status(204).send();

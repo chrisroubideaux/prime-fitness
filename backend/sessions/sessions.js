@@ -1,7 +1,7 @@
 // crud operations for sessions
 const express = require('express');
-const sessionRoutes = express.Router(); // Update route variable name
-const Session = require('./session'); // Import the Session model // Update model name
+const sessionRoutes = express.Router();
+const Session = require('./session');
 
 const {
   getAllSessions,
@@ -9,14 +9,13 @@ const {
   createSession,
   updateSessionById,
   deleteSessionById,
-} = require('./sessionController'); // Update controller name
+} = require('./sessionController');
 
 // CREATE a new session
 sessionRoutes.post('/', async (req, res) => {
-  // Update route name
   try {
-    const newSession = new Session(req.body); // Update model name
-    const savedSession = await newSession.save(); // Update model name
+    const newSession = new Session(req.body);
+    const savedSession = await newSession.save();
     res.status(201).json(savedSession);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -25,9 +24,8 @@ sessionRoutes.post('/', async (req, res) => {
 
 // GET all sessions // Update route name
 sessionRoutes.get('/', async (req, res) => {
-  // Update route name
   try {
-    const sessions = await Session.find(); // Update model name
+    const sessions = await Session.find();
     res.status(200).json(sessions);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -36,15 +34,14 @@ sessionRoutes.get('/', async (req, res) => {
 
 // GET a single session by ID // Update route name
 sessionRoutes.get('/:id', async (req, res) => {
-  // Update route name
   try {
-    const sessionId = req.params.id; // Update variable name
+    const sessionId = req.params.id;
     if (!sessionId) {
-      return res.status(400).json({ error: 'Invalid session ID' }); // Update error message
+      return res.status(400).json({ error: 'Invalid session ID' });
     }
-    const session = await Session.findById(sessionId); // Update model name
+    const session = await Session.findById(sessionId);
     if (!session) {
-      return res.status(404).json({ error: 'Session not found' }); // Update error message
+      return res.status(404).json({ error: 'Session not found' });
     }
     res.status(200).json(session);
   } catch (err) {
@@ -55,7 +52,6 @@ sessionRoutes.get('/:id', async (req, res) => {
 
 // Update an existing session by ID // Update route name
 sessionRoutes.put('/:id', async (req, res) => {
-  // Update route name
   try {
     const updatedSession = await Session.findByIdAndUpdate(
       req.params.id,
@@ -63,7 +59,7 @@ sessionRoutes.put('/:id', async (req, res) => {
       { new: true, runValidators: true }
     );
     if (!updatedSession) {
-      return res.status(404).json({ error: 'Session not found' }); // Update error message
+      return res.status(404).json({ error: 'Session not found' });
     }
     res.status(200).json(updatedSession);
   } catch (err) {
@@ -73,13 +69,12 @@ sessionRoutes.put('/:id', async (req, res) => {
 
 // DELETE an existing session by ID // Update route name
 sessionRoutes.delete('/:id', async (req, res) => {
-  // Update route name
   try {
     const deletedSession = await Session.deleteOne({
       _id: req.params.id,
     });
     if (deletedSession.deletedCount === 0) {
-      return res.status(404).json({ error: 'Session not found' }); // Update error message
+      return res.status(404).json({ error: 'Session not found' });
     }
     res.status(200).json({ message: 'Session deleted' });
   } catch (err) {

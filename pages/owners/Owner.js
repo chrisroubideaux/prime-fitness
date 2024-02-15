@@ -14,7 +14,6 @@ export default function Owner() {
     axios
       .get('https://fitness-server-c1a2fb04992c.herokuapp.com/owners')
       .then((response) => {
-        // Update the state with the fetched owner data
         setOwners(response.data);
       })
       .catch((error) => {
@@ -66,7 +65,9 @@ export default function Owner() {
 // Fetch data using server side using getServerSideProps
 export async function getServerSideProps() {
   try {
-    const response = await axios.get('http://localhost:3001/owners');
+    const response = await axios.get(
+      'https://client-prime-5b6b37e08f74.herokuapp.com/owners'
+    );
     const owners = response.data;
 
     return {

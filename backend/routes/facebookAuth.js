@@ -24,15 +24,12 @@ facebookRoutes.get(
   }),
   async (req, res) => {
     try {
-      // Successful authentication, extract user data from req.user (provided by passport)
       const { _id } = req.user;
 
       const registrationTimestamp = new Date();
 
-      // Generate a JWT token for the user
       const token = jwt.sign({ _id }, process.env.JWT_SECRET);
 
-      // Create a new user record with user ID and registration timestamp
       const newUser = new User({
         _id,
         name: fullName,
@@ -42,10 +39,8 @@ facebookRoutes.get(
       // Save the new user
       await newUser.save();
 
-      // Redirect to a page or send a JSON response with the token
       res.json({ token });
     } catch (err) {
-      // Handle any errors that occur during the registration process
       console.error(err);
       res.status(500).json({ message: 'Internal server error' });
     }
@@ -59,10 +54,8 @@ facebookRoutes.get(
     failureRedirect: '/login',
   }),
   (req, res) => {
-    // Successful authentication, generate and send a JWT token
     const token = jwt.sign({ _id: req.user._id }, process.env.JWT_SECRET);
 
-    // Redirect to a page or send a JSON response with the token
     res.json({ token });
   }
 );
