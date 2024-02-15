@@ -60,7 +60,7 @@ export default function Register() {
   // Google registration function
   const handleGoogleRegister = () => {
     const googleOAuthURL =
-      'https://fitness-server-c1a2fb04992c.herokuapp.com/googleAuth/google/register';
+      'https://fitness-server-c1a2fb04992c.herokuapp.com/auth/google/register';
 
     window.open(
       googleOAuthURL,
