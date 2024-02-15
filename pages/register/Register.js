@@ -62,7 +62,6 @@ export default function Register() {
     const googleOAuthURL =
       'https://fitness-server-c1a2fb04992c.herokuapp.com/auth/google/callback';
 
-    // Open the Google OAuth URL in a popup window
     window.open(
       googleOAuthURL,
       'Google OAuth',
@@ -73,11 +72,9 @@ export default function Register() {
   // facebook registration function
 
   const handleFacebookRegister = () => {
-    // Define the Facebook OAuth registration URL
     const facebookOAuthURL =
       'https://fitness-server-c1a2fb04992c.herokuapp.com/auth/facebook/register';
 
-    // Open the Facebook OAuth URL in a popup window
     window.open(
       facebookOAuthURL,
       'Facebook OAuth',

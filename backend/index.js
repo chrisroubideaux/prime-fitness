@@ -8,8 +8,9 @@ const cors = require('cors');
 const passport = require('passport');
 
 // auth routes
+const googleRoutes = require('./routes/googleAuth');
 const appointmentRoutes = require('./appointments/appointments');
-//const authRoutes = require('./routes/auth');
+const authRoutes = require('./routes/auth');
 const sessionRoutes = require('./sessions/sessions');
 const trainerRoutes = require('./trainers/trainers');
 const memberRoutes = require('./members/members');
@@ -109,8 +110,6 @@ app.use(
 */
 }
 app.use(sessionMiddleware);
-
-// Initialize Passport and restore authentication state
 
 // google passport oAuth
 
@@ -219,6 +218,10 @@ app.get('/', (req, res) => {
   res.send('cover page.');
 });
 
+// google routes
+
+app.use(googleRoutes);
+
 // instructors route
 
 app.use('/sessions', sessionRoutes);
@@ -242,7 +245,7 @@ app.use('/appointments', appointmentRoutes);
 //app.use('/admin', adminRoutes);
 
 // auth routes and profile routes
-//app.use('/auth', authRoutes);
+app.use('/auth', authRoutes);
 
 //app.post('/auth', authRoutes);
 

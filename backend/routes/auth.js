@@ -1,21 +1,19 @@
 // routes/auth.js
-{
-  /*
+
 const express = require('express');
 const User = require('../models/user');
 const authRoutes = express.Router();
 const { register, login } = require('../controllers/authController');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const validator = require('validator'); // Import the validator module
+//const bcrypt = require('bcrypt');
+const validator = require('validator');
 
 require('dotenv').config();
 
 // Function to check if a string contains at least one digit and one special character
 function isPasswordValid(password) {
   const digitRegex = /\d/;
-  const specialCharRegex = /[!@#$%^&*]/; // Add more special characters as needed
-
+  const specialCharRegex = /[!@#$%^&*]/;
   return (
     password.length >= 10 &&
     digitRegex.test(password) &&
@@ -56,8 +54,8 @@ authRoutes.post('/register', async (req, res) => {
     }
 
     // Hash the password before saving it
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    //const saltRounds = 10;
+    // const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     // Create a new user with the hashed password and fullName
     const newUser = new User({ email, password: hashedPassword, fullName });
@@ -67,16 +65,14 @@ authRoutes.post('/register', async (req, res) => {
 
     //  const token = jwt.sign({ _id: newUser._id }, process.env.JWT_SECRET);
     const token = jwt.sign({ _id: newUser._id }, process.env.JWT_SECRET);
-    console.log('Generated Token:', token); // Add this line
+    console.log('Generated Token:', token);
 
-    // User registration successful, return a success response with the token and redirect URL
     res.status(201).json({
       message: 'User registered successfully',
       user: newUser,
       token,
-      redirectTo: `/user/${newUser._id}`, // Provide URL to redirect to after successful registration
+      redirectTo: `/user/${newUser._id}`,
     });
-    // User registration successful, return a success response with the token and redirect URL
   } catch (err) {
     // Handle any errors that occur during the registration process
     console.error(err);
@@ -116,5 +112,3 @@ authRoutes.post('/login', async (req, res) => {
 });
 
 module.exports = authRoutes;
-*/
-}
