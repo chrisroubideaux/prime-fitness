@@ -1,6 +1,4 @@
 // auth controller
-{
-  /*
 const User = require('../models/user');
 
 const jwt = require('jsonwebtoken');
@@ -10,7 +8,7 @@ require('dotenv').config();
 // Function to check if a string contains at least one digit and one special character
 function isPasswordValid(password) {
   const digitRegex = /\d/;
-  const specialCharRegex = /[!@#$%^&*]/; // Add more special characters as needed
+  const specialCharRegex = /[!@#$%^&*]/;
 
   return (
     password.length >= 10 &&
@@ -21,7 +19,7 @@ function isPasswordValid(password) {
 
 // Register a new user
 const register = async (req, res) => {
-  const { email, password, confirmPassword, fullName } = req.body; // Extract fullName
+  const { email, password, confirmPassword, fullName } = req.body;
 
   try {
     // Check if the email already exists
@@ -48,8 +46,8 @@ const register = async (req, res) => {
     }
 
     // Hash the password before saving it
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    //   const saltRounds = 10;
+    // const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     // Create a new user with the hashed password and fullName
     const newUser = new User({ email, password: hashedPassword, fullName });
@@ -63,7 +61,7 @@ const register = async (req, res) => {
       message: 'User registered successfully',
       user: newUser,
       token,
-      redirectTo: `/profile/${newUser._id}`, // URL to redirect to after successful registration
+      redirectTo: `/profile/${newUser._id}`,
     });
   } catch (err) {
     // Handle errors that occur during the registration process
@@ -115,5 +113,3 @@ module.exports = {
 
   // Other controller functions
 };
-*/
-}
