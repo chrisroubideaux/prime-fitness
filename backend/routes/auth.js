@@ -26,19 +26,16 @@ authRoutes.post('/register', async (req, res) => {
   const { email, password, confirmPassword, fullName } = req.body;
 
   try {
-    // Check if the email already exists
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
       return res.status(409).json({ message: 'Email already exists' });
     }
 
-    // Validate email format using a library like 'validator'
     if (!validator.isEmail(email)) {
       return res.status(400).json({ message: 'Invalid email address' });
     }
 
-    // Check if the password meets the length and complexity requirements
     if (!isPasswordValid(password)) {
       return res.status(400).json({
         message:
@@ -46,7 +43,6 @@ authRoutes.post('/register', async (req, res) => {
       });
     }
 
-    // Check if the password and its confirmation match
     if (password !== confirmPassword) {
       return res.status(400).json({
         message: 'Password and password confirmation do not match.',
@@ -74,7 +70,6 @@ authRoutes.post('/register', async (req, res) => {
       redirectTo: `/user/${newUser._id}`,
     });
   } catch (err) {
-    // Handle any errors that occur during the registration process
     console.error(err);
     res.status(500).json({ message: 'Internal server error' });
   }
@@ -86,24 +81,20 @@ authRoutes.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // Find the user by email
     const user = await User.findOne({ email });
 
     if (!user) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
 
-    // Generate a JWT token for the user
     //  const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {expiresIn: '1h',});
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: '1h',
     });
-    console.log('Generated Token:', token); // Add this line
+    console.log('Generated Token:', token);
 
-    // Construct the redirect URL with the user's ID
     const redirectTo = `/user/${user._id}`;
 
-    // User authentication successful, return the token and user data
     res.status(200).json({ message: 'Login successful', token, user });
   } catch (err) {
     console.error(err);

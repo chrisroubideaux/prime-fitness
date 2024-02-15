@@ -5,13 +5,13 @@ const passport = require('passport');
 
 // Google OAuth registration route
 googleRoutes.get(
-  '/auth/google/register',
+  '/googleAuth/google/register',
   passport.authenticate('google', { scope: ['email', 'openid', 'profile'] })
 );
 
 // Google OAuth register/callback route
 googleRoutes.get(
-  '/auth/google/callback/register',
+  '/googleAuth/google/callback/register',
   passport.authenticate('google', { failureRedirect: '/login' }),
   async (req, res) => {
     try {
