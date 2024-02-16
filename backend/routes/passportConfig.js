@@ -44,7 +44,7 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL:
         process.env.GOOGLE_CALLBACK_URL ||
-        'https://fitness-server-c1a2fb04992c.herokuapp.com/googleAuth/google/callback',
+        'https://fitness-server-c1a2fb04992c.herokuapp.com/auth/google/callback',
     },
     async (accessToken, refreshToken, profile, done) => {
       try {

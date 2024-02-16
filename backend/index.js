@@ -8,7 +8,7 @@ const cors = require('cors');
 const passport = require('passport');
 
 // auth routes
-const googleRoutes = require('./routes/googleAuth');
+
 const appointmentRoutes = require('./appointments/appointments');
 const authRoutes = require('./routes/auth');
 const sessionRoutes = require('./sessions/sessions');
@@ -120,7 +120,7 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL:
         process.env.GOOGLE_CALLBACK_URL ||
-        'https://fitness-server-c1a2fb04992c.herokuapp.com/googleAuth/google/callback',
+        'https://fitness-server-c1a2fb04992c.herokuapp.com/auth/google/callback',
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
@@ -219,8 +219,6 @@ app.get('/', (req, res) => {
 });
 
 // google routes
-
-app.use(googleRoutes);
 
 // instructors route
 

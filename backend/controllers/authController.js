@@ -56,7 +56,6 @@ const register = async (req, res) => {
     // Generate a JWT token for the new user
     const token = jwt.sign({ _id: newUser._id }, process.env.JWT_SECRET);
 
-    // User registration successful, return a success response with the token and redirect URL
     res.status(201).json({
       message: 'User registered successfully',
       user: newUser,
@@ -64,7 +63,6 @@ const register = async (req, res) => {
       redirectTo: `/profile/${newUser._id}`,
     });
   } catch (err) {
-    // Handle errors that occur during the registration process
     console.error(err);
     res.status(500).json({ message: 'Internal server error' });
   }
@@ -91,12 +89,9 @@ const login = async (req, res) => {
 
     // User authentication successful, generate a JWT token
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
-    // Construct the redirect URL with the user's ID
 
-    // Construct the redirect URL with the user's ID
     const redirectTo = `/profile/${user._id}`;
 
-    // Debugging: Log the generated token
     console.log('Generated Token:', token);
 
     // Return a success response with the token
