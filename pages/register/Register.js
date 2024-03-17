@@ -31,6 +31,7 @@ export default function Register() {
   };
 
   // Handle form submission
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -57,6 +58,7 @@ export default function Register() {
       setErrorMessage('Internal server error');
     }
   };
+
   // Google registration function
   const handleGoogleRegister = () => {
     const googleOAuthURL =
@@ -69,6 +71,7 @@ export default function Register() {
       'width=300,height=300'
     );
   };
+
   // facebook registration function
 
   const handleFacebookRegister = () => {
@@ -109,14 +112,12 @@ export default function Register() {
 
             <div className="col-lg-6">
               <h2 className="fw-bold text-center">Create your Account</h2>
-
               <p className=" text-center text-white">
                 Already have an account?{' '}
                 <Link className="btn btn-lg badge" href="/login/Login">
                   Login.
                 </Link>
               </p>
-
               <form className="form text-center" onSubmit={handleSubmit}>
                 <input
                   className="form-control m-2 fw-bold"

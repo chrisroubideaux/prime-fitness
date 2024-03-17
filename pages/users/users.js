@@ -2,11 +2,10 @@
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Link from 'next/link';
 import Navbar from '@/components/nav/Navbar';
 import Footer from '@/components/misc/Footer';
 
-export default function Users({}) {
+export default function User({}) {
   const [users, setUsers] = useState(null);
   const [error, setError] = useState(null);
 

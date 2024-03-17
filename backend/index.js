@@ -6,15 +6,14 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const passport = require('passport');
+// Import the verifyToken function
 
 // auth routes
-
 const appointmentRoutes = require('./appointments/appointments');
 const authRoutes = require('./routes/auth');
 const sessionRoutes = require('./sessions/sessions');
 const trainerRoutes = require('./trainers/trainers');
 const memberRoutes = require('./members/members');
-
 //const profileRoutes = require('./routes/profile');
 const guideRoutes = require('./guides/guides');
 const ownerRoutes = require('./owners/owners');
@@ -60,14 +59,7 @@ const corsOptions = {
   origin: 'https://client-prime-5b6b37e08f74.herokuapp.com',
 };
 
-//
-app.use(cors(corsOptions));
-app.use(json());
-app.use(express.json());
-app.use(urlencoded({ extended: true }));
-
-// Define the verifyToken middleware function
-
+// Import the verifyToken function
 function verifyToken(req, res, next) {
   const token = req.headers['authorization'];
   console.log('Token for Verification:', token);
@@ -88,29 +80,35 @@ function verifyToken(req, res, next) {
   });
 }
 
-// Configure session middleware
+// Configure session middleware (optional if you're using JWT)
 const sessionMiddleware = session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
 });
+
+// cors middleware
+app.use(cors(corsOptions));
+app.use(json());
+app.use(express.json());
+app.use(urlencoded({ extended: true }));
+app.use(sessionMiddleware);
+
+// Configure session middleware
 {
   /*
-// Configure session middleware
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
-      secure: false, // Set to true if using HTTPS
+      secure: false,
     },
   })
 );
 */
 }
-app.use(sessionMiddleware);
-
 // google passport oAuth
 
 passport.use(
@@ -122,7 +120,7 @@ passport.use(
         process.env.GOOGLE_CALLBACK_URL ||
         'https://fitness-server-c1a2fb04992c.herokuapp.com/auth/google/callback',
     },
-    async (accessToken, refreshToken, profile, done) => {
+    async (_accessToken, _refreshToken, profile, done) => {
       try {
         const existingUser = await User.findOne({
           email: profile.emails[0].value,
@@ -160,6 +158,7 @@ passport.deserializeUser(async (id, done) => {
     done(err);
   }
 });
+
 // facebook passport oAuth
 passport.use(
   new FacebookStrategy(
@@ -198,6 +197,7 @@ passport.use(
     }
   )
 );
+
 // facebook passport oAuth serialize and deserialize
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -217,8 +217,6 @@ passport.deserializeUser(async (id, done) => {
 app.get('/', (req, res) => {
   res.send('cover page.');
 });
-
-// google routes
 
 // instructors route
 
@@ -244,30 +242,16 @@ app.use('/appointments', appointmentRoutes);
 
 // auth routes and profile routes
 app.use('/auth', authRoutes);
-
-//app.post('/auth', authRoutes);
-
-app.use('/user', userRoutes);
+app.use('/user', verifyToken, userRoutes);
 
 app.get('/about', (req, res) => {
   res.send('About page');
 });
 
-// Google OAuth registration route
+// Google OAuth register route
 app.get(
   '/auth/google/register',
-  passport.authenticate('google', {
-    scope: ['openid', 'profile', 'email'],
-  })
-);
-
-// Google OAuth registration callback route
-app.get(
-  '/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login' }),
-  (req, res) => {
-    res.redirect('https://client-prime-5b6b37e08f74.herokuapp.com/user');
-  }
+  passport.authenticate('google', { scope: ['openid', 'profile', 'email'] })
 );
 
 // Google OAuth login route
@@ -278,19 +262,13 @@ app.get(
   })
 );
 
-// Google OAuth login callback route
+// Google OAuth callback route
 app.get(
-  '/auth/google/callback/login',
+  '/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
     res.redirect('https://client-prime-5b6b37e08f74.herokuapp.com/user');
   }
-);
-
-// Facebook OAuth registration route
-app.get(
-  '/auth/facebook/register',
-  passport.authenticate('facebook', { scope: ['email'] })
 );
 
 // Facebook OAuth registration route
@@ -306,7 +284,7 @@ app.get(
     failureRedirect: '/login',
   }),
   (req, res) => {
-    res.redirect('https://client-prime-5b6b37e08f74.herokuapp.com/users');
+    res.redirect('https://client-prime-5b6b37e08f74.herokuapp.com/user');
   }
 );
 
@@ -317,9 +295,10 @@ app.get(
     failureRedirect: '/login',
   }),
   (req, res) => {
-    res.redirect('https://client-prime-5b6b37e08f74.herokuapp.com/users');
+    res.redirect('https://client-prime-5b6b37e08f74.herokuapp.com/user');
   }
 );
+
 // stripe routes
 app.use('/stripe', stripeRoutes);
 

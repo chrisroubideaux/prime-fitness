@@ -1,105 +1,134 @@
 // routes/auth.js
-
+const mongoose = require('mongoose');
 const express = require('express');
 const User = require('../models/user');
 const authRoutes = express.Router();
-const { register, login } = require('../controllers/authController');
-const jwt = require('jsonwebtoken');
-//const bcrypt = require('bcrypt');
-const validator = require('validator');
+const passport = require('passport');
+const { Strategy: GoogleStrategy } = require('passport-google-oauth20');
+const { Strategy: FacebookStrategy } = require('passport-facebook');
 
 require('dotenv').config();
 
-// Function to check if a string contains at least one digit and one special character
-function isPasswordValid(password) {
-  const digitRegex = /\d/;
-  const specialCharRegex = /[!@#$%^&*]/;
-  return (
-    password.length >= 10 &&
-    digitRegex.test(password) &&
-    specialCharRegex.test(password)
-  );
-}
+// google passport oAuth
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL:
+        process.env.GOOGLE_CALLBACK_URL ||
+        'https://fitness-server-c1a2fb04992c.herokuapp.com/auth/google/callback',
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        const existingUser = await User.findOne({
+          email: profile.emails[0].value,
+        });
 
-// Register a new user
-authRoutes.post('/register', async (req, res) => {
-  const { email, password, confirmPassword, fullName } = req.body;
+        if (existingUser) {
+          return done(null, existingUser);
+        }
 
+        // Create a new user with Google account details
+        const newUser = new User({
+          email: profile.emails[0].value,
+          fullName: profile.displayName,
+        });
+
+        // Save the new user to the database
+        await newUser.save();
+
+        return done(null, newUser);
+      } catch (err) {
+        return done(err);
+      }
+    }
+  )
+);
+
+// Serialize user data to store in the session
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+// Deserialize user data when retrieving from the session
+passport.deserializeUser(async (id, done) => {
   try {
-    const existingUser = await User.findOne({ email });
-
-    if (existingUser) {
-      return res.status(409).json({ message: 'Email already exists' });
-    }
-
-    if (!validator.isEmail(email)) {
-      return res.status(400).json({ message: 'Invalid email address' });
-    }
-
-    if (!isPasswordValid(password)) {
-      return res.status(400).json({
-        message:
-          'Password must be at least 10 characters long and contain at least one number and one special character.',
-      });
-    }
-
-    if (password !== confirmPassword) {
-      return res.status(400).json({
-        message: 'Password and password confirmation do not match.',
-      });
-    }
-
-    // Hash the password before saving it
-    //const saltRounds = 10;
-    // const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-    // Create a new user with the hashed password and fullName
-    const newUser = new User({ email, password: hashedPassword, fullName });
-    await newUser.save();
-
-    // Generate a JWT token for the new user
-
-    //  const token = jwt.sign({ _id: newUser._id }, process.env.JWT_SECRET);
-    const token = jwt.sign({ _id: newUser._id }, process.env.JWT_SECRET);
-    console.log('Generated Token:', token);
-
-    res.status(201).json({
-      message: 'User registered successfully',
-      user: newUser,
-      token,
-      redirectTo: `/user/${newUser._id}`,
-    });
+    const user = await User.findById(id);
+    done(null, user);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Internal server error' });
+    done(err);
   }
 });
 
-// login
+// facebook passport oAuth
 
-authRoutes.post('/login', async (req, res) => {
-  const { email, password } = req.body;
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: process.env.FACEBOOK_CLIENT_ID,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+      callbackURL:
+        process.env.FACEBOOK_CALLBACK_URL ||
+        'https://fitness-server-c1a2fb04992c.herokuapp.com/auth/facebook/callback',
+      profileFields: ['id', 'displayName', 'photos', 'emails'],
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      console.log('Facebook Profile Data:', profile);
 
-  try {
-    const user = await User.findOne({ email });
+      try {
+        // Check if the Facebook user is already registered in your database
+        const existingUser = await User.findOne({ 'facebook.id': profile.id });
 
-    if (!user) {
-      return res.status(401).json({ message: 'Invalid email or password' });
+        if (existingUser) {
+          return done(null, existingUser);
+        }
+
+        // Create a new user with Facebook account details
+        const newUser = new User({
+          facebook: {
+            id: profile.id,
+            displayName: profile.displayName,
+            email: profile.emails[0].value,
+          },
+        });
+
+        await newUser.save();
+
+        return done(null, newUser);
+      } catch (err) {
+        return done(err);
+      }
     }
+  )
+);
 
-    //  const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {expiresIn: '1h',});
-    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: '1h',
-    });
-    console.log('Generated Token:', token);
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
 
-    const redirectTo = `/user/${user._id}`;
-
-    res.status(200).json({ message: 'Login successful', token, user });
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Internal server error' });
+    done(err);
   }
 });
+
+// Facebook OAuth login route
+authRoutes.get(
+  '/auth/facebook',
+  passport.authenticate('facebook', { scope: ['email'] })
+);
+
+// Facebook OAuth callback route
+authRoutes.get(
+  '/auth/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  (req, res) => {
+    res.redirect('/profile');
+  }
+);
 
 module.exports = authRoutes;
