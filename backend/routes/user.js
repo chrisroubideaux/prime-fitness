@@ -1,13 +1,13 @@
-// profile routes
+// user route crud operations
 
 const express = require('express');
 const userRoutes = express.Router();
-
 const {
   getUserById,
   updateUser,
   deleteUser,
 } = require('../controllers/userController');
+
 const User = require('../models/user');
 
 // GET user profile page (protected route)
@@ -16,7 +16,6 @@ userRoutes.get('/:id', async (req, res) => {
     const userId = req.params.id;
     console.log('User ID:', userId);
     const userData = await User.findById(userId);
-    res.status(200).json(userData); // Send user data back to the client
   } catch (error) {
     console.error('Error fetching user profile by ID:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -24,6 +23,7 @@ userRoutes.get('/:id', async (req, res) => {
 });
 
 // PUT (update) user profile (protected route)
+
 userRoutes.put('/:id', async (req, res) => {
   try {
     const userId = req.params.id;
@@ -39,6 +39,7 @@ userRoutes.put('/:id', async (req, res) => {
 });
 
 // DELETE user profile (protected route)
+
 userRoutes.delete('/:id', async (req, res) => {
   try {
     const userId = req.params.id;

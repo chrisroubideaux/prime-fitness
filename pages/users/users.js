@@ -5,23 +5,30 @@ import axios from 'axios';
 import Navbar from '@/components/nav/Navbar';
 import Footer from '@/components/misc/Footer';
 
-export default function User({}) {
+export default function Users({}) {
   const [users, setUsers] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
     axios
-      .get(
-        `https://fitness-server-c1a2fb04992c.herokuapp.com/auth/google/callback`
-      )
-      .then((response) => {
-        setUsers(response.data);
+      .get(`https://fitness-server-c1a2fb04992c.herokuapp.com/users/Users`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .catch((error) => {
-        console.error('Error fetching users:', error);
+      .then((response) => {
+        if (response.status === 200) {
+          setUsers(response.data.user);
+        } else {
+          setError(response.data.message);
+        }
+      })
+      .catch((err) => {
+        setError('Failed to fetch user data.');
+        console.error(err);
       });
   }, []);
-
   return (
     <>
       <Head>

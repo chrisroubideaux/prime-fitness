@@ -1,11 +1,8 @@
 // userController from controllers folder
-// userController from controllers folder
 
 const User = require('../models/user');
-//const jwt = require('jsonwebtoken');
 
 require('dotenv').config();
-//
 
 const getUser = async (req, res) => {
   try {

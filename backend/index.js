@@ -267,7 +267,7 @@ app.get(
   '/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
-    res.redirect('https://client-prime-5b6b37e08f74.herokuapp.com/user');
+    res.redirect('https://client-prime-5b6b37e08f74.herokuapp.com/users/Users');
   }
 );
 
@@ -284,7 +284,7 @@ app.get(
     failureRedirect: '/login',
   }),
   (req, res) => {
-    res.redirect('https://client-prime-5b6b37e08f74.herokuapp.com/user');
+    res.redirect('https://client-prime-5b6b37e08f74.herokuapp.com/users/Users');
   }
 );
 
@@ -295,7 +295,7 @@ app.get(
     failureRedirect: '/login',
   }),
   (req, res) => {
-    res.redirect('https://client-prime-5b6b37e08f74.herokuapp.com/user');
+    res.redirect('https://client-prime-5b6b37e08f74.herokuapp.com/user/Users');
   }
 );
 

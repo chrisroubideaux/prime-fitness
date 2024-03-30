@@ -1,6 +1,6 @@
-// users model
+// user schema
 const mongoose = require('mongoose');
-require('dotenv').config(); // Load environment variables
+require('dotenv').config();
 
 // Define the user schema
 const userSchema = new mongoose.Schema(
@@ -11,11 +11,7 @@ const userSchema = new mongoose.Schema(
     facebookId: { type: String },
     facebookDisplayName: { type: String },
     facebookEmail: { type: String },
-    // google oAuth
-    googleId: { type: String },
-    googleDisplayName: { type: String },
-    googleEmail: { type: String },
-    stripeCustomerId: String,
+
     currentSubscription: {
       subscriptionId: String,
       plan: String,
@@ -24,7 +20,23 @@ const userSchema = new mongoose.Schema(
       // Other user fields here
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
-module.exports = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;
+{
+  /*
+ currentSubscription: {
+      subscriptionId: String,
+      plan: String,
+      billingCycle: String,
+
+      // Other user fields here
+    },
+
+  */
+}

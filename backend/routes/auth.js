@@ -46,20 +46,20 @@ passport.use(
   )
 );
 
-// Serialize user data to store in the session
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
+// Google OAuth login route
+authRoutes.get(
+  '/auth/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
 
-// Deserialize user data when retrieving from the session
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await User.findById(id);
-    done(null, user);
-  } catch (err) {
-    done(err);
+// Google OAuth login callback route
+authRoutes.get(
+  '/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  (req, res) => {
+    res.redirect('https://client-prime-5b6b37e08f74.herokuapp.com/users/Users');
   }
-});
+);
 
 // facebook passport oAuth
 
@@ -127,7 +127,7 @@ authRoutes.get(
   '/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/login' }),
   (req, res) => {
-    res.redirect('/profile');
+    res.redirect('https://client-prime-5b6b37e08f74.herokuapp.com/users/Users');
   }
 );
 
