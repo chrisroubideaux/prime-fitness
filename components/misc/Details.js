@@ -16,7 +16,7 @@ export default function Details() {
 
             <div>
               <h4 className="fw-bold mb-0 fs-4">Wellness</h4>
-              <p className="">
+              <p className="par fw-bold">
                 Strength and Wellness is our top priority here at prime fitness.
                 We offer a wide range of classes and training programs to help
                 you reach your goals.
@@ -32,7 +32,7 @@ export default function Details() {
 
             <div>
               <h4 className="fw-bold mb-0 fs-4">Flexiblity</h4>
-              <p className="">
+              <p className="par fw-bold">
                 Memberships for everyone and everyday life, starting at 10$ a
                 month upgrade to a newer plan at any time without the hassle and
                 no contracts.
@@ -47,7 +47,7 @@ export default function Details() {
             ></i>
             <div>
               <h4 className="fw-bold mb-0">Meet the team </h4>
-              <p className="">
+              <p className="par fw-bold">
                 Meet our staff to and get a free tour of our state of the art
                 bulding and see for your self why prime is voted number 1
                 fitness center in the city.
@@ -62,7 +62,7 @@ export default function Details() {
             ></i>
             <div>
               <h4 className="fw-bold mb-0 fs-4">Commuinty</h4>
-              <p className="">
+              <p className="par fw-bold">
                 Stay up to date with latest events and commuinty actions.Here at
                 prime fitness we truly belive in the power of commuinty and
                 giving back.

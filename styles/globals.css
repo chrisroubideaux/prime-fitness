@@ -68,7 +68,8 @@ h3 {
 }
 
 h4 {
-  color: #b3a295 ;
+  
+  color: #666666;
   font-family: 'Kanit', sans-serif;
 }
 
@@ -90,7 +91,7 @@ h6 {
 }
 
 .par {
-  color: #f1f2f2; 
+  color: #454444;
   font-family: 'Kanit', sans-serif;
 }
 
