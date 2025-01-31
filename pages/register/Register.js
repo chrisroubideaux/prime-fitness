@@ -116,6 +116,31 @@ export default function Register() {
                   Login.
                 </Link>
               </p>
+              <hr />
+              <ul className="nav justify-content-center list-unstyled d-flex ">
+                <ul
+                  className=" text-dark  justify-content-center "
+                  style={{
+                    fontSize: '0.85rem',
+                    lineHeight: '1.4rem',
+
+                    paddingLeft: '1.5rem',
+                  }}
+                >
+                  <li className="text-dark">
+                    Password must contain at least{' '}
+                    <strong>10 characters</strong>.
+                  </li>
+                  <li className="text-dark">
+                    At least <strong>1 special character</strong> (e.g.,{' '}
+                    <code>@</code>, <code>#</code>, <code>$</code>).
+                  </li>
+                  <li className="text-dark">
+                    At least <strong>1 number</strong> (e.g., <code>1</code>,{' '}
+                    <code>2</code>, <code>3</code>).
+                  </li>
+                </ul>
+              </ul>
               <form className="form text-center" onSubmit={handleSubmit}>
                 <input
                   className="form-control m-2 fw-bold"
@@ -165,26 +190,25 @@ export default function Register() {
                     register
                   </button>
                 </div>
-                <div className="container mt-3">
-                  <button
-                    className="w-100 btn btn-md"
-                    type="submit"
-                    onClick={handleFacebookRegister}
-                  >
-                    <i className="fab fa-fw fa-facebook-f text-facebook me-2"></i>
-                    Register with Facebook
-                  </button>
-                </div>
-                <div className="container mt-3">
-                  <button
-                    className="w-100 btn btn-md"
-                    type="submit"
-                    onClick={handleGoogleRegister}
-                  >
-                    <i className="fab fa-fw fa-google text-google-icon me-2"></i>
-                    Register with Google
-                  </button>
-                </div>
+
+                <ul className="nav justify-content-center list-unstyled d-flex pt-3 ">
+                  <li className="ms-3">
+                    <button
+                      className="text-muted bg-transparent border-0"
+                      onClick={handleFacebookRegister}
+                    >
+                      <i className="social-icons fs-3 fa-brands fa-facebook mt-1"></i>
+                    </button>
+                  </li>
+                  <li className="ms-3">
+                    <button
+                      className="text-muted bg-transparent border-0"
+                      onClick={handleGoogleRegister}
+                    >
+                      <i className="social-icons fs-3 fa-brands fa-google mt-1"></i>
+                    </button>
+                  </li>
+                </ul>
 
                 <p className="par mt-5 mb-3 text-dark">
                   &copy; Prime Fitness, 2025
