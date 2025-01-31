@@ -41,10 +41,10 @@ const Session = () => {
             <Sliders key={banners.id} banners={banners} />
           ))}
           <div className="container col-lg-10 m-auto my-5 py-5">
-            <h1 className="text-center text-white mt-3 display-4">
+            <h1 className="text-center mt-3 display-4">
               Book a session today!
             </h1>
-            <p className="text-white text-center lead ">
+            <p className="text-gray text-center lead ">
               Here at prime we beleive in flexiablity for every one see below
               which membership fits your need. Sign up for one of our daily
               tours and see why we were voted the number one fitness club in the

@@ -1,49 +1,47 @@
 /*nav*/
 .navbar {
-  background-image: url('../public/images/navbar3.png');
-  font-size: 1.2rem;
-  font-family: 'Kanit', sans-serif;
-  border-top: 1px solid #2f4d5a; 
-  border-bottom: 1px solid #2f4d5a;  
   border-radius: 30px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background: rgb(245,245,247);
+  background: linear-gradient(142deg, rgba(245,245,247,1) 0%, rgba(244,236,228,1) 100%, rgba(241,232,223,1) 100%);
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.5s;
 }
     
 .nav-item {
-  font-size: 1.2rem;
-  color: #f1f8f7; 
-  color: #02dabd;  
+  font-family: 'Kanit', sans-serif;
+  font-size: 10px;
+  color: #4f4f4f  
 }
 
 .nav-item :hover{
-  color: #02dabd; 
+  color: #b3a295  
 }
     
 .nav-link {
-  font-size: 1.2;
-  color: #f1f8f7; 
+  color: #686867   
 }
 .nav-link :hover {
-  color: #02dabd; 
+  color: #b3a295 
 }
     
 li a {
-  color: #02dabd;  
-  font-size: 1.2rem;
+  color: #D8C4B6;  
   text-decoration: none;
 }
     
 li a:hover {
-  color: #f1f8f7;  
+  color: #D8C4B6;  
 }
 
 li {   
-  color: #f1f8f7;  
-  font-size: 1.2rem;
+  color: #D8C4B6;   
 }
     
 li :hover {
-  color: #02dabd;  
-  color: #f1f8f7; 
+  color: #D8C4B6;  
+ 
 }
 
 /*dropdown*/
@@ -62,15 +60,15 @@ li :hover {
 }
 
 .dropdown-item :hover {
-  color:  #ff8282;
+  color: #686867  ;  
   font-size: 1.5rem;
 
 }
 .btn-hover {
-  background-color: #EF9F9F;
+  background-color: #686867;
 }
   .btn-hover-light:hover,
   .btn-hover-light:focus {
   color: #fff;
-  background-color: #EF9F9F;
+  background-color: #686867;
 }

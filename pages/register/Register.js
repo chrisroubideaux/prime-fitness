@@ -93,7 +93,7 @@ export default function Register() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <div className="container py-5">
+      <div className=" layout h-100">
         <hr className="hr " />
         <div className="container col-xxl-8 px-4 py-4 ">
           <div className="row flex-lg-row-reverse align-items-center g-5 ">
@@ -109,8 +109,8 @@ export default function Register() {
             </div>
 
             <div className="col-lg-6">
-              <h2 className="fw-bold text-center">Create your Account</h2>
-              <p className=" text-center text-white">
+              <h4 className=" text-center">Create your Account</h4>
+              <p className=" text-center">
                 Already have an account?{' '}
                 <Link className="btn btn-lg badge" href="/login/Login">
                   Login.
@@ -186,8 +186,8 @@ export default function Register() {
                   </button>
                 </div>
 
-                <p className="mt-5 mb-3 text-white">
-                  &copy; Prime Fitness, 2024
+                <p className="par mt-5 mb-3 text-dark">
+                  &copy; Prime Fitness, 2025
                 </p>
               </form>
             </div>

@@ -2,18 +2,19 @@
   background-size: cover;
   background-repeat: no-repeat;
   font-family: 'Kanit', sans-serif;  
+  color: #4f4f4f ;
 }
     
 .nav-links {
-  color: #f1f8f7;   
+  color: #686867 ;
 }
 .nav-links :hover {
-  color: #02dabd; 
+  color: #b3a295 ; 
 }
 
 .hr {
   width: 100%;
-  color:  #F94C66;
+  color: #b3a295 ;
   align-items: center;
 }
 

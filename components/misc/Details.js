@@ -4,7 +4,7 @@ export default function Details() {
   return (
     <>
       <div className="container px-5 py-5 my-5">
-        <h1 className=" text-white">What we offer!</h1>
+        <h1 className=" text-grey">What we offer!</h1>
         <hr className="hr " />
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
           <div className="col d-flex align-items-start">
@@ -15,8 +15,8 @@ export default function Details() {
             ></i>
 
             <div>
-              <h3 className="fw-bold mb-0 fs-4">Wellness</h3>
-              <p className="text-white">
+              <h4 className="fw-bold mb-0 fs-4">Wellness</h4>
+              <p className="">
                 Strength and Wellness is our top priority here at prime fitness.
                 We offer a wide range of classes and training programs to help
                 you reach your goals.
@@ -31,8 +31,8 @@ export default function Details() {
             ></i>
 
             <div>
-              <h3 className="fw-bold mb-0 fs-4">Flexiblity</h3>
-              <p className="text-white">
+              <h4 className="fw-bold mb-0 fs-4">Flexiblity</h4>
+              <p className="">
                 Memberships for everyone and everyday life, starting at 10$ a
                 month upgrade to a newer plan at any time without the hassle and
                 no contracts.
@@ -46,8 +46,8 @@ export default function Details() {
               height="1.75em"
             ></i>
             <div>
-              <h3 className="fw-bold mb-0 fs-4">Meet the team </h3>
-              <p className="text-white">
+              <h4 className="fw-bold mb-0">Meet the team </h4>
+              <p className="">
                 Meet our staff to and get a free tour of our state of the art
                 bulding and see for your self why prime is voted number 1
                 fitness center in the city.
@@ -61,8 +61,8 @@ export default function Details() {
               height="1.75em"
             ></i>
             <div>
-              <h3 className="fw-bold mb-0 fs-4">Commuinty</h3>
-              <p className="text-white">
+              <h4 className="fw-bold mb-0 fs-4">Commuinty</h4>
+              <p className="">
                 Stay up to date with latest events and commuinty actions.Here at
                 prime fitness we truly belive in the power of commuinty and
                 giving back.

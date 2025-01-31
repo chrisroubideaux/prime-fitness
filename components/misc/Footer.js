@@ -22,36 +22,28 @@ export default function Footer() {
                 height={30}
               />
               */}
-              <small className="d-block mb-3 text-white">
-                &copy; 2024 Prime Fitness
-              </small>
+              <small className="d-block mb-3">&copy; 2025 Prime Fitness</small>
             </div>
             <div className="col-6 col-md">
               <h2 className=" fw-normal">Contact</h2>
               <ul className="list-unstyled fw-normal">
                 <li className="">
-                  <Link
-                    className="nav-links text-white fs-5"
-                    href="/trainers/Trainer"
-                  >
+                  <Link className="nav-links fs-5" href="/trainers/Trainer">
                     Trainers
                   </Link>
                 </li>
                 <li className="">
-                  <Link className="nav-links text-white fs-5" href="/">
+                  <Link className="nav-links  fs-5" href="/">
                     Tours
                   </Link>
                 </li>
                 <li className="">
-                  <Link className="nav-links text-white fs-5" href="/">
+                  <Link className="nav-links fs-5" href="/">
                     Events
                   </Link>
                 </li>
                 <li className="">
-                  <Link
-                    className="nav-links text-white fs-5"
-                    href="/register/Register"
-                  >
+                  <Link className="nav-links fs-5" href="/register/Register">
                     Sign up
                   </Link>
                 </li>
@@ -80,22 +72,22 @@ export default function Footer() {
               <h2 className="fw-normal">About</h2>
               <ul className="list-unstyled fw-normal ">
                 <li className="">
-                  <Link className="nav-links text-white fs-5" href="/">
+                  <Link className="nav-links  fs-5" href="/">
                     Team
                   </Link>
                 </li>
                 <li className="">
-                  <Link className="nav-links text-white fs-5" href="/">
+                  <Link className="nav-links fs-5" href="/">
                     Locations
                   </Link>
                 </li>
                 <li className="">
-                  <Link className="nav-links text-white fs-5" href="/">
+                  <Link className="nav-links fs-5" href="/">
                     Privacy
                   </Link>
                 </li>
                 <li className="">
-                  <Link className="nav-links text-white fs-5" href="/">
+                  <Link className="nav-links fs-5" href="/">
                     Terms
                   </Link>
                 </li>

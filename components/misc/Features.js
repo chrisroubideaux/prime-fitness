@@ -30,10 +30,10 @@ export default function Features() {
               />
             </div>
             <div className="col-lg-6 ">
-              <h2 className="display-6 fw-bold lh-5 text-white">
+              <h2 className="display-6 fw-bold lh-5">
                 Where we help you achieve your fitness goals
               </h2>
-              <p className=" text-gray lead text-white fw-normal py-3 lh-3">
+              <p className="fw-normal lh-3">
                 Here at prime fitness we have a wide variety of classes and
                 Memberships to fit the schedule of everyday life. Stop in today
                 and see why we were voted number one fitness center in the city

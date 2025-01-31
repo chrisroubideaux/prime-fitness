@@ -70,7 +70,7 @@ export default function Login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <div className="">
+      <div className="layout h-100">
         <div className="container py-5">
           <hr className="hr " />
           <div className="container col-xxl-8 px-4 py-5 ">
@@ -87,12 +87,12 @@ export default function Login() {
               </div>
 
               <div className="col-lg-6 mb-5 ">
-                <h2 className="fw-bold text-center">Login to your Account</h2>
+                <h4 className="text-dark text-center">Login to your Account</h4>
 
-                <p className=" text-center text-white">
+                <p className=" text-center">
                   {" Don't have an account?"}
                   <Link
-                    className="btn btn-lg badge me-1"
+                    className="btn btn-lg badge me-2"
                     href="/register/Register"
                   >
                     Register
@@ -118,29 +118,28 @@ export default function Login() {
                       Login
                     </button>
                   </div>
-                  <div className="container mt-2">
-                    <button
-                      className="w-100 btn btn-md"
-                      type="submit"
-                      onClick={handleGoogleLogin}
-                    >
-                      <i className="fab fa-fw fa-google text-google-icon me-2"></i>
-                      Login with Google
-                    </button>
-                  </div>
-                  <div className="container mt-2">
-                    <button
-                      className="w-100 btn btn-md"
-                      type="submit"
-                      onClick={handleFacebookLogin}
-                    >
-                      <i className="fab fa-fw fa-facebook-f text-facebook me-2"></i>
-                      Login with Facebook
-                    </button>
-                  </div>
+                  <h6 className="text-muted pt-3">or login with</h6>
+                  <ul className="nav justify-content-center list-unstyled d-flex pt-2">
+                    <li className="ms-3">
+                      <button
+                        className="text-muted bg-transparent border-0"
+                        onClick={handleFacebookLogin}
+                      >
+                        <i className="social-icons fa-brands fa-facebook-f m-2"></i>
+                      </button>
+                    </li>
+                    <li className="ms-3">
+                      <button
+                        className="text-muted bg-transparent border-0"
+                        onClick={handleGoogleLogin}
+                      >
+                        <i className="social-icons fa-brands fa-google m-2"></i>
+                      </button>
+                    </li>
+                  </ul>
                   <div className="container mt-3"></div>
-                  <p className=" mt-5 mb-3 text-white">
-                    &copy; Prime Fitness, 2024
+                  <p className="par text-dark mt-5 mb-3">
+                    &copy; Prime Fitness, 2025
                   </p>
                 </form>
               </div>

@@ -6,6 +6,7 @@ import '@/styles/cards.css';
 import '@/styles/forms.css';
 import '@/styles/hero.css';
 import '@/styles/modal.css';
+import '@/styles/footer.css';
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {

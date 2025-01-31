@@ -1,13 +1,13 @@
 html, body {
   height: 100%;
-  background-color: #000000;
+  background: rgb(245,245,247);
+  background: linear-gradient(142deg, rgba(245,245,247,1) 0%, rgba(244,236,228,1) 100%, rgba(241,232,223,1) 100%);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .menu {
-  height: 100vh; 
   background-image: url('../public/images/banner/background.png');
   background-size: cover;
   background-repeat: no-repeat;
@@ -15,21 +15,20 @@ html, body {
 }
 
 .layout {
-  height: 100vh;
-  width: 100%;
-  background-position: center;
+  background: rgb(245,245,247);
+  background: linear-gradient(142deg, rgba(245,245,247,1) 0%, rgba(244,236,228,1) 100%, rgba(241,232,223,1) 100%);
   background-repeat: no-repeat;
-  object-fit: cover;
-  border-radius: 10px;
+  background-position: center;
+  background-size: cover;
+  height: 100%;
 }
-
 
 /* buttons */
 .btn {
-  background-color:  #F94C66;
-  color: #fafafa;
+  background-color: #e3d7ce ;
+  color: #828282 ;
   border-radius: 30px;
-  font-weight: bold;
+  font-family: 'Kanit', sans-serif;
 }
 
 .btn:hover {
@@ -55,38 +54,38 @@ img {
 
 h1 {
   font-family: 'Alfa Slab One', cursive;
-  color: #f7fafa;
+  color: #666666;
 }
 
 h2 {
   font-family: 'Kanit', sans-serif;
-  color: #02dabd; 
+  color: #b3a295  
 }
 
 h3 {
-  color: #02dabd;  
+  color: #b3a295 ; 
   font-family: 'Kaushan Script', cursive;
 }
 
 h4 {
-  color: #02dabd; 
+  color: #b3a295 ;
   font-family: 'Kanit', sans-serif;
 }
 
 h5 {
-  color: #02dabd; 
+  color: #b3a295 ;
   font-family: 'Kaushan Script', cursive;
 }
 
 h6 {
-  color: #02dabd; 
+  color: #666666;
   font-family: 'Kanit', sans-serif;
 }
 
 /* hr */
 .hr {
   width: 100%;
-  color:  #F94C66;
+  color: #b3a295 ;
   align-items: center;
 }
 
@@ -97,12 +96,12 @@ h6 {
 
 /* icons */
 .social-icons {
-  color: #F94C66; 
+  color: #d3c5ba ;
   font-size: 20px;
 }
 
 .social-icon {
-  color: #EF9F9F; 
+  color: #b3a295 ;
   font-size: 20px;
 }
 
@@ -115,18 +114,19 @@ h6 {
 }
 
 .card-icon {
-  color: #02dabd; 
+  color: #d3c5ba ;
   font-size: 20px;
 }
   
 .social-icon:hover {
-  color: #F94C66;
+  color: #b3a295;
 }  
     
 .social-icons:hover {
-  color: #EF9F9F; 
+  color: #b3a295 ; 
 }
 
 .input-icons i {
   position: absolute;
 }
+

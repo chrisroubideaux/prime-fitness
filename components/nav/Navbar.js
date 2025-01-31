@@ -4,9 +4,9 @@ import Link from 'next/link';
 export default function Navbar() {
   return (
     <div>
-      <nav className="navbar navbar-expand-sm mx-auto fw-bold fixed-top">
+      <nav className="navbar navbar-expand-sm mx-auto fixed-top">
         <div className="container-fluid">
-          <Link className="nav-link fs-4 pb-2" href="/">
+          <Link className="nav-link fs-5 pb-2" href="/">
             Prime
           </Link>
           <button
@@ -32,7 +32,7 @@ export default function Navbar() {
                   <div className="input-group">
                     <Link
                       href="/"
-                      className="nav-link dropwdown-toggle fs-4 "
+                      className="nav-link dropwdown-toggle fs-5 "
                       type="button"
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
@@ -45,7 +45,7 @@ export default function Navbar() {
                     <ul className="dropdown-menu" style={{ width: '15rem' }}>
                       <li>
                         <Link
-                          className="dropdown-item fs-4 "
+                          className="dropdown-item fs-5 "
                           href="/sessions/Session/"
                         >
                           Classes
@@ -53,7 +53,7 @@ export default function Navbar() {
                       </li>
                       <li>
                         <Link
-                          className="dropdown-item fs-4 "
+                          className="dropdown-item fs-5  "
                           href="/trainers/Trainers/"
                         >
                           Trainers
@@ -61,27 +61,27 @@ export default function Navbar() {
                       </li>
                       <li>
                         <Link
-                          className="dropdown-item fs-4 "
+                          className="dropdown-item fs-5  "
                           href="/guides/Guides/"
                         >
                           Tours
                         </Link>
                       </li>
                       <li>
-                        <Link className="dropdown-item fs-4" href="/team/Team/">
+                        <Link className="dropdown-item fs-5" href="/team/Team/">
                           Staff
                         </Link>
                       </li>
                       <li>
                         <Link
-                          className="dropdown-item fs-4 "
+                          className="dropdown-item fs-5  "
                           href="/event/Events/"
                         >
                           Events
                         </Link>
                       </li>
                       <li>
-                        <Link className="dropdown-item fs-4 " href="/Contact/">
+                        <Link className="dropdown-item fs-5 " href="/Contact/">
                           Contact
                         </Link>
                       </li>
@@ -89,22 +89,22 @@ export default function Navbar() {
                   </div>
                 </li>
                 <li className="nav-item mt-1">
-                  <Link className="nav-link fs-4 " href="/members/Members/">
+                  <Link className="nav-link fs-5" href="/members/Members/">
                     Memberships
                   </Link>
                 </li>
-                <li className="nav-item mt-1 fs-4 ">
-                  <Link className="nav-link" href="/login/Login/">
+                <li className="nav-item mt-1  ">
+                  <Link className="nav-link fs-5" href="/login/Login/">
                     About
                   </Link>
                 </li>
-                <li className="nav-item mt-1 fs-4">
-                  <Link className="nav-link" href="/contact/">
+                <li className="nav-item mt-1">
+                  <Link className="nav-link fs-5" href="/contact/">
                     Contact
                   </Link>
                 </li>
-                <li className="nav-item mt-1 fs-4">
-                  <Link className="nav-link" href="/login/Login/">
+                <li className="nav-item mt-1">
+                  <Link className="nav-link fs-5" href="/login/Login/">
                     Login
                   </Link>
                 </li>
