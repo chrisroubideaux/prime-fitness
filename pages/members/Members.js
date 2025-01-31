@@ -17,7 +17,7 @@ export default function Memberships() {
 
   useEffect(() => {
     axios
-      .get('https://fitness-server-c1a2fb04992c.herokuapp.com/members')
+      .get('http://localhost:3001/members')
       .then((response) => {
         setMembers(response.data);
       })
@@ -72,9 +72,7 @@ export default function Memberships() {
 // getServerSideProps
 export async function getServerSideProps() {
   try {
-    const response = await axios.get(
-      'https://fitness-server-c1a2fb04992c.herokuapp.com/members'
-    );
+    const response = await axios.get('http://localhost:3001/members');
     const members = response.data;
 
     return {

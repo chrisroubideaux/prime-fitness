@@ -20,7 +20,7 @@ export default function Team() {
 
   useEffect(() => {
     axios
-      .get('https://fitness-server-c1a2fb04992c.herokuapp.com/owners')
+      .get('http://localhost:3001/owners')
       .then((response) => {
         setOwners(response.data);
       })
@@ -32,7 +32,7 @@ export default function Team() {
   // useEffect for feching tour guide data from the server
   useEffect(() => {
     axios
-      .get('https://fitness-server-c1a2fb04992c.herokuapp.com/guides')
+      .get('http://localhost:3001/guides')
       .then((response) => {
         setGuides(response.data);
       })
@@ -43,7 +43,7 @@ export default function Team() {
 
   useEffect(() => {
     axios
-      .get('https://fitness-server-c1a2fb04992c.herokuapp.com/sessions')
+      .get('http://localhost:3001/sessions')
       .then((response) => {
         setSessions(response.data);
       })
@@ -54,7 +54,7 @@ export default function Team() {
 
   useEffect(() => {
     axios
-      .get('https://fitness-server-c1a2fb04992c.herokuapp.com/trainers')
+      .get('http://localhost:3001/trainers')
       .then((response) => {
         setTrainers(response.data);
       })

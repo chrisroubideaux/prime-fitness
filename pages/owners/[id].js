@@ -18,7 +18,7 @@ export default function OwnerDetails({}) {
   useEffect(() => {
     if (id) {
       axios
-        .get(`https://fitness-server-c1a2fb04992c.herokuapp.com/owners/${id}`)
+        .get(`http://localhost:3001/owners/${id}`)
         .then((response) => {
           setOwner(response.data);
         })
@@ -70,7 +70,7 @@ export default function OwnerDetails({}) {
 export async function getServerSideProps({ params }) {
   try {
     const response = await axios.get(
-      `https://fitness-server-c1a2fb04992c.herokuapp.com/owners/${params.id}`
+      `http://localhost:3001/owners/${params.id}`
     );
     const owner = response.data;
 

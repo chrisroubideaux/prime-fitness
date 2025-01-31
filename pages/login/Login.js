@@ -29,7 +29,7 @@ export default function Login() {
 
     try {
       const response = await axios.post(
-        'https://fitness-server-c1a2fb04992c.herokuapp.com/auth/login',
+        'http://localhost:3001/auth/login',
         formData
       );
 
@@ -47,14 +47,12 @@ export default function Login() {
 
   // Add Google login function
   const handleGoogleLogin = () => {
-    window.location.href =
-      'https://fitness-server-c1a2fb04992c.herokuapp.com/auth/google/login';
+    window.location.href = 'http://localhost:3001/auth/google/login';
   };
 
   // Facebook registration function
   const handleFacebookLogin = () => {
-    const facebookOAuthURL =
-      'https://fitness-server-c1a2fb04992c.herokuapp.com/auth/facebook/login';
+    const facebookOAuthURL = 'http://localhost:3001/auth/facebook/login';
 
     window.open(
       facebookOAuthURL,

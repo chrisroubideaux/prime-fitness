@@ -56,7 +56,7 @@ mongoose
 
 // cors
 const corsOptions = {
-  origin: 'https://client-prime-5b6b37e08f74.herokuapp.com',
+  origin: 'http://localhost:3000',
 };
 
 // Import the verifyToken function
@@ -118,7 +118,7 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL:
         process.env.GOOGLE_CALLBACK_URL ||
-        'https://fitness-server-c1a2fb04992c.herokuapp.com/auth/google/callback',
+        'http://localhost:3001/auth/google/callback',
     },
     async (_accessToken, _refreshToken, profile, done) => {
       try {
@@ -167,7 +167,7 @@ passport.use(
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
       callbackURL:
         process.env.FACEBOOK_CALLBACK_URL ||
-        'https://fitness-server-c1a2fb04992c.herokuapp.com/auth/facebook/callback',
+        'http://localhost:3001/auth/facebook/callback',
       profileFields: ['id', 'displayName', 'photos', 'emails'],
     },
     async (accessToken, refreshToken, profile, done) => {
@@ -267,7 +267,7 @@ app.get(
   '/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
-    res.redirect('https://client-prime-5b6b37e08f74.herokuapp.com/users/Users');
+    res.redirect('http://localhost:3001/users/Users');
   }
 );
 
@@ -284,7 +284,7 @@ app.get(
     failureRedirect: '/login',
   }),
   (req, res) => {
-    res.redirect('https://client-prime-5b6b37e08f74.herokuapp.com/users/Users');
+    res.redirect('http://localhost:3001/users/Users');
   }
 );
 
@@ -295,7 +295,7 @@ app.get(
     failureRedirect: '/login',
   }),
   (req, res) => {
-    res.redirect('https://client-prime-5b6b37e08f74.herokuapp.com/user/Users');
+    res.redirect('http://localhost:3001/user/Users');
   }
 );
 

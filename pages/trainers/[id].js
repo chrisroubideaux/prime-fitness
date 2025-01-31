@@ -26,7 +26,7 @@ const Details = ({}) => {
   useEffect(() => {
     if (id) {
       axios
-        .get(`https://fitness-server-c1a2fb04992c.herokuapp.com/trainers/${id}`)
+        .get(`http://localhost:3001/trainers/${id}`)
         .then((response) => {
           setTrainer(response.data);
         })
@@ -115,7 +115,7 @@ export default Details;
 export async function getServerSideProps({ params }) {
   try {
     const response = await axios.get(
-      `https://fitness-server-c1a2fb04992c.herokuapp.com/trainers/${params.id}`
+      `http://localhost:3001/trainers/${params.id}`
     );
     const trainer = response.data;
 

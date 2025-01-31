@@ -37,7 +37,7 @@ export default function Register() {
 
     try {
       const response = await axios.post(
-        'https://fitness-server-c1a2fb04992c.herokuapp.com/auth/register',
+        'http://localhost:3001/auth/register',
         formData
       );
 
@@ -61,8 +61,7 @@ export default function Register() {
 
   // Google registration function
   const handleGoogleRegister = () => {
-    const googleOAuthURL =
-      'https://fitness-server-c1a2fb04992c.herokuapp.com/auth/google/register';
+    const googleOAuthURL = 'http://localhost:3001/auth/google/register';
 
     window.open(
       googleOAuthURL,
@@ -75,8 +74,7 @@ export default function Register() {
   // facebook registration function
 
   const handleFacebookRegister = () => {
-    const facebookOAuthURL =
-      'https://fitness-server-c1a2fb04992c.herokuapp.com/auth/facebook/register';
+    const facebookOAuthURL = 'http://localhost:3001/auth/facebook/register';
 
     window.open(
       facebookOAuthURL,

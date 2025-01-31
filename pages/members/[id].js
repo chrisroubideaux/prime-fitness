@@ -22,7 +22,7 @@ export default function Details({ params }) {
   useEffect(() => {
     if (id) {
       axios
-        .get(`https://fitness-server-c1a2fb04992c.herokuapp.com/members/${id}`)
+        .get(`http://localhost:3001/members/${id}`)
         .then((response) => {
           setMember(response.data);
         })

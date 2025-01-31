@@ -15,7 +15,7 @@ export default function Guide() {
 
   useEffect(() => {
     axios
-      .get('https://fitness-server-c1a2fb04992c.herokuapp.com/guides')
+      .get('http://localhost:3001/guides')
       .then((response) => {
         setGuides(response.data);
       })
@@ -72,9 +72,7 @@ export default function Guide() {
 // getServerSideProps
 export async function getServerSideProps() {
   try {
-    const response = await axios.get(
-      'https://fitness-server-c1a2fb04992c.herokuapp.com/guides'
-    );
+    const response = await axios.get('http://localhost:3001/guides');
     const guides = response.data;
 
     return {

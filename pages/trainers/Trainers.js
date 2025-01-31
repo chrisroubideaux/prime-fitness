@@ -17,7 +17,7 @@ export default function Trainer() {
 
   useEffect(() => {
     axios
-      .get('https://fitness-server-c1a2fb04992c.herokuapp.com/trainers')
+      .get('http://localhost:3001/trainers')
       .then((response) => {
         setTrainers(response.data);
       })
@@ -73,9 +73,7 @@ export default function Trainer() {
 // getServerSideProps
 export async function getServerSideProps() {
   try {
-    const response = await axios.get(
-      'https://fitness-server-c1a2fb04992c.herokuapp.com/trainers'
-    );
+    const response = await axios.get('http://localhost:3001/trainers');
     const trainers = response.data;
 
     return {

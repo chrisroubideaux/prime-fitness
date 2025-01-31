@@ -18,7 +18,7 @@ const Session = () => {
 
   useEffect(() => {
     axios
-      .get('https://fitness-server-c1a2fb04992c.herokuapp.com/sessions')
+      .get('http://localhost:3001/sessions')
       .then((response) => {
         setSessions(response.data);
       })
@@ -81,9 +81,7 @@ export default Session;
 // getServerSideProps
 export async function getServerSideProps() {
   try {
-    const response = await axios.get(
-      'https://fitness-server-c1a2fb04992c.herokuapp.com/sessions'
-    );
+    const response = await axios.get('http://localhost:3001/sessions');
     const sessions = response.data;
 
     return {
