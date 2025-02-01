@@ -76,10 +76,8 @@ export default function Team() {
         <Hero />
         <div className="container py-5 mt-5">
           <div className="container col-lg-10 ">
-            <h1 className="text-center text-white mt-3 display-4 pt-3 ">
-              Meet our Staff
-            </h1>
-            <p className="text-white text-center lead">
+            <h1 className="text-center mt-3 display-4 pt-3 ">Meet our Staff</h1>
+            <p className="par text-center lead">
               Here at prime we beleive in flexiablity for every one see below
               which membership fits your need. Sign up for one of our daily
               tours and see why we were voted the number one fitness club in the
@@ -91,7 +89,7 @@ export default function Team() {
             <Iconbar />
           </div>
 
-          <h1 className="text-white text-center py-5 my-5">Owners</h1>
+          <h1 className=" text-center py-5 my-5">Owners</h1>
           <div className="row row-cols-sm-2 row-cols-1 gy-3 gx-4 mb-4 pb-md-2 my-5 h-32 py-3 pt-3">
             {owners.map((owners) => (
               <div key={owners.id} className="py-3 my-5">
@@ -100,7 +98,7 @@ export default function Team() {
             ))}
           </div>
           <hr className="hr" />
-          <h1 className=" text-white text-center py-3 my-3">Tour Guides</h1>
+          <h1 className=" text-center py-3 my-3">Tour Guides</h1>
           <div className="row row-cols-1 row-cols-1 row-cols-lg-3 row-cols-md-4 g-4 py-5 pt-3">
             {guides.map((guides) => (
               <div key={guides.id} className="py-3 my-3">
@@ -109,9 +107,7 @@ export default function Team() {
             ))}
           </div>
           <hr className="hr" />
-          <h1 className=" text-white text-center py-3 my-3">
-            Class Instructors
-          </h1>
+          <h1 className=" py-3 my-3">Class Instructors</h1>
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5 pt-3">
             {sessions.map((sessions) => (
               <div key={sessions.id} className="py-3 my-5">
@@ -120,9 +116,7 @@ export default function Team() {
             ))}
           </div>
           <hr className="hr" />
-          <h1 className=" text-white text-center py-3 my-3">
-            Personal Trainers
-          </h1>
+          <h1 className=" text-center py-3 my-3">Personal Trainers</h1>
           <div className="row row-cols-1 row-cols-1 row-cols-lg-3 row-cols-lg-4 g-4 py-5 ">
             {trainers.map((trainers) => (
               <div key={trainers.id} className="py-3 my-5">

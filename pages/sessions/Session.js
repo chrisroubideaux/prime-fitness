@@ -2,16 +2,13 @@
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-// components
 import Navbar from '@/components/nav/Navbar';
-import Sliders from '@/components/misc/Sliders';
+//import Sliders from '@/components/misc/Sliders';
 import Iconbar from '@/components/misc/Iconbar';
 import Instructors from '@/components/sessions/Instructors';
 import Features from '@/components/misc/Features';
 import Details from '@/components/misc/Details';
 import Footer from '@/components/misc/Footer';
-
-import banners from '@/data/banners';
 
 const Session = () => {
   const [sessions, setSessions] = useState([]);
@@ -37,9 +34,6 @@ const Session = () => {
       <Navbar />
       <div className="layout h-100">
         <div className="">
-          {banners.map((banners) => (
-            <Sliders key={banners.id} banners={banners} />
-          ))}
           <div className="container col-lg-10 m-auto my-5 py-5">
             <h1 className="text-center mt-3 display-4">
               Book a session today!

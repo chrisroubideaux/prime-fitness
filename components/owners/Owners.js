@@ -20,23 +20,23 @@ export default function Card({ owners }) {
               />
             </div>
             <div className="col-md-8">
-              <div className="card-body mt-4 m-4">
-                <h6 className="mb-2 fs-lg text-uppercase fw-bold text-white">
+              <div className=" mt-4 m-4">
+                <h6 className="mb-2 fs-lg text-uppercase fw-bold">
                   {owners.name}
                 </h6>
                 <h6 className="mb-2 fs-xs text-uppercase">{owners.title}</h6>
                 <span className="d-inline-block">
-                  <h6 className=" mb-1 fs-sm fw-bold text-white">
+                  <h6 className=" mb-1 fs-sm fw-bold">
                     <FaEnvelope className="card-icon mt-n1 me-2" />
                     {owners.email}
                   </h6>
                 </span>
                 <div
-                  className="card-footer d-flex text-nowrap m-auto"
+                  className=" d-flex text-nowrap m-auto"
                   style={{ maxWidth: '55rem' }}
                 >
                   <span className="d-inline-block me-3">
-                    <h6 className=" mb-2 fs-sm fw-bold text-white">
+                    <h6 className=" mb-2 fs-sm fw-bold">
                       <FaFacebookF className="card-icon mt-1 me-3" />
                       <FaInstagram className="card-icon mt-1 me-3" />
                       <FaTiktok className="card-icon mt-1 me-3" />

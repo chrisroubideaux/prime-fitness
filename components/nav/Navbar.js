@@ -62,6 +62,14 @@ export default function Navbar() {
                       <li>
                         <Link
                           className="dropdown-item fs-5  "
+                          href="/members/Members/"
+                        >
+                          Memberships
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="dropdown-item fs-5  "
                           href="/guides/Guides/"
                         >
                           Tours
@@ -72,14 +80,7 @@ export default function Navbar() {
                           Staff
                         </Link>
                       </li>
-                      <li>
-                        <Link
-                          className="dropdown-item fs-5  "
-                          href="/event/Events/"
-                        >
-                          Events
-                        </Link>
-                      </li>
+
                       <li>
                         <Link className="dropdown-item fs-5 " href="/Contact/">
                           Contact
@@ -88,11 +89,7 @@ export default function Navbar() {
                     </ul>
                   </div>
                 </li>
-                <li className="nav-item mt-1">
-                  <Link className="nav-link fs-5" href="/members/Members/">
-                    Memberships
-                  </Link>
-                </li>
+
                 <li className="nav-item mt-1  ">
                   <Link className="nav-link fs-5" href="/login/Login/">
                     About

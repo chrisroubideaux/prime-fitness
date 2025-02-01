@@ -1,19 +1,26 @@
 /* card */
 .card {
   border-radius: 10px;
-  background: #000000;
   border-style: none;
+  background: rgb(245,245,247);
+  background: linear-gradient(142deg, rgba(245,245,247,1) 0%, rgba(244,236,228,1) 100%, rgba(241,232,223,1) 100%);
+ 
 }
 .card-body {
+  background: rgb(245,245,247);
+  background: linear-gradient(142deg, rgba(245,245,247,1) 0%, rgba(244,236,228,1) 100%, rgba(241,232,223,1) 100%);
   border-radius: 10px;
   margin: auto;
-  border-style: none;
+}
+
+.card-footer {
+  background: rgb(245,245,247);
+  background: linear-gradient(142deg, rgba(245,245,247,1) 0%, rgba(244,236,228,1) 100%, rgba(241,232,223,1) 100%);
 }
   
 /* cards */
 .cards {
   border-radius: 30px;
-  background-color: rgba(255, 255, 255, 0.15);
   border: none;
   border-radius: 10px;
   backdrop-filter: blur(10px);
@@ -111,7 +118,7 @@
 }
 
 .list-group {
-  box-shadow: 0.1rem 0.1rem 0.8rem #1a1919;
+  box-shadow: 0.1rem 0.1rem 0.8rem #a7a6a6;
   border-radius: 10px; 
  
 }

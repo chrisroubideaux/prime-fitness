@@ -3,10 +3,10 @@ import Image from 'next/image';
 
 export default function Instructor({ sessions }) {
   return (
-    <div className="">
+    <div className="container">
       <Image
         src={sessions.cover}
-        className="d-block mx-lg-auto img-fluid image"
+        className="d-block img-fluid image "
         alt="img"
         width={500}
         height={500}

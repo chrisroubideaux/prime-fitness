@@ -36,10 +36,10 @@ export default function Guide() {
         <Hero />
         <div className="container py-5 mt-5">
           <div className="container col-lg-10 ">
-            <h1 className="text-center text-white mt-3 display-4 pt-3 ">
+            <h1 className="text-center mt-3 display-4 pt-3 ">
               Schedule a Tour
             </h1>
-            <p className="text-white text-center lead">
+            <p className="par text-center lead">
               Here at prime we beleive in flexiablity for every one see below
               which membership fits your need. Sign up for one of our daily
               tours and see why we were voted the number one fitness club in the
@@ -51,7 +51,7 @@ export default function Guide() {
             <Iconbar />
           </div>
           <hr className="hr" />
-          <h1 className="text-white text-center py-5 my-5">Tour Guides</h1>
+          <h1 className=" text-center py-5 my-5">Tour Guides</h1>
           <div className="row row-cols-1 row-cols-1 row-cols-lg-3 row-cols-md-4 g-4 py-5">
             {guides.map((guides) => (
               <div key={guides.id} className="py-3 my-3">
@@ -81,7 +81,7 @@ export async function getServerSideProps() {
       },
     };
   } catch (error) {
-    console.error('Error fetching memberships', error);
+    console.error('Error fetching guides', error);
     return {
       props: {
         guides: [],

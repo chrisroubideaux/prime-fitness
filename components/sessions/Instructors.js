@@ -16,7 +16,7 @@ export default function Card({ sessions }) {
             <h3 className="text-center mb-5 pb-5 text-light">
               {sessions.title}
             </h3>
-            <h6 className="text-center fs-5 fw-bold pt-5 my-5">View</h6>
+            <h5 className="text-center fw-bold text-white pt-5 my-5">View</h5>
           </div>
         </div>
       </Link>

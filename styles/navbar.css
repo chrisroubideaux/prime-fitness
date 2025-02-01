@@ -4,8 +4,6 @@
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   background: rgb(245,245,247);
   background: linear-gradient(142deg, rgba(245,245,247,1) 0%, rgba(244,236,228,1) 100%, rgba(241,232,223,1) 100%);
-  overflow: hidden;
-  position: relative;
   transition: transform 0.5s;
 }
     
@@ -49,18 +47,19 @@ li :hover {
   margin: 4rem auto;
   width: 100%;
   border-radius: 15px;
-  border: 1px solid #3a3a3a;
-  background-color: #050505;
+  border: 1px solid#e0e0e0;
+  background: rgb(245,245,247);
+  background: linear-gradient(142deg, rgba(245,245,247,1) 0%, rgba(244,236,228,1) 100%, rgba(241,232,223,1) 100%);
 }
 
 .dropdown-item {
-  color: #faebeb;
+  color: #686867 ; 
   font-size: 1.5rem;
   border-radius:10px;
 }
 
 .dropdown-item :hover {
-  color: #686867  ;  
+  color: #faebeb;
   font-size: 1.5rem;
 
 }

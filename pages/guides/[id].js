@@ -19,7 +19,7 @@ export default function Details({}) {
   useEffect(() => {
     if (id) {
       axios
-        .get(`https://fitness-server-c1a2fb04992c.herokuapp.com/guides/${id}`)
+        .get(`http://localhost:3001/guides/${id}`)
         .then((response) => {
           setGuide(response.data);
         })
@@ -38,36 +38,31 @@ export default function Details({}) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <div className="layout py-2 h-100">
-        <div className="container py-5">
+      <div className="layout h-100">
+        <div className="container-fluid py-5">
           <Nav />
-          <section className=" shadow-lg rounded-3 px-4 py-lg-4 py-4 mb-5">
-            <div className="row py-3">
-              <div className="col-md-6">
-                <h4 className="display-5 mt-2 fs-sm pt-3 fw-normal">
-                  {guide.title}
+          <div className="row py-3">
+            <div className="col-md-6">
+              <Avatar guides={guide} />
+              <Toolbar guides={guide} />
+            </div>
+            <div className="col-lg-6">
+              <div className="container-fluid ">
+                <h4 className="text-center display-5 fs-sm fw-normal">
+                  {guide.name}
                 </h4>
-                <Avatar guides={guide} />
-                <Toolbar guides={guide} />
-              </div>
-              <div className="col-lg-6">
-                <div className="container-fluid ">
-                  <h4 className="text-center display-5 mt-2 fs-sm pt-3 fw-normal">
-                    {guide.name}
-                  </h4>
-                  <p className=" par d-flex justify-content-end fs-4 lh-2 fw-normal m-2 text-white my-4">
-                    {guide.bio}
-                  </p>
-                  <div className="d-flex justify-content-end p-2 me-5">
-                    <Bookings guides={guide} />
-                  </div>
+                <p className=" par d-flex justify-content-end fs-4 lh-2 fw-normal m-2 my-4">
+                  {guide.bio}
+                </p>
+                <div className="d-flex justify-content-end p-2 me-5">
+                  <Bookings guides={guide} />
                 </div>
               </div>
             </div>
-          </section>
+          </div>
         </div>
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 }
@@ -76,7 +71,7 @@ export default function Details({}) {
 export async function getServerSideProps({ params }) {
   try {
     const response = await axios.get(
-      `https://fitness-server-c1a2fb04992c.herokuapp.com/guides/${params.id}`
+      `http://localhost:3001/guides/${params.id}`
     );
     const guide = response.data;
 
