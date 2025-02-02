@@ -98,7 +98,7 @@ export default function Team() {
           </div>
           <hr className="hr" />
           <h1 className=" text-center py-3 my-3">Tour Guides</h1>
-          <div className="row row-cols-1 row-cols-1 row-cols-lg-3 row-cols-md-4 g-4 py-5 pt-3">
+          <div className="row row-cols-1 row-cols-1 row-cols-lg-3 row-cols-md-4 g-4 py-5 pt-2">
             {guides.map((guides) => (
               <div key={guides.id} className="py-3 my-3">
                 <Guides className="" guides={guides} />

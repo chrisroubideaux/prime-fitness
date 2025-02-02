@@ -18,7 +18,7 @@ export default function Checkout({ members }) {
       </button>
 
       <div
-        className="offcanvas offcanvas-top bg-dark h-100"
+        className="offcanvas offcanvas-top  h-100"
         tabindex="-1"
         id="offcanvasTop"
         aria-labelledby="offcanvasTopLabel"
@@ -37,12 +37,12 @@ export default function Checkout({ members }) {
             <i className="card-icon fa-solid fa-xmark"></i>
           </button>
         </div>
-        <div className="offcanvas-body bg-dark">
+        <div className="offcanvas-body ">
           <div className="py-5">
             <div className="py-lg-3 py-2 px-lg-3">
               <div className="row py-4">
                 <div className="col-md-6">
-                  <h1 className="text-white text-center">Billing Address</h1>
+                  <h1 className=" text-center">Billing Address</h1>
                   <div>
                     {/* order form component */}
                     <Form />

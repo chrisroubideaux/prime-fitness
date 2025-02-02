@@ -1,10 +1,8 @@
 // form component for stripe payment validation
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
 import { loadStripe } from '@stripe/stripe-js';
-
-import { FaCcPaypal, FaCreditCard, FaStripe } from 'react-icons/fa'; // Import the icons you want to use
+import { FaCcPaypal, FaCreditCard, FaStripe } from 'react-icons/fa';
 
 export default function PaymentForm({ members }) {
   const [stripePublishableKey, setStripePublishableKey] = useState('');
@@ -30,7 +28,6 @@ export default function PaymentForm({ members }) {
 
   //  useEffect to fetch the Stripe publishable key from your server
   useEffect(() => {
-    // Fetch the Stripe publishable key from your server
     axios
       .get('http://localhost:3001/stripe')
       .then((response) => {
@@ -77,7 +74,7 @@ export default function PaymentForm({ members }) {
     setErrors({});
     setProcessing(true);
 
-    // Simulate payment processing (replace with your actual payment processing logic)
+    // Simulate payment processing
     setTimeout(() => {
       // Simulated success
       setPaymentSuccess(true);
@@ -101,21 +98,18 @@ export default function PaymentForm({ members }) {
       // Confirm the payment with the PaymentIntent and handle success or failure
       const result = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
-          card: stripe.elements.getElement('card'), // Replace with your card input element
+          card: stripe.elements.getElement('card'),
         },
       });
 
       if (result.error) {
-        // Handle payment failure
         console.error('Payment failed:', result.error.message);
       } else {
-        // Payment succeeded
         console.log('Payment succeeded:', result.paymentIntent);
-        // You can update your UI to indicate successful payment
+
         setPaymentSuccess(true);
       }
     } catch (error) {
-      // Handle any server or network errors
       console.error('Error creating PaymentIntent:', error);
     }
   };
@@ -149,7 +143,6 @@ export default function PaymentForm({ members }) {
               <div className="invalid-feedback">{errors.firstName}</div>
             )}
           </div>
-
           {/* Last Name */}
           <div className="mb-1">
             <label htmlFor="lastName" className="form-label">
@@ -171,7 +164,6 @@ export default function PaymentForm({ members }) {
               <div className="invalid-feedback">{errors.lastName}</div>
             )}
           </div>
-
           {/* Address */}
           <div className="mb-1">
             <label htmlFor="address" className="form-label">
@@ -193,7 +185,6 @@ export default function PaymentForm({ members }) {
               <div className="invalid-feedback">{errors.address}</div>
             )}
           </div>
-
           {/* Address 2 */}
           <div className="mb-1">
             <label htmlFor="address2" className="form-label">
@@ -209,7 +200,6 @@ export default function PaymentForm({ members }) {
               onChange={handleInputChange}
             />
           </div>
-
           {/* State */}
           <div className="mb-1">
             <label htmlFor="state" className="form-label">
@@ -234,7 +224,6 @@ export default function PaymentForm({ members }) {
               <div className="invalid-feedback">{errors.state}</div>
             )}
           </div>
-
           {/* Zip */}
           <div className="mb-1">
             <label htmlFor="zip" className="form-label">
@@ -254,7 +243,6 @@ export default function PaymentForm({ members }) {
             />
             {errors.zip && <div className="invalid-feedback">{errors.zip}</div>}
           </div>
-
           {/* Payment method selection */}
           <h6 className="mt-3 text-white semi-bold">Payment options</h6>
           <ul className="nav list-inline hstack gap-3 flex-wrap mt-3">
@@ -297,12 +285,10 @@ export default function PaymentForm({ members }) {
               </h6>
             </li>
           </ul>
-
           {/* Error messages */}
           {errors.payment && (
             <div className="alert alert-danger">{errors.payment}</div>
           )}
-
           {/* Card Name */}
           <div className="">
             <label htmlFor="cardName" className="form-label">
@@ -319,7 +305,7 @@ export default function PaymentForm({ members }) {
               value={formData.cardName}
               onChange={handleInputChange}
               required
-              disabled={paymentMethod !== 'card'} // Disable if payment method is not 'card'
+              disabled={paymentMethod !== 'card'}
             />
             {errors.cardName && (
               <div className="invalid-feedback">{errors.cardName}</div>
@@ -342,13 +328,12 @@ export default function PaymentForm({ members }) {
               value={formData.cardNumber}
               onChange={handleInputChange}
               required
-              disabled={paymentMethod !== 'card'} // Disable if payment method is not 'card'
+              disabled={paymentMethod !== 'card'}
             />
             {errors.cardNumber && (
               <div className="invalid-feedback">{errors.cardNumber}</div>
             )}
           </div>
-
           {/* Card Expiration */}
           <div className="mb-2">
             <input
@@ -362,13 +347,12 @@ export default function PaymentForm({ members }) {
               value={formData.cardExpiration}
               onChange={handleInputChange}
               required
-              disabled={paymentMethod !== 'card'} // Disable if payment method is not 'card'
+              disabled={paymentMethod !== 'card'}
             />
             {errors.cardExpiration && (
               <div className="invalid-feedback">{errors.cardExpiration}</div>
             )}
           </div>
-
           {/* Card CVV */}
           <div className="mb-1">
             <label htmlFor="cardCvv" className="form-label">
@@ -385,15 +369,13 @@ export default function PaymentForm({ members }) {
               value={formData.cardCvv}
               onChange={handleInputChange}
               required
-              disabled={paymentMethod !== 'card'} // Disable if payment method is not 'card'
+              disabled={paymentMethod !== 'card'}
             />
             {errors.cardCvv && (
               <div className="invalid-feedback">{errors.cardCvv}</div>
             )}
           </div>
-
           {/* Payment buttons */}
-
           <div className="mt-4">
             <button
               className="btn btn-sm btn-accent"
@@ -402,9 +384,7 @@ export default function PaymentForm({ members }) {
             >
               {processing ? 'Processing...' : 'Confirm Purchase'}
             </button>
-
             {}
-
             <button
               className="btn btn-sm btn-secondary me-2"
               type="button"

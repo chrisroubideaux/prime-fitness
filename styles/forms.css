@@ -4,12 +4,17 @@
   padding: 15px;
   margin: auto;
   border-radius: 30px;
+  border-color: black 1px;
   font-family: 'Kanit', sans-serif;
+  background: rgb(245,245,247);
+  background: linear-gradient(142deg, rgba(245,245,247,1) 0%, rgba(244,236,228,1) 100%, rgba(241,232,223,1) 100%);
+  background-size: cover;
 }
 
 .form-control {
   border-radius: 30px;
   border-style: none;
+  background-color: rgb(233, 235, 234);
 }
 
 .form-signin .checkbox {

@@ -39,14 +39,13 @@ export default function Details({ params }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <div className="layout py-2">
-        <div className="container py-5">
-          <div className="py-2">
-            <Nav />
-          </div>
+      <div className="layout h-100">
+        <div className="container-fluid pt-5">
+          <Nav />
         </div>
+
         {/* section */}
-        <section className=" shadow-lg rounded-3 px-4 py-lg-4  ">
+        <section className=" shadow-lg rounded-3">
           <div className="py-lg-3 py-2 px-lg-3">
             <div className="row gy-4">
               <div className="col-lg-6">
