@@ -8,7 +8,7 @@ export default function Amenities({ members }) {
       <div className="list-group w-auto ">
         <Link
           href="/"
-          className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-dark"
+          className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-transparent"
           aria-current="true"
         >
           <i
@@ -19,14 +19,14 @@ export default function Amenities({ members }) {
           <div className="d-flex gap-2 w-100 justify-content-between">
             <div>
               {' '}
-              <h6 className=" text-white mb-0">{members.accsess}</h6>
+              <h6 className="  mb-0">{members.access}</h6>
             </div>
             <small className="opacity-50 text-nowrap">now</small>
           </div>
         </Link>
         <Link
           href="/"
-          className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-dark"
+          className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-transparent"
           aria-current="true"
         >
           <i
@@ -36,14 +36,14 @@ export default function Amenities({ members }) {
           ></i>
           <div className="d-flex gap-2 w-100 justify-content-between">
             <div>
-              <h6 className="text-white mb-0">{members.security}</h6>
+              <h6 className=" mb-0">{members.security}</h6>
             </div>
             <small className="opacity-50 text-nowrap">3d</small>
           </div>
         </Link>
         <Link
           href="/"
-          className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-dark"
+          className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-transparent"
           aria-current="true"
         >
           <i
@@ -53,14 +53,14 @@ export default function Amenities({ members }) {
           ></i>
           <div className="d-flex gap-2 w-100 justify-content-between">
             <div>
-              <h6 className="text-white mb-0">{members.discounts}</h6>
+              <h6 className=" mb-0">{members.discounts}</h6>
             </div>
             <small className="opacity-50 text-nowrap">1w</small>
           </div>
         </Link>
         <Link
           href="/"
-          className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-dark"
+          className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-transparent"
           aria-current="true"
         >
           <i
@@ -70,14 +70,14 @@ export default function Amenities({ members }) {
           ></i>
           <div className="d-flex gap-2 w-100 justify-content-between">
             <div>
-              <h6 className="text-white mb-0">{members.wellness}</h6>
+              <h6 className=" mb-0">{members.wellness}</h6>
             </div>
             <small className="opacity-50 text-nowrap">1w</small>
           </div>
         </Link>
         <Link
           href="/"
-          className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-dark"
+          className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-transparent"
           aria-current="true"
         >
           <i
@@ -87,14 +87,14 @@ export default function Amenities({ members }) {
           ></i>
           <div className="d-flex gap-2 w-100 justify-content-between">
             <div>
-              <h6 className="text-white mb-0">{members.wifi}</h6>
+              <h6 className=" mb-0">{members.wifi}</h6>
             </div>
             <small className="opacity-50 text-nowrap">1w</small>
           </div>
         </Link>
         <Link
           href="/"
-          className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-dark"
+          className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-transparent"
           aria-current="true"
         >
           <i
@@ -104,7 +104,7 @@ export default function Amenities({ members }) {
           ></i>
           <div className="d-flex gap-2 w-100 justify-content-between">
             <div>
-              <h6 className="text-white mb-0">{members.guests}</h6>
+              <h6 className=" mb-0">{members.guests}</h6>
             </div>
             <small className="opacity-50 text-nowrap">1w</small>
           </div>
@@ -116,7 +116,7 @@ export default function Amenities({ members }) {
             type="button"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
-            className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-dark"
+            className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-transparent"
             aria-current="true"
           >
             <i
@@ -127,7 +127,7 @@ export default function Amenities({ members }) {
 
             <div className="d-flex gap-2 w-100 justify-content-between">
               <div>
-                <h6 className="text-white mb-0">More</h6>
+                <h6 className=" mb-0">More</h6>
               </div>
               <small className="opacity-50 text-nowrap">now</small>
             </div>
@@ -143,7 +143,7 @@ export default function Amenities({ members }) {
             <div className="modal-dialog">
               <div className="modal-content">
                 <div className="modal-header bg-dark">
-                  <h1 className=" text-white fs-5" id="exampleModalLabel">
+                  <h1 className="  fs-5" id="exampleModalLabel">
                     Amenities
                   </h1>
                   <button
@@ -162,7 +162,7 @@ export default function Amenities({ members }) {
                     <div className="list-group w-auto ">
                       <Link
                         href="/"
-                        className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-dark"
+                        className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-transparent"
                         aria-current="true"
                       >
                         <i
@@ -172,16 +172,14 @@ export default function Amenities({ members }) {
                         ></i>
                         <div className="d-flex gap-2 w-100 justify-content-between">
                           <div>
-                            <h6 className=" text-white mb-0">
-                              {members.accsess}
-                            </h6>
+                            <h6 className="  mb-0">{members.access}</h6>
                           </div>
                           <small className="opacity-50 text-nowrap">now</small>
                         </div>
                       </Link>
                       <Link
                         href="/"
-                        className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-dark"
+                        className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-transparent"
                         aria-current="true"
                       >
                         <i
@@ -191,16 +189,14 @@ export default function Amenities({ members }) {
                         ></i>
                         <div className="d-flex gap-2 w-100 justify-content-between">
                           <div>
-                            <h6 className="text-white mb-0">
-                              {members.security}
-                            </h6>
+                            <h6 className=" mb-0">{members.security}</h6>
                           </div>
                           <small class="opacity-50 text-nowrap">3d</small>
                         </div>
                       </Link>
                       <Link
                         href="/"
-                        className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-dark"
+                        className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-transparent"
                         aria-current="true"
                       >
                         <i
@@ -210,16 +206,14 @@ export default function Amenities({ members }) {
                         ></i>
                         <div className="d-flex gap-2 w-100 justify-content-between">
                           <div>
-                            <h6 className="text-white mb-0">
-                              {members.discounts}
-                            </h6>
+                            <h6 className=" mb-0">{members.discounts}</h6>
                           </div>
                           <small className="opacity-50 text-nowrap">1w</small>
                         </div>
                       </Link>
                       <Link
                         href="/"
-                        className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-dark"
+                        className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-transparent"
                         aria-current="true"
                       >
                         <i
@@ -229,16 +223,14 @@ export default function Amenities({ members }) {
                         ></i>
                         <div className="d-flex gap-2 w-100 justify-content-between">
                           <div>
-                            <h6 className="text-white mb-0">
-                              {members.wellness}
-                            </h6>
+                            <h6 className=" mb-0">{members.wellness}</h6>
                           </div>
                           <small className="opacity-50 text-nowrap">1w</small>
                         </div>
                       </Link>
                       <Link
                         href="/"
-                        className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-dark"
+                        className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-transparent"
                         aria-current="true"
                       >
                         <i
@@ -248,14 +240,14 @@ export default function Amenities({ members }) {
                         ></i>
                         <div className="d-flex gap-2 w-100 justify-content-between">
                           <div>
-                            <h6 className="text-white mb-0">{members.wifi}</h6>
+                            <h6 className=" mb-0">{members.wifi}</h6>
                           </div>
                           <small className="opacity-50 text-nowrap">1w</small>
                         </div>
                       </Link>
                       <Link
                         href="/"
-                        className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-dark"
+                        className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-transparent"
                         aria-current="true"
                       >
                         <i
@@ -265,16 +257,14 @@ export default function Amenities({ members }) {
                         ></i>
                         <div className="d-flex gap-2 w-100 justify-content-between">
                           <div>
-                            <h6 className="text-white mb-0">
-                              {members.guests}
-                            </h6>
+                            <h6 className=" mb-0">{members.guests}</h6>
                           </div>
                           <small className="opacity-50 text-nowrap">1w</small>
                         </div>
                       </Link>
                       <Link
                         href="/"
-                        className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-dark"
+                        className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-transparent"
                         aria-current="true"
                       >
                         <i
@@ -284,16 +274,14 @@ export default function Amenities({ members }) {
                         ></i>
                         <div className="d-flex gap-2 w-100 justify-content-between">
                           <div>
-                            <h6 className="text-white mb-0">
-                              {members.session}
-                            </h6>
+                            <h6 className=" mb-0">{members.session}</h6>
                           </div>
                           <small className="opacity-50 text-nowrap">1w</small>
                         </div>
                       </Link>
                       <Link
                         href="/"
-                        className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-dark"
+                        className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-transparent"
                         aria-current="true"
                       >
                         <i
@@ -304,16 +292,14 @@ export default function Amenities({ members }) {
 
                         <div className="d-flex gap-2 w-100 justify-content-between">
                           <div>
-                            <h6 className="text-white mb-0">
-                              {members.training}
-                            </h6>
+                            <h6 className=" mb-0">{members.training}</h6>
                           </div>
                           <small className="opacity-50 text-nowrap">1w</small>
                         </div>
                       </Link>
                       <Link
                         href="/"
-                        className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-dark"
+                        className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-transparent"
                         aria-current="true"
                       >
                         <i
@@ -323,14 +309,14 @@ export default function Amenities({ members }) {
                         ></i>
                         <div className="d-flex gap-2 w-100 justify-content-between">
                           <div>
-                            <h6 className="text-white mb-0">{members.tan}</h6>
+                            <h6 className=" mb-0">{members.tan}</h6>
                           </div>
                           <small className="opacity-50 text-nowrap">1w</small>
                         </div>
                       </Link>
                       <Link
                         href="/"
-                        className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-dark"
+                        className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-transparent"
                         aria-current="true"
                       >
                         <i
@@ -340,16 +326,14 @@ export default function Amenities({ members }) {
                         ></i>
                         <div className="d-flex gap-2 w-100 justify-content-between">
                           <div>
-                            <h6 className="text-white mb-0">
-                              {members.massage}
-                            </h6>
+                            <h6 className=" mb-0">{members.massage}</h6>
                           </div>
                           <small className="opacity-50 text-nowrap">1w</small>
                         </div>
                       </Link>
                       <Link
                         href="/"
-                        className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-dark"
+                        className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-transparent"
                         aria-current="true"
                       >
                         <i
@@ -359,7 +343,7 @@ export default function Amenities({ members }) {
                         ></i>
                         <div className="d-flex gap-2 w-100 justify-content-between">
                           <div>
-                            <h6 className="text-white mb-0">{members.spa}</h6>
+                            <h6 className=" mb-0">{members.spa}</h6>
                           </div>
                           <small className="opacity-50 text-nowrap">1w</small>
                         </div>
@@ -373,7 +357,7 @@ export default function Amenities({ members }) {
                   <div className=" d-lg-flex ">
                     <span>
                       <h6 className="mt-2">
-                        © 2024 Prime Fitness All Rights Reserved
+                        © 2025 Prime Fitness All Rights Reserved
                       </h6>
                     </span>
                   </div>

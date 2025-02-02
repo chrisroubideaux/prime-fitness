@@ -3,7 +3,6 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-// component imports
 import Navbar from '@/components/nav/Navbar';
 import Nav from '@/components/memberships/Nav';
 import Amenities from '@/components/memberships/Amenities';
@@ -47,11 +46,10 @@ export default function Details({ params }) {
           </div>
         </div>
         {/* section */}
-        <section className="bg-dark shadow-lg rounded-3 px-4 py-lg-4  ">
+        <section className=" shadow-lg rounded-3 px-4 py-lg-4  ">
           <div className="py-lg-3 py-2 px-lg-3">
             <div className="row gy-4">
               <div className="col-lg-6">
-                {/*membership details */}
                 <div className="d-flex align-items-center flex-wrap text-nowrap mb-sm-4 mb-3 fs-sm mx-2">
                   <h6 className="mb-2 me-sm-3 me-2 fs-6 ">
                     Membership Type: {member.title}
@@ -75,21 +73,21 @@ export default function Details({ params }) {
                   <div className="row row-cols-sm-2 row-cols-1 gy-3 gx-4 mb-4 pb-md-2">
                     <div className="col">
                       <div className=" position-relative h-100">
-                        <h6 className="text-white fs-5">Amenities</h6>
+                        <h6 className=" fs-5">Amenities</h6>
                         <Amenities members={member} />
                       </div>
                     </div>
                     <div className="col">
                       <div className=" position-relative h-100">
-                        <h6 className="text-white fs-5">Description</h6>
-                        <p className="text-white">{member.description}</p>
+                        <h6 className=" fs-5">Description</h6>
+                        <p className="par">{member.description}</p>
                       </div>
                     </div>
                     {/*section */}
                   </div>
                   <div className="row row-cols-sm-2 row-cols-1 g-sm-4 g-3 mb-4">
                     <div className="col">
-                      <h6 className="mt-2 text-white">
+                      <h6 className="mt-2 ">
                         {`today's`} {member.price}
                       </h6>
                     </div>
