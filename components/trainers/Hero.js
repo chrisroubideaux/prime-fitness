@@ -5,11 +5,13 @@ import Search from '../nav/Search';
 export default function Hero({}) {
   return (
     <>
-      <div className="mt-4 pt-4">
+      <div className="pt-4 m-2">
         <div className="trainers">
           <div className="containter text-center mt-5 pt-5">
-            <h1 className="pt-5 mt-5">Personal Training</h1>
-            <p className="fs-3 text-white">Find the right trainer for you.</p>
+            <h1 className="pt-5 mt-5 text-white">Personal Training</h1>
+            <p className=" par fs-3 text-white ">
+              Find the right trainer for you.
+            </p>
           </div>
           <div className="container pt-5">
             <ul className="nav justify-content-center list-unstyled d-flex pt-5 ">

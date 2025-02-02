@@ -1,9 +1,7 @@
 //trainer bio page
-
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/router'; // Correct import statement
-// imports
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Navbar from '@/components/nav/Navbar';
 import Nav from '@/components/trainers/Nav';
@@ -14,9 +12,6 @@ import Amenities from '@/components/trainers/Amenities';
 import Maps from '@/components/maps/Maps';
 import Iconbar from '@/components/trainers/Iconbar';
 import Footer from '@/components/misc/Footer';
-import trainers from '@/data/trainers';
-
-//
 
 const Details = ({}) => {
   const [trainer, setTrainer] = useState([]);
@@ -46,65 +41,26 @@ const Details = ({}) => {
       <Navbar />
       {/* page layout */}
       <div className="layout h-100">
-        <div className="container my-5">
+        <div className="container-fluid my-5">
           <div className="container-fluid">
             <Nav />
           </div>
-          <div className="mt-3">
-            <div className="container">
-              <h3>{trainer.title}</h3>
+          <div className="row py-4">
+            <div className="col-md-6">
+              <h3 className="fw-bold">{trainer.title}</h3>
+              <Avatar trainers={trainer} />
             </div>
-            <Toolbar trainers={trainer} />
-            <div className="row gx-2">
-              <div className="col-md-8">
-                <Trainer trainers={trainer} />
-              </div>
-              <div className="col-md-4">
-                <div className="d-flex justify-content-end">
-                  <p className="text-white lh-3 fs-5 m-1">
-                    {trainer.description}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="container mt-5 py-4 my-4">
-              <hr className="hr w-25 mx-auto pt-5" />
-              <div className="row">
-                <div className="col-md-6">
-                  <div className="container">
-                    <h3 className="fw-bold me-5 text-center">Amenities</h3>
-                  </div>
-                  <div className=" ">
-                    <Amenities trainers={trainer} />
-                  </div>
-                </div>
-                <div className="col-md-6">
-                  <h3 className="fw-bold text-center">Locations</h3>
-                  <Maps />
-                  <div className="container d-flex justify-content-end fs-6 m-4"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="container">
-            <div className="row py-4">
-              <div className="col-md-6">
-                <h4 className=" text-center fw-normal text-white">
-                  Personal Trainer: {trainer.name}
-                </h4>
-                <Avatar trainers={trainer} />
-              </div>
-              <div className="col-md-6">
-                <h2 className="text-center fw-bold">About</h2>
-                <div className="d-flex justify-content-end">
-                  <p className="text-white lh-2 fs-5 m-1">{trainer.bio}</p>
-                </div>
-              </div>
+            <div className="col-md-6">
+              <Amenities trainers={trainer} />
             </div>
           </div>
         </div>
+        <div className="container-fluid mt-3">
+          <h3 className="fw-bold text-center">Locations</h3>
+          <Maps />
+        </div>
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 };

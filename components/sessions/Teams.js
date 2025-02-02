@@ -5,7 +5,7 @@ export default function Card({ sessions }) {
   return (
     <>
       <Link className="nav-link" href={`/sessions/${sessions.id}`}>
-        <div className="card mx-5" style={{ maxWidth: '540px' }}>
+        <div className=" mx-5" style={{ maxWidth: '540px' }}>
           <div className="row g-0">
             <div className="col-sm-4">
               <img
@@ -15,11 +15,9 @@ export default function Card({ sessions }) {
               />
             </div>
 
-            <div className="card-body ">
-              <div className="card-footer text-nowrap  ">
-                <h6 className="mb-2 fs-xs fw-bold text-white">
-                  {sessions.name}
-                </h6>
+            <div className=" m-4 ">
+              <div className=" text-nowrap  ">
+                <h6 className="mb-2 fs-xs fw-bold ">{sessions.name}</h6>
                 <h6 className="mb-2 fs-xs text-uppercase">
                   {sessions.instructor}
                 </h6>

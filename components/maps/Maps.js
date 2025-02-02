@@ -15,8 +15,8 @@ export default function SimpleMap() {
 
   return (
     <div
-      className="container-fluid  "
-      style={{ height: '50vh', width: '100%' }}
+      className="container-fluid mt-5 "
+      style={{ height: '100vh', width: '100%' }}
     >
       <GoogleMapReact
         bootstrapURLKeys={{ key: 'AIzaSyByGr3iMNbXEJCBZhv5N5Y5cuBCkMBtvYE' }}

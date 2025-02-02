@@ -39,10 +39,8 @@ export default function Memberships() {
         <Hero />
         <div className="container py-5 mt-5">
           <div className="container col-lg-10 m-auto">
-            <h1 className="text-center text-white mt-3 display-4 ">
-              Memberships
-            </h1>
-            <p className="text-white text-center lead">
+            <h1 className="text-center mt-3 display-4 ">Memberships</h1>
+            <p className="par text-center lead">
               Here at prime we beleive in flexiablity for every one see below
               which membership fits your need. Sign up for one of our daily
               tours and see why we were voted the number one fitness club in the
@@ -52,13 +50,18 @@ export default function Memberships() {
           <div className="mt-5">
             <Iconbar />
           </div>
-          <hr className="hr" />
-          <div className="row row-cols-1 row-cols-1 row-cols-lg-3 row-cols-md-4 g-1 py-5">
-            {members.map((members) => (
-              <div key={members.id} className=" py-5 ">
-                <Members members={members} />
-              </div>
-            ))}
+          <div className="container m-auto my-5 py-5">
+            <hr className="hr" />
+            <div className="container">
+              <h1>Memberships</h1>
+            </div>
+            <div className="row row-cols-1 row-cols-1 row-cols-lg-3 row-cols-md-4 g-1 py-5">
+              {members.map((members) => (
+                <div key={members.id} className=" py-5 ">
+                  <Members members={members} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
         <Features />

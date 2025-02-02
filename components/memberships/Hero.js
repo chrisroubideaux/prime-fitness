@@ -9,10 +9,8 @@ export default function Hero() {
       <div className="mt-4 pt-4">
         <div className="plans ">
           <div className="containter text-center mt-5 pt-5">
-            <h1 className="pt-5 mt-5">
-              Memberships for everyone and everyday life
-            </h1>
-            <p className="fs-3 text-white">Find the right trainer for you.</p>
+            <h1 className="pt-5 mt-5 text-white">Memberships for everyone</h1>
+            <p className="fs-3 text-white">Find the right plan for you.</p>
           </div>
 
           <div className="container pt-5">

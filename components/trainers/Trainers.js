@@ -13,10 +13,10 @@ export default function Card({ trainers }) {
             alt="..."
           />
           <div className="carousel-caption pb-5 mt-5">
-            <h3 className="text-center mb-5 pb-5 text-light">
-              {trainers.title}
-            </h3>
-            <h6 className="text-center fs-5 fw-bold pt-5 my-5">View</h6>
+            <h3 className="text-center pb-4 text-light">{trainers.title}</h3>
+            <h4 className="text-center fs-3 fw-bold pt-5 my-5 text-light">
+              View
+            </h4>
           </div>
         </div>
       </Link>

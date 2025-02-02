@@ -51,9 +51,9 @@ const Session = () => {
           <div className="container m-auto my-5 py-5">
             <hr className="hr " />
             <div className="container">
-              <h2>Class Instructors</h2>
+              <h1>Class Instructors</h1>
             </div>
-            <div className="row row-cols-1 row-cols-1 row-cols-lg-3 row-cols-lg-4 g-4 py-5 mt-4">
+            <div className="row row-cols-1 row-cols-1 row-cols-lg-3 row-cols-lg-4 g-4 py-3 ">
               {sessions.map((sessions) => (
                 <div key={sessions.id} className=" py-5 ">
                   <Instructors className="" sessions={sessions} />

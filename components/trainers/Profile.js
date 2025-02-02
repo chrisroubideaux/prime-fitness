@@ -6,23 +6,21 @@ export default function Card({ trainers }) {
   return (
     <>
       <Link className="nav-link" href={`/trainers/${trainers._id}`}>
-        <div className="card mx-5 ">
+        <div className=" mx-5 ">
           <img
             src={trainers.profile}
             className="avatar rounded-circle  mt-2 mx-3 my-3 border-0"
             alt="..."
           />
         </div>
-        <div className="card-body mx-4">
-          <div className="card-footer mx-4 text-nowrap">
-            <h6 className="mb-2 fs-xs fw-bold text-white mx-4">
-              {trainers.name}
-            </h6>
+        <div className="m-4">
+          <div className=" mx-4 text-nowrap">
+            <h6 className="mb-2 fs-xs fw-bold mx-4">{trainers.name}</h6>
             <h6 className="mb-2 fs-xs text-uppercase mx-4">
               {trainers.instructor}
             </h6>
             <span className="d-inline-block ">
-              <h6 className=" mb-1 fs-sm fw-bold mx-4 text-white">
+              <h6 className=" mb-1 fs-sm fw-bold mx-4">
                 <FaEnvelope className="card-icon mt-n1 me-2" />
                 {trainers.email}
               </h6>

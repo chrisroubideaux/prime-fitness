@@ -2,8 +2,6 @@
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
-// component imports
 import Navbar from '@/components/nav/Navbar';
 import Hero from '@/components/trainers/Hero';
 import Iconbar from '@/components/misc/Iconbar';
@@ -34,13 +32,11 @@ export default function Trainer() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <div className="layout">
+      <div className="layout h-100">
         <Hero />
         <div className="container col-lg-10 m-auto my-5 py-5">
-          <h1 className="text-center text-white mt-3 display-4">
-            Personal Trainers
-          </h1>
-          <p className="text-white text-center lead ">
+          <h1 className="text-center mt-3 display-4">Personal Trainers</h1>
+          <p className="par text-center lead ">
             Here at prime we beleive in flexiablity for every one see below
             which membership fits your need. Sign up for one of our daily tours
             and see why we were voted the number one fitness club in the area.
@@ -52,9 +48,9 @@ export default function Trainer() {
         <div className="container m-auto my-5 py-5">
           <hr className="hr " />
           <div className="container">
-            <h2 className="mt-2">Class Instructors</h2>
+            <h1 className="mt-2 fs-3">Personal Trainers</h1>
           </div>
-          <div className="row row-cols-1 row-cols-1 row-cols-lg-3 row-cols-lg-4 g-4 py-5 mt-3">
+          <div className="row row-cols-1 row-cols-1 row-cols-lg-3 row-cols-lg-4 g-4  ">
             {trainers.map((trainers) => (
               <div key={trainers.id} className=" py-5 ">
                 <Trainers className="" trainers={trainers} />

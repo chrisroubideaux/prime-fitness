@@ -1,7 +1,7 @@
 // features component
 import Image from 'next/image';
 import banner from '@/public/images/banner/banner.jpg';
-import banner6 from '@/public/images/banner/banner6.jpg';
+//import banner6 from '@/public/images/banner/banner6.jpg';
 import icon1 from '@/public/images/icons/icon1.png';
 import icon2 from '@/public/images/icons/icon2.png';
 export default function Features() {
@@ -21,7 +21,7 @@ export default function Features() {
           <div className="row flex-lg-row-reverse align-items-center g-5 my-5">
             <div className="col-10 col-sm-8 col-lg-6 mb-5">
               <Image
-                src={banner6}
+                src="/"
                 className="d-block mx-lg-auto img-fluid image"
                 alt="img"
                 width={600}

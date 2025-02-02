@@ -29,7 +29,6 @@ export default function Team() {
       });
   }, []);
 
-  // useEffect for feching tour guide data from the server
   useEffect(() => {
     axios
       .get('http://localhost:3001/guides')

@@ -16,27 +16,27 @@ export default function Toolbar({ trainers }) {
     <div>
       <ul className="nav list-unstyled d-flex py-2 overflow-hidden mt-3">
         <li className="nav-item ms-3">
-          <h6 className="fw-normal mb-2 text-white">
+          <h6 className="fw-normal mb-2">
             <FaUsers className="card-icon me-2" />
             {trainers.group}
           </h6>
         </li>
 
-        <li className="nav-item ms-3 text-white">
-          <h6 className="fw-normal mb-2 text-white">
+        <li className="nav-item ms-3">
+          <h6 className="fw-normal mb-2">
             <FaCheckCircle className="card-icon me-2" />
             {trainers.level}
           </h6>
         </li>
 
         <li className="nav-item ms-3">
-          <h6 className="fw-normal mb-2 text-white">
+          <h6 className="fw-normal mb-2">
             <FaLaptop className="card-icon me-2" />
             {trainers.virtualSession}
           </h6>
         </li>
         <li className="nav-item ms-3">
-          <h6 className=" fw-bold mb-2 text-white">
+          <h6 className=" fw-normal mb-2">
             <FaComment className="card-icon me-2" />
             {trainers.chat}
           </h6>
