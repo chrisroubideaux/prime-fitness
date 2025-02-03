@@ -8,6 +8,7 @@ import Nav from '@/components/memberships/Nav';
 import Amenities from '@/components/memberships/Amenities';
 import Member from '@/components/memberships/Member';
 import Checkout from '@/components/payments/Checkout';
+import Maps from '@/components/maps/Maps';
 import Footer from '@/components/misc/Footer';
 
 // react icon imports
@@ -100,6 +101,12 @@ export default function Details({ params }) {
             </div>
           </div>
         </section>
+        <div className="container-fluid py-5 mt-3">
+          <h4 className="text-center display-5 mt-2 fs-sm pt-3 fw-normal">
+            Locations
+            <Maps />
+          </h4>
+        </div>
         <Footer />
       </div>
     </>

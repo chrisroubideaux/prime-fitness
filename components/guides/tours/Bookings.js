@@ -31,14 +31,11 @@ export default function Bookings({
       return;
     }
     try {
-      const response = await axios.post(
-        'https://fitness-server-c1a2fb04992c.herokuapp.com/appointments',
-        {
-          guideId: guides._id,
-          selectedSlot,
-          appointmentId: selectedAppointment ? selectedAppointment._id : null,
-        }
-      );
+      const response = await axios.post('http://localhost:3001/appointments', {
+        guideId: guides._id,
+        selectedSlot,
+        appointmentId: selectedAppointment ? selectedAppointment._id : null,
+      });
 
       console.log('Appointment created or rescheduled:', response.data);
 
@@ -66,7 +63,7 @@ export default function Bookings({
   const handleDeleteAppointment = async (appointmentId) => {
     try {
       const response = await axios.delete(
-        `https://fitness-server-c1a2fb04992c.herokuapp.com/appointments/${appointmentId}`
+        `http://localhost:3001/appointments/appointments/${appointmentId}`
       );
 
       console.log('Appointment deleted:', response.data);
