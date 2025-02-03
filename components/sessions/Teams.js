@@ -4,7 +4,7 @@ import { FaEnvelope, FaFacebookF, FaInstagram, FaTiktok } from 'react-icons/fa';
 export default function Card({ sessions }) {
   return (
     <>
-      <Link className="nav-link" href={`/sessions/${sessions.id}`}>
+      <Link className="nav-link" href={`/sessions/${sessions._id}`}>
         <div className=" mx-5" style={{ maxWidth: '540px' }}>
           <div className="row g-0">
             <div className="col-sm-4">

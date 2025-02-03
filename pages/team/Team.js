@@ -7,7 +7,7 @@ import Navbar from '@/components/nav/Navbar';
 import Hero from '@/components/team/Hero';
 import Profile from '@/components/trainers/Profile';
 import Teams from '@/components/sessions/Teams';
-import Guides from '@/components/team/Guides';
+import Guides from '@/components/guides/Guides';
 import Owners from '@/components/owners/Owners';
 import Iconbar from '@/components/misc/Iconbar';
 import Footer from '@/components/misc/Footer';

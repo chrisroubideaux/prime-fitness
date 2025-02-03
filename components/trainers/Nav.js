@@ -16,7 +16,7 @@ export default function Nav() {
                     Home
                   </Link>
                 </li>
-                <li className="breadcrumb-item text-nowrap me-1">
+                <li className="breadcrumb-item text-nowrap me-2">
                   <Link className="nav-link" href="/trainers/Trainers/">
                     <FaIdBadge className="card-icon me-1" />
                     Classes

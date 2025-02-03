@@ -5,7 +5,7 @@ import { FaEnvelope, FaFacebookF, FaInstagram, FaTiktok } from 'react-icons/fa';
 export default function Card({ guides }) {
   return (
     <>
-      <Link className="nav-link" href={`/guides/${guides.id}`}>
+      <Link className="nav-link" href={`/guides/${guides._id}`}>
         <div className=" mx-5 ">
           <img
             src={guides.profile}

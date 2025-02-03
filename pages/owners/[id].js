@@ -3,11 +3,11 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-// component imports
 import Navbar from '@/components/nav/Navbar';
 import Nav from '@/components/owners/Nav';
 import Bio from '@/components/owners/Bio';
 import Toolbar from '@/components/owners/Toolbar';
+import Maps from '@/components/maps/Maps';
 import Footer from '@/components/misc/Footer';
 
 export default function OwnerDetails({}) {
@@ -52,12 +52,18 @@ export default function OwnerDetails({}) {
                 <h4 className="text-center display-5 mt-2 fs-sm pt-3 fw-normal">
                   {owner.name}
                 </h4>
-                <p className=" par d-flex justify-content-end fs-4 lh-2 fw-normal m-2 text-white my-4">
+                <p className=" par d-flex justify-content-end fs-4 lh-2 fw-normal m-2  my-4">
                   {owner.bio}
                 </p>
                 <div className="d-flex justify-content-end p-2 me-5"></div>
               </div>
             </div>
+          </div>
+          <div className="container-fluid">
+            <h4 className="text-center display-5 mt-2 fs-sm pt-3 fw-normal">
+              Locations
+              <Maps />
+            </h4>
           </div>
         </div>
         <Footer />

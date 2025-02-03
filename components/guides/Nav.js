@@ -1,5 +1,4 @@
 // nav component
-
 import Link from 'next/link';
 import { FaDumbbell, FaHouseUser, FaIdBadge } from 'react-icons/fa';
 
@@ -17,7 +16,7 @@ export default function Nav() {
                     Home
                   </Link>
                 </li>
-                <li className="breadcrumb-item text-nowrap me-1">
+                <li className="breadcrumb-item text-nowrap me-2">
                   <Link className="nav-link" href="/guides/Guides">
                     <FaIdBadge className="card-icon me-1" />
                     Guides

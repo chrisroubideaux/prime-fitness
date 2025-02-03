@@ -55,9 +55,11 @@ const Details = ({}) => {
             </div>
           </div>
         </div>
-        <div className="container-fluid mt-3">
-          <h3 className="fw-bold text-center">Locations</h3>
-          <Maps />
+        <div className="container-fluid">
+          <h4 className="text-center display-5 mt-2 fs-sm pt-3 fw-normal">
+            Locations
+            <Maps />
+          </h4>
         </div>
         <Footer />
       </div>

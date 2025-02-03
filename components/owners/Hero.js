@@ -10,9 +10,7 @@ export default function Hero({}) {
         <div className="owners">
           <div className="containter text-center mt-5 pt-5">
             <h1 className="pt-5 mt-5">Owners</h1>
-            <p className="fs-3 text-white">
-              Locally owned and operated since 2019
-            </p>
+            <p className=" par fs-3">Locally owned and operated since 2019</p>
           </div>
 
           <div className="container pt-5">

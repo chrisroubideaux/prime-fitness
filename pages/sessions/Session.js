@@ -9,6 +9,7 @@ import Instructors from '@/components/sessions/Instructors';
 import Features from '@/components/misc/Features';
 import Details from '@/components/misc/Details';
 import Footer from '@/components/misc/Footer';
+import Hero from '@/components/sessions/Hero';
 
 const Session = () => {
   const [sessions, setSessions] = useState([]);
@@ -32,6 +33,7 @@ const Session = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
+      <Hero />
       <div className="layout h-100">
         <div className="">
           <div className="container col-lg-10 m-auto my-5 py-5">

@@ -9,6 +9,7 @@ import Nav from '@/components/guides/Nav';
 import Avatar from '@/components/guides/Avatar';
 import Bookings from '@/components/guides/tours/Bookings';
 import Toolbar from '@/components/guides/Toolbar';
+import Maps from '@/components/maps/Maps';
 import Footer from '@/components/misc/Footer';
 
 export default function Details({}) {
@@ -60,6 +61,12 @@ export default function Details({}) {
               </div>
             </div>
           </div>
+        </div>
+        <div className="container-fluid">
+          <h4 className="text-center display-5 mt-2 fs-sm pt-3 fw-normal">
+            Locations
+            <Maps />
+          </h4>
         </div>
         <Footer />
       </div>
