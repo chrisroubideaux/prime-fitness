@@ -12,7 +12,7 @@ const {
 } = require('../users/userController');
 
 userRoutes.post('/login', login); // Login user
-userRoutes.get('/logout', logout); // Logout user
+userRoutes.post('/logout', logout); // Logout user
 userRoutes.post('/', createUser); // Create a new user
 userRoutes.get('/', getAllUsers); // Get all users
 userRoutes.get('/:id', getUserById); // Get a single user by ID

@@ -152,7 +152,7 @@ app.get(
   '/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
-    res.redirect(`https://dakota-realtors.vercel.app/admins/${userId}`);
+    res.redirect(`http://localhost:3000/users/${userId}`);
   }
 );
 
