@@ -1,51 +1,43 @@
 // facebook passport configuration
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
-const User = require('../models/user');
-
+const User = require('../users/userModel');
+const Guide = require('../guides/guide');
 require('dotenv').config();
 
-// passport facebook config
-
 passport.use(
-  new FacebookStrategy(async (_accessToken, _refreshToken, profile, done) => {
-    try {
-      const existingUser = await User.findOne({ 'facebook.id': profile.id });
+  new FacebookStrategy(
+    {
+      clientID: process.env.FACEBOOK_CLIENT_ID,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+      callbackURL: '/auth/facebook/callback',
+      profileFields: ['id', 'emails', 'name', 'displayName', 'photos'],
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        const email = profile.emails[0]?.value;
+        console.log('Facebook profile email:', email);
 
-      if (existingUser) {
-        return done(null, existingUser);
+        let user = await User.findOne({ email });
+        if (user) {
+          user.role = 'user';
+          console.log('User found:', user);
+          return done(null, user);
+        }
+
+        user = await Guide.findOne({ email });
+        if (user) {
+          user.role = 'guide';
+          console.log('Agent found:', user);
+          return done(null, user);
+        }
+
+        console.log('User not found');
+        return done(null, false, { message: 'User not found in any role' });
+      } catch (err) {
+        console.error('Error in Facebook Strategy:', err);
+        return done(err, null);
       }
-
-      const newUser = new User({
-        facebook: {
-          id: profile.id,
-          displayName: profile.displayName,
-          email: profile.emails[0].value,
-        },
-      });
-
-      await newUser.save();
-
-      return done(null, newUser);
-    } catch (err) {
-      return done(err);
     }
-  })
+  )
 );
-
-// passport facebook serialize and deserialize
-
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await User.findById(id);
-    done(null, user);
-  } catch (err) {
-    done(err);
-  }
-});
-
-module.exports = passport;

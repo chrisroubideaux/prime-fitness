@@ -16,7 +16,6 @@ facebookRoutes.get(
   passport.authenticate('facebook', { scope: ['email', 'user_photos'] })
 );
 
-// Facebook OAuth callback route for registration
 facebookRoutes.get(
   '/facebook/callback/register',
   passport.authenticate('facebook', {
@@ -28,9 +27,7 @@ facebookRoutes.get(
 
       const registrationTimestamp = new Date();
 
-      const token = jwt.sign({ email, fullName }, process.env.JWT_SECRET, {
-        expiresIn: '30 min',
-      });
+      const token = jwt.sign({ _id }, process.env.JWT_SECRET);
 
       const newUser = new User({
         _id,
@@ -48,16 +45,14 @@ facebookRoutes.get(
   }
 );
 
-// Facebook OAuth callback route for login
 facebookRoutes.get(
   '/facebook/callback/login',
   passport.authenticate('facebook', {
     failureRedirect: '/login',
   }),
   (req, res) => {
-    const token = jwt.sign({ email, fullName }, process.env.JWT_SECRET, {
-      expiresIn: '30 min',
-    });
+    const token = jwt.sign({ _id: req.user._id }, process.env.JWT_SECRET);
+
     res.json({ token });
   }
 );

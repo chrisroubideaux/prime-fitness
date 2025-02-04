@@ -6,9 +6,6 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const passport = require('passport');
-// Import the verifyToken function
-
-// auth routes
 const appointmentRoutes = require('./appointments/appointments');
 const authRoutes = require('./routes/auth');
 const sessionRoutes = require('./sessions/sessions');
@@ -18,30 +15,12 @@ const memberRoutes = require('./members/members');
 const guideRoutes = require('./guides/guides');
 const ownerRoutes = require('./owners/owners');
 //const adminRoutes = require('./admin/admin');
-const userRoutes = require('./routes/user');
-const User = require('./models/user');
-
-// stripe routes
-const stripeRoutes = require('./stripe/stripe');
-
-// Import for secret key from the environment variables
-const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
-
-// Import for Stripe secret key from the environment variables
-const stripe = require('stripe')(stripeSecretKey);
-
-// Google Strategy
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-
-// Facebook Strategy
-const FacebookStrategy = require('passport-facebook').Strategy;
-
+const userRoutes = require('./users/userRoutes');
+const paymentsRoute = require('./stripe/payments');
 // Load environment variables from .env file
 require('dotenv').config();
-
 const app = express();
 const port = process.env.PORT || 3001;
-
 const mongoURI = process.env.MONGO_URI;
 
 // mongoose
@@ -54,49 +33,76 @@ mongoose
     console.error('Error connecting to MongoDB:', error);
   });
 
-// cors
+// cors middleware
+
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  // origin: 'http://localhost:3000',
+  origin: process.env.CLIENT_BASE_URL || 'http://localhost:3000',
+  credentials: true,
+  allowedHeaders: ['Authorization', 'Content-Type'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
 };
 
-// Import the verifyToken function
+app.use(cors(corsOptions));
+app.use(json());
+app.use(express.json());
+app.use(urlencoded({ extended: true }));
+
+// Verify Token  for middleware function
 function verifyToken(req, res, next) {
-  const token = req.headers['authorization'];
-  console.log('Token for Verification:', token);
-  if (!token) {
+  const authHeader = req.headers['authorization'];
+  console.log('Authorization Header:', authHeader);
+
+  if (!authHeader) {
     return res.status(401).json({ error: 'Authentication token is missing' });
   }
 
+  const token = authHeader.split(' ')[1];
+  console.log('Extracted Token:', token);
+
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
-      if (err.name === 'TokenExpiredError') {
-        return res.status(401).json({ error: 'Token has expired' });
-      }
-      console.error('Token verification error:', err);
+      console.error('Token verification failed:', err.message);
       return res.status(401).json({ error: 'Invalid token' });
     }
-    req.userId = decoded.id;
+
+    req.userId = decoded._id;
+    console.log('Token Verified, User ID:', req.userId);
     next();
   });
 }
 
-// Configure session middleware (optional if you're using JWT)
+{
+  /*
+const verifyToken = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader) {
+    return res.status(401).json({ message: 'Authorization header missing' });
+  }
+
+  const token = authHeader.split(' ')[1];
+  if (!token) {
+    return res.status(401).json({ message: 'Token missing' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    console.error('Token verification error:', error.message);
+    return res.status(401).json({ message: 'Invalid token' });
+  }
+};
+*/
+  /// Session middleware
+}
 const sessionMiddleware = session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
 });
 
-// cors middleware
-app.use(cors(corsOptions));
-app.use(json());
-app.use(express.json());
-app.use(urlencoded({ extended: true }));
-app.use(sessionMiddleware);
-
-// Configure session middleware
-{
-  /*
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -107,148 +113,28 @@ app.use(
     },
   })
 );
-*/
-}
-// google passport oAuth
 
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL:
-        process.env.GOOGLE_CALLBACK_URL ||
-        'http://localhost:3001/auth/google/callback',
-    },
-    async (_accessToken, _refreshToken, profile, done) => {
-      try {
-        const existingUser = await User.findOne({
-          email: profile.emails[0].value,
-        });
+app.use(sessionMiddleware);
 
-        if (existingUser) {
-          return done(null, existingUser);
-        }
-
-        const newUser = new User({
-          email: profile.emails[0].value,
-          fullName: profile.displayName,
-        });
-
-        await newUser.save();
-
-        return done(null, newUser);
-      } catch (err) {
-        return done(err);
-      }
-    }
-  )
-);
-
-// google passport oAuth serialize and deserialize
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await User.findById(id);
-    done(null, user);
-  } catch (err) {
-    done(err);
-  }
-});
-
-// facebook passport oAuth
-passport.use(
-  new FacebookStrategy(
-    {
-      clientID: process.env.FACEBOOK_CLIENT_ID,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-      callbackURL:
-        process.env.FACEBOOK_CALLBACK_URL ||
-        'http://localhost:3001/auth/facebook/callback',
-      profileFields: ['id', 'displayName', 'photos', 'emails'],
-    },
-    async (accessToken, refreshToken, profile, done) => {
-      console.log('Facebook Profile Data:', profile); // inspect profile data
-
-      try {
-        const existingUser = await User.findOne({ 'facebook.id': profile.id });
-
-        if (existingUser) {
-          return done(null, existingUser);
-        }
-
-        const newUser = new User({
-          facebook: {
-            id: profile.id,
-            displayName: profile.displayName,
-            email: profile.emails[0].value,
-          },
-        });
-
-        await newUser.save();
-
-        return done(null, newUser);
-      } catch (err) {
-        return done(err);
-      }
-    }
-  )
-);
-
-// facebook passport oAuth serialize and deserialize
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await User.findById(id);
-    done(null, user);
-  } catch (err) {
-    done(err);
-  }
-});
-// routes
-
-// cover page
+// API routes
 app.get('/', (req, res) => {
   res.send('cover page.');
 });
-
-// instructors route
-
-app.use('/sessions', sessionRoutes);
-
-// trainers route
-app.use('/trainers', trainerRoutes);
-
-// members route
-app.use('/members', memberRoutes);
-
-// guides route
-app.use('/guides', guideRoutes);
-
-// owners route
-app.use('/owners', ownerRoutes);
-
-// appointments route
-app.use('/appointments', appointmentRoutes);
-
-// admin routes
+app.use('/sessions', sessionRoutes); // sessions route
+app.use('/trainers', trainerRoutes); // trainers route
+app.use('/members', memberRoutes); // members route
+app.use('/guides', guideRoutes); // guides route
+app.use('/owners', ownerRoutes); // owners route
+app.use('/appointments', appointmentRoutes); // appointments route
 //app.use('/admin', adminRoutes);
-
-// auth routes and profile routes
-app.use('/auth', authRoutes);
-app.use('/user', verifyToken, userRoutes);
-
+app.use('/auth', authRoutes); // auth routes
+app.use('/users', userRoutes); // user routes
+app.use('/payments', paymentsRoute); // payments route
 app.get('/about', (req, res) => {
   res.send('About page');
 });
 
-// Google OAuth register route
+// Oauth
 app.get(
   '/auth/google/register',
   passport.authenticate('google', { scope: ['openid', 'profile', 'email'] })
@@ -262,12 +148,11 @@ app.get(
   })
 );
 
-// Google OAuth callback route
 app.get(
   '/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
-    res.redirect('http://localhost:3001/users/Users');
+    res.redirect(`https://dakota-realtors.vercel.app/admins/${userId}`);
   }
 );
 
@@ -276,47 +161,32 @@ app.get(
   '/auth/facebook/register',
   passport.authenticate('facebook', { scope: ['email'] })
 );
-
-// Facebook OAuth callback route for registration
-app.get(
-  '/auth/facebook/callback/register',
-  passport.authenticate('facebook', {
-    failureRedirect: '/login',
-  }),
-  (req, res) => {
-    res.redirect('http://localhost:3001/users/Users');
-  }
-);
-
-// Callback routes for both registration and login
+// Facebook OAuth callback route
 app.get(
   '/auth/facebook/callback',
-  passport.authenticate('facebook', {
-    failureRedirect: '/login',
-  }),
+  passport.authenticate('facebook', { failureRedirect: '/' }),
   (req, res) => {
-    res.redirect('http://localhost:3001/user/Users');
+    console.log('Authenticated user:', req.user);
+    if (req.user) {
+      const { role, id } = req.user;
+
+      if (role === 'guide') {
+        res.redirect(`http://localhost:3000/guides/${id}`);
+      } else if (role === 'user') {
+        res.redirect(`http://localhost:3000/users/${id}`);
+      } else {
+        res.redirect('/login');
+      }
+    } else {
+      res.redirect('/login');
+    }
   }
 );
 
-// stripe routes
-app.use('/stripe', stripeRoutes);
-
-// Backend route to fetch Stripe subscription ID based on selected card ID
-app.get('/api/get-stripe-subscription', async (req, res) => {
-  try {
-    const { id } = req.query;
-
-    const stripeSubscriptionId = await stripeSubscriptionId(id);
-
-    res.status(200).json({ stripeSubscriptionId });
-  } catch (error) {
-    console.error('Error fetching Stripe subscription ID:', error);
-    res
-      .status(500)
-      .json({ error: 'An error occurred while fetching the subscription ID' });
-  }
-});
+app.get(
+  '/auth/facebook/login',
+  passport.authenticate('facebook', { scope: ['email'] })
+);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
