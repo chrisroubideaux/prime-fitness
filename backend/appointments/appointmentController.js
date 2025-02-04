@@ -2,7 +2,6 @@
 const Appointment = require('./appointment');
 const jwt = require('jsonwebtoken');
 const User = require('../users/userModel');
-/// Create appointemnts
 
 // Create a new appointment
 const createAppointment = async (req, res) => {
@@ -95,13 +94,11 @@ const createAppointment = async (req, res) => {
 // Get all appointments
 const getAllAppointments = async (req, res) => {
   try {
-    // Fetch all appointments from the database
     const appointments = await Appointment.find();
 
-    // Return success response with the appointments
     return res.status(200).json({
       message: 'All appointments retrieved successfully',
-      appointments, // Send the appointments data
+      appointments,
     });
   } catch (error) {
     console.error('Error retrieving appointments:', error);

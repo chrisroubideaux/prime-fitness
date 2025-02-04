@@ -1,3 +1,4 @@
+// register page
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -10,7 +11,7 @@ import jumbotron3 from '@/public/images/jumbotron/jumbotron3.jpg';
 export default function Register() {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    name: '',
+    fullName: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -18,42 +19,24 @@ export default function Register() {
 
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const [passwordError, setPasswordError] = useState('');
 
+  // Handle form data change
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setFormData({
       ...formData,
       [name]: value,
     });
-
-    if (name === 'password' || name === 'confirmPassword') {
-      if (name === 'confirmPassword' && value !== formData.password) {
-        setPasswordError('Passwords must match.');
-      } else if (
-        name === 'password' &&
-        formData.confirmPassword !== '' &&
-        value !== formData.confirmPassword
-      ) {
-        setPasswordError('Passwords must match.');
-      } else {
-        setPasswordError('');
-      }
-    }
   };
+
+  // Handle form submission
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.password !== formData.confirmPassword) {
-      setPasswordError('Passwords must match.');
-      return;
-    }
-
     try {
       const response = await axios.post(
-        'http://localhost:3001/users',
+        'http://localhost:3001/auth/register',
         formData
       );
 
@@ -65,7 +48,7 @@ export default function Register() {
           router.push(response.data.redirectTo);
         }
 
-        setSuccessMessage('Registration successful!');
+        setSuccessMessage('Registration successful!.');
       } else {
         setErrorMessage(response.data.message);
       }
@@ -74,7 +57,21 @@ export default function Register() {
       setErrorMessage('Internal server error');
     }
   };
-  // Facebook registeration
+
+  // Google registration function
+  const handleGoogleRegister = () => {
+    const googleOAuthURL = 'http://localhost:3001/auth/google/register';
+
+    window.open(
+      googleOAuthURL,
+      'Google OAuth',
+      'align-item-center',
+      'width=300,height=300'
+    );
+  };
+
+  // facebook registration function
+
   const handleFacebookRegister = () => {
     const facebookOAuthURL = 'http://localhost:3001/auth/facebook/register';
 
@@ -85,17 +82,6 @@ export default function Register() {
       'width=300,height=300'
     );
   };
-  // Google registration
-  const handleGoogleRegister = () => {
-    const googleOAuthURL = 'http://localhost:3001/auth/google/login';
-    window.open(
-      googleOAuthURL,
-      'Google OAuth',
-      'align-item-center',
-      'width=300,height=300'
-    );
-  };
-
   // end of oAuth registration function
   return (
     <>
@@ -159,8 +145,8 @@ export default function Register() {
                   className="form-control m-2 fw-bold"
                   required
                   type="text"
-                  name="name"
-                  value={formData.name}
+                  name="fullName"
+                  value={formData.fullName}
                   onChange={handleChange}
                   placeholder="Enter Full Name"
                 />
@@ -173,11 +159,8 @@ export default function Register() {
                   onChange={handleChange}
                   placeholder="Enter Email"
                 />
-
                 <input
-                  className={`form-control m-2 fw-bold ${
-                    passwordError ? 'is-invalid' : ''
-                  }`}
+                  className="form-control m-2 fw-bold"
                   required
                   type="password"
                   name="password"
@@ -186,9 +169,7 @@ export default function Register() {
                   placeholder="Enter Password"
                 />
                 <input
-                  className={`form-control m-2 fw-bold ${
-                    passwordError ? 'is-invalid' : ''
-                  }`}
+                  className="form-control m-2 fw-bold"
                   required
                   type="password"
                   name="confirmPassword"
@@ -196,43 +177,37 @@ export default function Register() {
                   onChange={handleChange}
                   placeholder="Confirm Password"
                 />
-                {passwordError && (
-                  <p className="text-danger fw-bold">{passwordError}</p>
-                )}
-                <button className="w-100 btn bt-sm" type="submit">
-                  Register
-                </button>
-                {/** */}
-                {passwordError && (
-                  <p className="text-danger fw-bold">{passwordError}</p>
-                )}
-                <div className="">
-                  <h6 className="text-muted text-center pt-3">
-                    or register with
-                  </h6>
-                  <ul className="nav justify-content-center list-unstyled d-flex pt-2 ">
-                    <li className="ms-3">
-                      <button
-                        className="text-muted bg-transparent border-0"
-                        onClick={handleFacebookRegister}
-                      >
-                        <i className="social-icons fs-2 fa-brands fa-facebook mt-1"></i>
-                      </button>
-                    </li>
-                    <li className="ms-3">
-                      <button
-                        className="text-muted bg-transparent border-0"
-                        onClick={handleGoogleRegister}
-                      >
-                        <i className="social-icons fs-2 fa-brands fa-google mt-1"></i>
-                      </button>
-                    </li>
-                  </ul>
+
+                <div className="container mt-3">
+                  {errorMessage && (
+                    <p className="text-danger">{errorMessage}</p>
+                  )}
+                  {successMessage && (
+                    <p className="text-success">{successMessage}</p>
+                  )}
+                  <button className="w-100 btn btn-md" type="submit">
+                    register
+                  </button>
                 </div>
-                {errorMessage && <p className="text-danger">{errorMessage}</p>}
-                {successMessage && (
-                  <p className="text-success">{successMessage}</p>
-                )}
+
+                <ul className="nav justify-content-center list-unstyled d-flex pt-3 ">
+                  <li className="ms-3">
+                    <button
+                      className="text-muted bg-transparent border-0"
+                      onClick={handleFacebookRegister}
+                    >
+                      <i className="social-icons fs-3 fa-brands fa-facebook mt-1"></i>
+                    </button>
+                  </li>
+                  <li className="ms-3">
+                    <button
+                      className="text-muted bg-transparent border-0"
+                      onClick={handleGoogleRegister}
+                    >
+                      <i className="social-icons fs-3 fa-brands fa-google mt-1"></i>
+                    </button>
+                  </li>
+                </ul>
 
                 <p className="par mt-5 mb-3 text-dark">
                   &copy; Prime Fitness, 2025
