@@ -25,8 +25,26 @@ const appointmentSchema = new mongoose.Schema(
     npc: String,
     rating: String,
     reviews: String,
-  },
+    verified: String,
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
 
+    guide: {
+      type: String,
+      required: true,
+    },
+    guideId: {
+      type: String,
+      required: false,
+    },
+  },
   {
     timestamps: true,
   }
