@@ -231,7 +231,7 @@ const logout = async (req, res) => {
     res.clearCookie('token');
     return res.status(200).json({
       message: 'Logged out successfully.',
-      redirectTo: 'http://localhost:3000/login',
+      redirectTo: 'http://localhost:3000',
     });
   } catch (error) {
     console.error('Error during logout:', error);

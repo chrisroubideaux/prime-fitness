@@ -9,7 +9,7 @@ export default function Card({ guides }) {
         <div className=" mx-5 ">
           <img
             src={guides.profile}
-            className="avatar rounded-circle  mt-2 mx-3 my-3 border-0"
+            className="avatar rcircleounded-  mt-2 mx-3 my-3 border-0"
             alt="..."
           />
         </div>

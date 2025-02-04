@@ -2,7 +2,6 @@
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-// component imports
 import Navbar from '@/components/nav/Navbar';
 import Hero from '@/components/team/Hero';
 import Profile from '@/components/trainers/Profile';
@@ -83,13 +82,11 @@ export default function Team() {
               area.
             </p>
           </div>
-
           <div className="mt-5">
             <Iconbar />
           </div>
-
           <h1 className=" text-center py-5 my-5">Owners</h1>
-          <div className="row row-cols-sm-2 row-cols-1 gy-3 gx-4 mb-4 pb-md-2 my-5 h-32 py-3 pt-3">
+          <div className="row row-cols-sm-2 row-cols-1 gy-3 gx-4 mb-4 pb-md-2 my-5 h-32 py-3">
             {owners.map((owners) => (
               <div key={owners.id} className="py-3 my-5">
                 <Owners className="" owners={owners} />
@@ -106,7 +103,7 @@ export default function Team() {
             ))}
           </div>
           <hr className="hr" />
-          <h1 className=" py-3 my-3">Class Instructors</h1>
+          <h1 className=" text-center py-3 my-3">Class Instructors</h1>
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5 pt-3">
             {sessions.map((sessions) => (
               <div key={sessions.id} className="py-3 my-5">

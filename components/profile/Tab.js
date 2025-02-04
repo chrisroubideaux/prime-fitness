@@ -55,7 +55,7 @@ const Tab = ({ setActiveComponent }) => {
 
           <li className="nav-item me-2">
             <a
-              className="btn btn-sm m-1 badge"
+              className="btn btn-sm badge m-1 "
               href="#"
               onClick={() => setActiveComponent('Notifications')}
             >

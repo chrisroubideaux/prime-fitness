@@ -48,7 +48,7 @@ export default function Owner() {
           <h1 className="text-white text-center py-5 my-5">Owners</h1>
           <div className="row row-cols-sm-2 row-cols-1 gy-3 gx-4 mb-4 pb-md-2 my-5 h-32 py-3">
             {owners.map((owners) => (
-              <div key={owners.id} className="py-3 my-5">
+              <div key={owners.id} className="py-3 my-3">
                 <Owners className="" owners={owners} />
               </div>
             ))}

@@ -1,5 +1,6 @@
 // Sidebar component
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   FaUser,
   FaHouseUser,
@@ -12,7 +13,7 @@ export default function Sidebar({ setActiveComponent, users }) {
   const handleLogout = async () => {
     try {
       const response = await fetch('http://localhost:3001/users/logout', {
-        method: 'GET',
+        method: 'POST',
         credentials: 'include',
       });
 
@@ -38,14 +39,11 @@ export default function Sidebar({ setActiveComponent, users }) {
         <div className="card-body" style={{ minWidth: '350px' }}>
           <div className="d-none d-lg-block mb-5">
             <div className="avatar avatar-xxl avatar-circle mb-3">
-              <img
-                className="avatar"
-                src="./assets/img/160x160/img9.jpg"
-                alt=""
-              />
-              <img
-                className="avatar-status avatar-lg-status"
-                src="./assets/svg/illustrations/top-vendor.svg"
+              <Image
+                className="small-avatar avatar rounded-circle"
+                src={users.image}
+                width={60}
+                height={60}
                 alt=""
                 data-bs-toggle="tooltip"
                 data-bs-placement="top"
@@ -59,27 +57,27 @@ export default function Sidebar({ setActiveComponent, users }) {
             </span>
             <ul className=" nav d-flex flex-column text-start mb-4 fw-bold">
               <li className="nav-item">
-                <Link className="nav-link fs-4" href={`/users/${users._id}`}>
-                  <FaUser className="me-1 fs-4 " />
+                <Link className="nav-link fs-5" href={`/users/${users._id}`}>
+                  <FaUser className="me-1 fs-5 " />
                   Bio
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link fs-4" href="/sales/sales">
+                <Link className="nav-link fs-5" href="/sales/sales">
                   <FaSearch className="fs-5 me-1" />
                   Search
                 </Link>
               </li>
 
               <li className="nav-item">
-                <Link className="nav-link" href="/calendar/calendar">
-                  <FaProjectDiagram className="fs-6 fa-solid" /> Profile
+                <Link className="nav-link fs-5" href="/calendar/calendar">
+                  <FaProjectDiagram className="fs-5 fa-solid" /> Profile
                   Settings
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" href="#" onClick={handleLogout}>
-                  <FaRegHandPeace className="fs-6 me-1" />
+                <Link className="nav-link fs-5" href="#" onClick={handleLogout}>
+                  <FaRegHandPeace className="fs-5 me-1" />
                   Log out
                 </Link>
               </li>

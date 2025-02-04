@@ -2,13 +2,13 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import axios from 'axios';
-//component imports
 import Image from 'next/image';
 import Head from 'next/head';
 import Navbar from '@/components/nav/Navbar';
 import jumbotron2 from '@/public/images/jumbotron/jumbotron2.jpg';
-
+import { FaFacebook, FaGoogle } from 'react-icons/fa';
 export default function Login() {
+  // Form data
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -16,6 +16,7 @@ export default function Login() {
 
   const [error, setError] = useState(null);
 
+  // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -24,20 +25,32 @@ export default function Login() {
     });
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const response = await axios.post(
-        'http://localhost:3001/auth/login',
+        'http://localhost:3001/users/login',
         formData
       );
 
       if (response.status === 200) {
-        window.location.href = '/user';
+        const { token, user } = response.data;
+
+        // Save data to localStorage
+        localStorage.setItem('authToken', token);
+        localStorage.setItem('userId', user._id);
+        localStorage.setItem('userRole', user.role);
+
+        // Redirect based on role
+        if (user.role === 'guide') {
+          window.location.href = `http://localhost:3000/guides/${user._id}`;
+        } else {
+          window.location.href = `http://localhost:3000/user/${user._id}`;
+        }
       } else {
-        const data = response.data;
-        setError(data.message);
+        setError(response.data.message || 'Login failed');
       }
     } catch (err) {
       console.error(err);
@@ -45,22 +58,19 @@ export default function Login() {
     }
   };
 
-  // Add Google login function
+  // Google OAuth
   const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:3001/auth/google/login';
+    window.location.href =
+      'https://dakota-realtors.onrender.com/auth/google/login';
   };
 
-  // Facebook registration function
+  // Facebook OAuth
   const handleFacebookLogin = () => {
-    const facebookOAuthURL = 'http://localhost:3001/auth/facebook/login';
-
-    window.open(
-      facebookOAuthURL,
-      'Facebook OAuth',
-      'align-item-center',
-      'width=300,height=300'
-    );
+    const facebookOAuthURL =
+      'https://dakota-realtors.onrender.com/auth/facebook/login';
+    window.open(facebookOAuthURL, '_self');
   };
+
   return (
     <>
       <Head>
@@ -71,7 +81,7 @@ export default function Login() {
       </Head>
       <Navbar />
       <div className="layout h-100">
-        <div className="container py-5">
+        <div className="container py-5 mt-5">
           <hr className="hr " />
           <div className="container col-xxl-8 px-4 py-5 ">
             <div className="row flex-lg-row-reverse align-items-center g-5">
@@ -101,23 +111,26 @@ export default function Login() {
                 <form className="form text-center" onSubmit={handleSubmit}>
                   <input
                     className="form-control m-2 fw-bold"
+                    required
                     type="email"
-                    placeholder="email"
+                    name="email"
+                    placeholder="Enter Email"
                     value={formData.email}
                     onChange={handleChange}
                   />
                   <input
                     className="form-control m-2 fw-bold"
+                    required
                     type="password"
-                    placeholder="Password"
+                    name="password"
+                    placeholder="Enter Password"
                     value={formData.password}
                     onChange={handleChange}
                   />
-                  <div className="container mt-3">
-                    <button className="w-100 btn btn-md" type="submit">
-                      Login
-                    </button>
-                  </div>
+
+                  <button className="w-100 btn btn-md" type="submit">
+                    Login
+                  </button>
                   <h6 className="text-muted pt-3">or login with</h6>
                   <ul className="nav justify-content-center list-unstyled d-flex pt-2">
                     <li className="ms-3">
@@ -137,8 +150,8 @@ export default function Login() {
                       </button>
                     </li>
                   </ul>
-                  <div className="container mt-3"></div>
-                  <p className="par text-dark mt-5 mb-3">
+                  {error && <p style={{ color: 'red' }}>{error}</p>}
+                  <p className="mt-1 mb-3 text-muted">
                     &copy; Prime Fitness, 2025
                   </p>
                 </form>

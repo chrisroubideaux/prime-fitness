@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@/styles/globals.css';
 import '@/styles/navbar.css';
+import '@/styles/sidebar.css';
 import '@/styles/cards.css';
 import '@/styles/forms.css';
 import '@/styles/hero.css';
