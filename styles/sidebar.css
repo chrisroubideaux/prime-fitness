@@ -1,7 +1,12 @@
 
 .sidebar {
-    border-radius: 10px;
-    background: rgb(245,245,247);
-    background: linear-gradient(142deg, rgba(245,245,247,1) 0%, rgba(244,236,228,1) 100%, rgba(241,232,223,1) 100%);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  border-style: none;
+  background: rgb(245,245,247);
+  background: linear-gradient(142deg, rgba(245,245,247,1) 0%, rgba(244,236,228,1) 100%, rgba(241,232,223,1) 100%);
+  object-fit: contain;
+  border-style: none;
+  transition: transform 100ms ease-in-out;
+  margin: auto;
+  box-shadow: 0.1rem 0.1rem 0.8rem #b3b2b2;
   }

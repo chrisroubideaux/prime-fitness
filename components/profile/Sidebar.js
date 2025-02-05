@@ -35,7 +35,7 @@ export default function Sidebar({ setActiveComponent, users }) {
 
   return (
     <div className="d-flex flex-column p-4 gap-4 py-md-3">
-      <div className="card mb-5">
+      <div className="sidebar mb-5">
         <div className="card-body" style={{ minWidth: '350px' }}>
           <div className="d-none d-lg-block mb-5">
             <div className="avatar avatar-xxl avatar-circle mb-3">
@@ -50,12 +50,12 @@ export default function Sidebar({ setActiveComponent, users }) {
                 title="Verified user"
               />
             </div>
-            <h4 className="card-title mb-0">{users.name}</h4>
-            <p className="card-text small">{users.email}</p>
+            <h4 className="card-title mb-0 fw-bold">{users.name}</h4>
+            <p className="card-text small fw-nomral">{users.email}</p>
             <span className="text-cap">
-              <h4>Account</h4>
+              <h4 className="fw-bold">Account</h4>
             </span>
-            <ul className=" nav d-flex flex-column text-start mb-4 fw-bold">
+            <ul className=" nav d-flex flex-column text-start mb-2 ">
               <li className="nav-item">
                 <Link className="nav-link fs-5" href={`/users/${users._id}`}>
                   <FaUser className="me-1 fs-5 " />
@@ -64,11 +64,10 @@ export default function Sidebar({ setActiveComponent, users }) {
               </li>
               <li className="nav-item">
                 <Link className="nav-link fs-5" href="/sales/sales">
-                  <FaSearch className="fs-5 me-1" />
+                  <FaSearch className="fs-5 me-2" />
                   Search
                 </Link>
               </li>
-
               <li className="nav-item">
                 <Link className="nav-link fs-5" href="/calendar/calendar">
                   <FaProjectDiagram className="fs-5 fa-solid" /> Profile
