@@ -25,17 +25,21 @@ const Tab = ({ setActiveComponent }) => {
           </div>
         </div>
         <ul className="nav">
+          {/*
           <li className="nav-item me-3">
             <div className="gap-2 justify-content-center">
-              <span className="me-2 badge appointments rounded-pill">
+              <span className="me-2 badge fs-6 appointments rounded-pill">
                 Appointments
               </span>
-              <span className="me-2 badge openhouse rounded-pill">
+              <span className="me-2 badge  fs-6 openhouse rounded-pill">
                 Open House
               </span>
-              <span className="me-2 badge meetings rounded-pill">Meetings</span>
+              <span className="me-2 badge fs-6 meetings rounded-pill">
+                Meetings
+              </span>
             </div>
           </li>
+         */}
           <li className="nav-item me-2">
             <form className="d-flex" style={{ width: '10rem' }}>
               <div className="input-group">
@@ -46,16 +50,18 @@ const Tab = ({ setActiveComponent }) => {
                   value={today}
                   readOnly
                 />
-                <button className="btn btn-sm badge ">
+                {/*
+                <button className="btn btn-sm ">
                   <FaCalendarAlt className="social-icon fs-6 " />
                 </button>
+                */}
               </div>
             </form>
           </li>
 
           <li className="nav-item me-2">
             <a
-              className="btn btn-sm badge m-1 "
+              className="btn btn-sm m-1 "
               href="#"
               onClick={() => setActiveComponent('Notifications')}
             >
@@ -68,12 +74,12 @@ const Tab = ({ setActiveComponent }) => {
           </li>
           <li className="nav-item ">
             <a
-              className="btn btn-sm m-1 badge"
+              className="btn btn-sm m-1 "
               href="#"
               onClick={() => setActiveComponent('Calendar')}
             >
               Calendar
-              <FaCalendarAlt className="m-1" />
+              <FaCalendarAlt className="m-1 " />
             </a>
           </li>
         </ul>
