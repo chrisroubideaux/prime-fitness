@@ -100,14 +100,13 @@
   border-radius: 10px;
   margin: auto;
 }
-/* hover */
+
+
+
 .card:hover {
   transform: scale(1.07);
 }
 
-.cards:hover {
-  transform: scale(1.07);
-}
 
 .avatar:hover {
   transform: scale(1.07);

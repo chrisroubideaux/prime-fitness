@@ -125,3 +125,18 @@ h6 {
   position: absolute;
 }
 
+*/    
+.badge {
+  color: #9d9c9d;
+  background-color: whitesmoke;
+}
+
+.accordion-button:focus,
+.accordion-button:not(.collapsed) {
+  background-color: transparent !important; 
+  box-shadow: none !important;
+  border: none !important; 
+ 
+}
+
+  

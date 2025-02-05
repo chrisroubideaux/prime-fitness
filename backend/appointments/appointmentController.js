@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 const User = require('../users/userModel');
 
 // Create a new appointment
+{
+  /*
 const createAppointment = async (req, res) => {
   const {
     name,
@@ -90,6 +92,58 @@ const createAppointment = async (req, res) => {
     return res.status(500).json({ message: 'Internal server error' });
   }
 };
+*/
+}
+
+const createAppointment = async (req, res) => {
+  try {
+    const { guide, date, slot, userId } = req.body;
+
+    // Validate required fields
+    if (!guide || !date || !slot || !userId) {
+      return res.status(400).json({ message: 'Missing required fields' });
+    }
+
+    if (typeof guide !== 'string') {
+      return res.status(400).json({ message: 'Guide must be a string' });
+    }
+
+    if (isNaN(new Date(date).getTime())) {
+      return res.status(400).json({ message: 'Invalid date format' });
+    }
+
+    // Create the new appointment
+    const newAppointment = new Appointment({
+      guide,
+      date,
+      slot,
+      userId,
+    });
+
+    const savedAppointment = await newAppointment.save();
+
+    // Populate related fields
+    const populatedAppointment = await Appointment.findById(
+      savedAppointment._id
+    ).populate('userId', 'name phone');
+
+    res.status(201).json({
+      message: 'Appointment created successfully',
+      appointment: populatedAppointment,
+    });
+  } catch (err) {
+    if (err.name === 'ValidationError') {
+      console.error('Validation Error:', err.errors);
+      return res
+        .status(400)
+        .json({ error: 'Validation error', details: err.errors });
+    }
+    console.error('Error in createAppointment:', err.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+// Fetch all appointments
 
 // Get all appointments
 const getAllAppointments = async (req, res) => {

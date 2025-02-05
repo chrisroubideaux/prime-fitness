@@ -7,7 +7,7 @@ import Navbar from '@/components/nav/Navbar';
 import Tab from '@/components/profile/Tab';
 import Sidebar from '@/components/profile/Sidebar';
 import Bio from '@/components/profile/Bio';
-//import Notifications from '@/components/profile/Notifications';
+import Notifications from '@/components/profile/Notifications';
 import Calendar from '@/components/profile/Calendar';
 
 export default function User() {
@@ -89,8 +89,7 @@ export default function User() {
             setActiveComponent={setActiveComponent}
           />
         );
-        {
-          /*
+
       case 'Notifications':
         return (
           <Notifications
@@ -98,8 +97,7 @@ export default function User() {
             setActiveComponent={setActiveComponent}
           />
         );
-*/
-        }
+
       default:
         return <Bio users={user} />;
     }

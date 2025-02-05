@@ -57,7 +57,7 @@ export default function Bookings({
     }
 
     const appointmentData = {
-      guide: guides.title,
+      guide: guides.name,
       date: selectedDate.toISOString(),
       slot: selectedSlot,
       guideId: guides._id,
@@ -199,7 +199,7 @@ export default function Bookings({
                 <div className="list-group-item list-group-item-action d-flex gap-3 py-3">
                   <Image
                     src={guides.photo || '/fallback-image.jpg'}
-                    className="avatar"
+                    className=" small-avatar avatar rounded-circle m-auto mt-2 mx-3 my-3 border-0"
                     width={200}
                     height={100}
                     alt="photo"
