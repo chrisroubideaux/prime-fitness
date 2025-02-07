@@ -1,4 +1,271 @@
+// Bookings component for apartments
 import React, { useState } from 'react';
+import Link from 'next/link';
+import axios from 'axios';
+import Image from 'next/image';
+import CalendarEvent from './CalendarEvent';
+
+export default function Bookings({
+  guides,
+  userId,
+  appointments,
+  onUpdateAppointment,
+  onDeleteAppointment,
+}) {
+  const [selectedSlot, setSelectedSlot] = useState('');
+  const [selectedAppointment, setSelectedAppointment] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const getDayOfWeek = (date) => {
+    const days = [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+    ];
+    return days[date.getDay()];
+  };
+
+  // Handle day click
+  const handleDayClick = (date) => {
+    setSelectedDate(date);
+  };
+
+  // Handle submit for booking or rescheduling
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const authToken = localStorage.getItem('authToken');
+    const userId = localStorage.getItem('userId');
+
+    if (!authToken || !userId) {
+      showAlertMessage('You must be logged in to book an appointment.', true);
+      return;
+    }
+
+    if (!selectedSlot) {
+      showAlertMessage('Please select a time slot.');
+      return;
+    }
+
+    if (!selectedDate || isNaN(new Date(selectedDate).getTime())) {
+      showAlertMessage('Please select a valid date.');
+      return;
+    }
+
+    const appointmentData = {
+      guide: guides.name,
+      date: selectedDate.toISOString(),
+      slot: selectedSlot,
+      guideId: guides._id,
+      userId,
+    };
+
+    try {
+      const response = await axios.post(
+        'http://localhost:3001/appointments',
+        appointmentData,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+
+      console.log('Appointment created successfully:', response.data);
+
+      showAlertMessage(
+        `Appointment successfully booked for ${selectedSlot} on ${new Date(
+          selectedDate
+        ).toDateString()}.`,
+        false,
+        userId
+      );
+    } catch (error) {
+      console.error('Error creating appointment:', error.response || error);
+
+      if (error.response?.status === 400) {
+        showAlertMessage(
+          'Invalid request. Please check your input and try again.'
+        );
+      } else if (error.response?.status === 401) {
+        showAlertMessage('Authentication failed. Please log in again.', true);
+      } else {
+        showAlertMessage('Something went wrong. Please try again.');
+      }
+    }
+  };
+
+  // Display alert message
+  const showAlertMessage = (message, showLoginButton = false, userId = '') => {
+    setAlertMessage(
+      <div>
+        <p className="mb-0">{message}</p>
+        {showLoginButton && (
+          <button
+            className="btn btn-md badge mt-2 w-100"
+            onClick={() => {
+              window.location.href = '/login';
+            }}
+          >
+            You must be logged in to book an appointment
+          </button>
+        )}
+        {userId && (
+          <Link href={`/user/${userId}`} className="btn btn-sm badge mt-2">
+            View Appointments
+          </Link>
+        )}
+      </div>
+    );
+    setShowAlert(true);
+  };
+
+  return (
+    <>
+      <div
+        className="modal fade"
+        id="exampleModalToggle"
+        aria-hidden="true"
+        aria-labelledby="exampleModalToggleLabel"
+        tabIndex="-1"
+      >
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="fw-normal fs-5" id="exampleModalToggleLabel">
+                Book your tour
+              </h1>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body">
+              <a
+                data-bs-target="#exampleModalToggle2"
+                data-bs-toggle="modal"
+                onClick={() => setShowAlert(false)}
+              >
+                <CalendarEvent onSelectDate={handleDayClick} />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="modal fade"
+        id="exampleModalToggle2"
+        aria-hidden="true"
+        aria-labelledby="exampleModalToggleLabel2"
+        tabIndex="-1"
+      >
+        <div className="modal-dialog modal-dialog-centered modal-lg">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h6 className="fs-5" id="exampleModalToggleLabel2">
+                Select a time
+              </h6>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body">
+              {showAlert && (
+                <div
+                  className="card mb-2"
+                  style={{ maxWidth: '540px' }}
+                  role="alert"
+                >
+                  <div className="card-body">
+                    <p className="fs-6">
+                      {alertMessage}
+                      <br />
+                      Appointment Date: {selectedDate.toDateString()} (
+                      {getDayOfWeek(selectedDate)})
+                    </p>
+                  </div>
+                </div>
+              )}
+              <div>
+                <div className="list-group-item list-group-item-action d-flex gap-3 py-3">
+                  <Image
+                    src={guides.photo || '/fallback-image.jpg'}
+                    className="avatar"
+                    width={200}
+                    height={100}
+                    alt="photo"
+                  />
+                  <div className="d-flex gap-2 w-100 justify-content-between mt-1">
+                    <div>
+                      <h6 className="fs-5 me-2">{guides.title}</h6>
+                      <h6>{guides.name}</h6>
+                      <h6>{guides.times}</h6>
+                    </div>
+                    <small className="opacity-50 text-nowrap">
+                      <h6>{guides.days}</h6>
+                      <h6>{guides.slot}</h6>
+                      <select
+                        value={selectedSlot}
+                        onChange={(e) => setSelectedSlot(e.target.value)}
+                      >
+                        <option value="">Select a time slot</option>
+                        <option value={guides.slot}>{guides.slot}</option>
+                        <option value={guides.slot2}>{guides.slot2}</option>
+                        <option value={guides.slot3}>{guides.slot3}</option>
+                        <option value={guides.slot4}>{guides.slot4}</option>
+                        <option value={guides.slot5}>{guides.slot5}</option>
+                        <option value={guides.slot6}>{guides.slot6}</option>
+                        <option value={guides.slot7}>{guides.slot7}</option>
+                      </select>
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="modal-footer">
+              <button
+                className="btn btn-sm badge"
+                data-bs-target="#exampleModalToggle"
+                data-bs-toggle="modal"
+              >
+                Back to calendar
+              </button>
+              <button
+                type="submit"
+                className="btn btn-md badge"
+                onClick={handleSubmit}
+              >
+                Book Appointment
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button
+        className="btn btn-md badge"
+        data-bs-target="#exampleModalToggle"
+        data-bs-toggle="modal"
+      >
+        Book a tour
+      </button>
+    </>
+  );
+}
+{
+  /*
+
+  import React, { useState } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
 import Image from 'next/image';
@@ -148,7 +415,7 @@ export default function Bookings({
 
   return (
     <>
-      {/* First Modal - Calendar Selection */}
+     
       <div
         className="modal fade"
         id="exampleModalToggle"
@@ -178,7 +445,7 @@ export default function Bookings({
         </div>
       </div>
 
-      {/* Second Modal - Time Slot Selection */}
+   
       <div
         className="modal fade"
         id="exampleModalToggle2"
@@ -274,7 +541,7 @@ export default function Bookings({
         </div>
       </div>
 
-      {/* Book Tour Button */}
+     
       <button
         className="btn btn-md badge"
         data-bs-target="#exampleModalToggle"
@@ -284,4 +551,6 @@ export default function Bookings({
       </button>
     </>
   );
+}
+  */
 }

@@ -89,12 +89,13 @@ export default function Details({}) {
                   {guide.bio}
                 </p>
                 <div className="d-flex justify-content-end p-2 me-5">
-                  <Bookings
-                    appointments={appointment}
-                    //  onUpdateAppointment={handleUpdateAppointment}
-                    // onDeleteAppointment={handleDeleteAppointment}
-                    guides={guide}
-                  />
+                  {isLoggedIn ? (
+                    <Bookings appointments={appointment} guides={guide} />
+                  ) : (
+                    <div className="alert alert-warning">
+                      You must be logged in to book an appointment.
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

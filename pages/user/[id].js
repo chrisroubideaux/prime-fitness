@@ -140,7 +140,7 @@ export async function getServerSideProps({ params }) {
       },
     };
   } catch (error) {
-    console.error('Error fetching tour user details', error);
+    console.error('Error fetching user details', error);
     return {
       props: {
         user: {},

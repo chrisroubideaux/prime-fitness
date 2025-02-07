@@ -4,8 +4,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../users/userModel');
 
 // Create a new appointment
-{
-  /*
+
 const createAppointment = async (req, res) => {
   const {
     name,
@@ -92,9 +91,9 @@ const createAppointment = async (req, res) => {
     return res.status(500).json({ message: 'Internal server error' });
   }
 };
-*/
-}
 
+{
+  /*
 const createAppointment = async (req, res) => {
   try {
     const { guide, date, slot, userId } = req.body;
@@ -142,6 +141,8 @@ const createAppointment = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+*/
+}
 
 // Get all appointments
 {

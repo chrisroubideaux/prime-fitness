@@ -1,4 +1,3 @@
-// notifications component
 import { useState, useEffect } from 'react';
 import { format, isValid } from 'date-fns';
 import axios from 'axios';
@@ -130,23 +129,25 @@ export default function Notifications({ setActiveComponent, userId }) {
                       <div>
                         <strong>Date:</strong> {formatDate(date)}
                       </div>
-                      <div>
+                      <div className="mt-1">
                         <strong>Time:</strong> {slot}
                       </div>
-                      <div>
-                        <strong>Tour Guide:</strong>
+                      <div className="mt-1">
+                        <strong className="me-2"> Tour Guide:</strong>
                         {guide || 'N/A'}
                       </div>
+                      {/*
                       <div>
                         <strong>Client:</strong> {name}
                       </div>
                       <div>
                         <strong>Phone:</strong> {phone}
                       </div>
-                      <div>
+                      */}
+                      <div className="mt-1">
                         <strong>Booked:</strong> {formatDate(createdAt)}
                       </div>
-                      <div>
+                      <div className="mt-1">
                         <strong>Updated At:</strong> {formatDate(updatedAt)}
                       </div>
                       <button
