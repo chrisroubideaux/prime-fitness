@@ -72,36 +72,41 @@ export default function Details({}) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
+
       <div className="layout h-100">
-        <div className="container-fluid py-5">
+        <div className="container-fluid pt-5">
           <Nav />
-          <div className="row py-3">
-            <div className="col-md-6">
-              <Avatar guides={guide} />
-              <Toolbar guides={guide} />
-            </div>
-            <div className="col-lg-6">
-              <div className="container-fluid ">
-                <h4 className="text-center display-5 fs-sm fw-normal">
-                  {guide.name}
-                </h4>
-                <p className=" par d-flex justify-content-end fs-4 lh-2 fw-normal m-2 my-4">
-                  {guide.bio}
-                </p>
-                <div className="d-flex justify-content-end p-2 me-5">
-                  {isLoggedIn ? (
-                    <Bookings appointments={appointment} guides={guide} />
-                  ) : (
-                    <div className="alert alert-warning">
-                      You must be logged in to book an appointment.
-                    </div>
-                  )}
+        </div>
+        <section className=" shadow-lg rounded-3">
+          <div className="container-fluid py-5">
+            <div className="row py-3">
+              <div className="col-md-6">
+                <Avatar guides={guide} />
+                <Toolbar guides={guide} />
+              </div>
+              <div className="col-lg-6">
+                <div className="container-fluid ">
+                  <h4 className="text-center display-5 fs-sm fw-normal">
+                    {guide.name}
+                  </h4>
+                  <p className=" par d-flex justify-content-end fs-4 lh-2 fw-normal m-2 my-4">
+                    {guide.bio}
+                  </p>
+                  <div className="d-flex justify-content-end p-2 me-5">
+                    {isLoggedIn ? (
+                      <Bookings appointments={appointment} guides={guide} />
+                    ) : (
+                      <div className="alert alert-warning">
+                        You must be logged in to book an appointment.
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="container-fluid">
+        </section>
+        <div className="container-fluid my-5 pt-5">
           <h4 className="text-center display-5 mt-2 fs-sm pt-3 fw-normal">
             Locations
             <Maps />

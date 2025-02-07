@@ -6,13 +6,14 @@ import Navbar from '@/components/nav/Navbar';
 //import Sliders from '@/components/misc/Sliders';
 import Iconbar from '@/components/misc/Iconbar';
 import Instructors from '@/components/sessions/Instructors';
-import Features from '@/components/misc/Features';
+import Trainers from '@/components/trainers/Trainers';
 import Details from '@/components/misc/Details';
 import Footer from '@/components/misc/Footer';
 import Hero from '@/components/sessions/Hero';
 
 const Session = () => {
   const [sessions, setSessions] = useState([]);
+  const [trainers, setTrainers] = useState([]);
 
   useEffect(() => {
     axios
@@ -24,6 +25,18 @@ const Session = () => {
         console.error('Error fetching instructors:', error);
       });
   }, []);
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/trainers')
+      .then((response) => {
+        setTrainers(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching trainers:', error);
+      });
+  }, []);
+
   return (
     <>
       <Head>
@@ -63,8 +76,20 @@ const Session = () => {
               ))}
             </div>
           </div>
-          <Features />
+          <div className=" container pt-5">
+            <hr className="hr" />
+            <h1 className=" py-3 my-3">Personal Trainers</h1>
+            <div className="row row-cols-1 row-cols-1 row-cols-lg-3 row-cols-lg-4 g-4 py-5 ">
+              {trainers.map((trainers) => (
+                <div key={trainers.id} className="py-3 my-5">
+                  <Trainers className="" trainers={trainers} />
+                </div>
+              ))}
+            </div>
+          </div>
+
           <Details />
+
           <Footer />
         </div>
       </div>

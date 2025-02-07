@@ -26,12 +26,15 @@ export default function Hero({}) {
                     the city and get your 7 day free trial today.
                   </p>
                   <div className="d-grid d-lg-block">
-                    <a href="#" className="btn btn-md">
+                    <Link href="/members/Members" className="btn btn-sm">
                       Memberships
-                    </a>
-                    <a href="#" className="btn btn-md ms-lg-1 mt-2 mt-lg-0">
+                    </Link>
+                    <Link
+                      href="/guides/Guides"
+                      className="btn btn-sm ms-lg-1 mt-2 mt-lg-0"
+                    >
                       Book a tour
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>

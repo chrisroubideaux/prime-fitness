@@ -32,12 +32,10 @@ export default function Bio({ users }) {
     e.preventDefault();
     try {
       const id = user._id;
-      await axios.put(`https://dakota-realtors.onrender.com/users/${id}`, user);
+      await axios.put(`http://localhost:3001/users/${id}`, user);
       console.log('User data updated successfully');
 
-      const updatedUser = await axios.get(
-        `https://dakota-realtors.onrender.com/users/${id}`
-      );
+      const updatedUser = await axios.get(`http://localhost:3001/users/${id}`);
       setUser(updatedUser.data);
       setIsEditing(false);
     } catch (error) {

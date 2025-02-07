@@ -6,9 +6,10 @@ import axios from 'axios';
 import Navbar from '@/components/nav/Navbar';
 import Hero from '@/components/guides/Hero';
 import Iconbar from '@/components/misc/Iconbar';
+import Details from '@/components/misc/Details';
 import Guides from '@/components/guides/Guides';
 import Footer from '@/components/misc/Footer';
-//import Reviews from '@/components/misc/Reviews';
+import Service from '@/components/misc/Service';
 
 export default function Guide() {
   const [guides, setGuides] = useState([]);
@@ -69,9 +70,12 @@ export default function Guide() {
               </div>
             ))}
           </div>
-          {/*}
-          <Reviews />
-          */}
+          <div className="container">
+            <hr className="hr" />
+            <h1 className=" text-center py-5 my-5">Testimonials</h1>
+            <Service />
+          </div>
+          <Details />
         </div>
         <Footer />
       </div>

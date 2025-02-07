@@ -44,21 +44,11 @@ export default function Navbar() {
                     </Link>
                     <ul className="dropdown-menu" style={{ width: '15rem' }}>
                       <li>
-                        <Link
-                          className="dropdown-item fs-5 "
-                          href="/sessions/Session/"
-                        >
+                        <Link className="dropdown-item fs-5 " href="/">
                           Classes
                         </Link>
                       </li>
-                      <li>
-                        <Link
-                          className="dropdown-item fs-5  "
-                          href="/trainers/Trainers/"
-                        >
-                          Trainers
-                        </Link>
-                      </li>
+
                       <li>
                         <Link
                           className="dropdown-item fs-5  "
