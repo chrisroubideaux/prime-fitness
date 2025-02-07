@@ -16,7 +16,11 @@ export default function Details({}) {
   const [guide, setGuide] = useState([]);
   const router = useRouter();
   const { id } = router.query;
+  const [appointment, setAppointment] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  {
+    /*
   useEffect(() => {
     if (id) {
       axios
@@ -29,7 +33,36 @@ export default function Details({}) {
         });
     }
   }, [id]);
+*/
+  }
+  useEffect(() => {
+    const authToken = localStorage.getItem('authToken');
+    if (authToken) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
 
+    // Fetch tour guide details
+    axios
+      .get(`http://localhost:3001/guides/${id}`)
+      .then((response) => {
+        setGuide(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching tour guide details:', error);
+      });
+
+    // Fetch appointment by ud
+    axios
+      .get(`http://localhost:3001/appointments/${id}`)
+      .then((response) => {
+        setAppointment(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching appointments:', error);
+      });
+  }, [id]);
   return (
     <>
       <Head>
@@ -56,7 +89,12 @@ export default function Details({}) {
                   {guide.bio}
                 </p>
                 <div className="d-flex justify-content-end p-2 me-5">
-                  <Bookings guides={guide} />
+                  <Bookings
+                    appointments={appointment}
+                    //  onUpdateAppointment={handleUpdateAppointment}
+                    // onDeleteAppointment={handleDeleteAppointment}
+                    guides={guide}
+                  />
                 </div>
               </div>
             </div>

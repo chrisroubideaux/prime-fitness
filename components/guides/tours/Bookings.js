@@ -1,4 +1,3 @@
-// Bookings component
 import React, { useState } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
@@ -13,10 +12,9 @@ export default function Bookings({
   onDeleteAppointment,
 }) {
   const [selectedSlot, setSelectedSlot] = useState('');
-  const [selectedAppointment, setSelectedAppointment] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
-  const [selectedDate, setSelectedDate] = useState(new Date());
 
   const getDayOfWeek = (date) => {
     const days = [
@@ -41,6 +39,15 @@ export default function Bookings({
     const authToken = localStorage.getItem('authToken');
     const userId = localStorage.getItem('userId');
 
+    // Assuming you have these fields filled in by the user
+    const name = 'Riley Roonie'; // Example, replace with the form value
+    const phone = 'xxx-xxx-xxxx'; // Example, replace with the form value
+
+    console.log('Auth Token:', authToken);
+    console.log('User ID:', userId);
+    console.log('Selected Slot:', selectedSlot);
+    console.log('Selected Date:', selectedDate);
+
     if (!authToken || !userId) {
       showAlertMessage('You must be logged in to book an appointment.', true);
       return;
@@ -56,13 +63,18 @@ export default function Bookings({
       return;
     }
 
+    // Make sure to include name and phone in the appointmentData
     const appointmentData = {
+      name, // Adding name
+      phone, // Adding phone
       guide: guides.name,
       date: selectedDate.toISOString(),
       slot: selectedSlot,
       guideId: guides._id,
       userId: userId,
     };
+
+    console.log('Appointment Data:', appointmentData);
 
     try {
       const response = await axios.post(
@@ -75,17 +87,23 @@ export default function Bookings({
         }
       );
 
-      console.log('Appointment created successfully:', response.data);
+      console.log('Success:', response.data);
+
+      const { message, appointment } = response.data;
 
       showAlertMessage(
-        `Appointment successfully booked for ${selectedSlot} on ${new Date(
-          selectedDate
+        `${message} for ${appointment.slot} on ${new Date(
+          appointment.date
         ).toDateString()}.`,
         false,
         userId
       );
+
+      // Use the name and phone from the response here
+      console.log('Appointment Name:', appointment.name);
+      console.log('Appointment Phone:', appointment.phone);
     } catch (error) {
-      console.error('Error creating appointment:', error.response || error);
+      console.error('Error:', error.response || error);
 
       if (error.response?.status === 400) {
         showAlertMessage(
@@ -99,23 +117,27 @@ export default function Bookings({
     }
   };
 
-  // Display alert message
-  const showAlertMessage = (message, showLoginButton = false, userId = '') => {
+  const showAlertMessage = (
+    message,
+    showLoginButton = false,
+    storedUserId = ''
+  ) => {
     setAlertMessage(
       <div>
         <p className="mb-0">{message}</p>
         {showLoginButton && (
           <button
             className="btn btn-md badge mt-2 w-100"
-            onClick={() => {
-              window.location.href = '/login/Login';
-            }}
+            onClick={() => (window.location.href = '/login/Login')}
           >
-            You must be logged in to book an appointment
+            Log in to book an appointment
           </button>
         )}
-        {userId && (
-          <Link href={`/user/${userId}`} className="btn btn-sm badge mt-2">
+        {storedUserId && (
+          <Link
+            href={`/user/${storedUserId}`}
+            className="btn btn-sm badge mt-2"
+          >
             View Appointments
           </Link>
         )}
@@ -126,24 +148,21 @@ export default function Bookings({
 
   return (
     <>
+      {/* First Modal - Calendar Selection */}
       <div
         className="modal fade"
         id="exampleModalToggle"
         aria-hidden="true"
-        aria-labelledby="exampleModalToggleLabel"
         tabIndex="-1"
       >
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
-              <h1 className="fw-normal fs-5" id="exampleModalToggleLabel">
-                Book your tour
-              </h1>
+              <h1 className="fw-normal fs-5">Book your tour</h1>
               <button
                 type="button"
                 className="btn-close"
                 data-bs-dismiss="modal"
-                aria-label="Close"
               ></button>
             </div>
             <div className="modal-body">
@@ -158,24 +177,22 @@ export default function Bookings({
           </div>
         </div>
       </div>
+
+      {/* Second Modal - Time Slot Selection */}
       <div
         className="modal fade"
         id="exampleModalToggle2"
         aria-hidden="true"
-        aria-labelledby="exampleModalToggleLabel2"
         tabIndex="-1"
       >
         <div className="modal-dialog modal-dialog-centered modal-lg">
           <div className="modal-content">
             <div className="modal-header">
-              <h6 className="fs-5" id="exampleModalToggleLabel2">
-                Select a time
-              </h6>
+              <h6 className="fs-5">Select a time</h6>
               <button
                 type="button"
                 className="btn-close"
                 data-bs-dismiss="modal"
-                aria-label="Close"
               ></button>
             </div>
             <div className="modal-body">
@@ -195,39 +212,45 @@ export default function Bookings({
                   </div>
                 </div>
               )}
-              <div>
-                <div className="list-group-item list-group-item-action d-flex gap-3 py-3">
-                  <Image
-                    src={guides.photo || '/fallback-image.jpg'}
-                    className=" small-avatar avatar rounded-circle m-auto mt-2 mx-3 my-3 border-0"
-                    width={200}
-                    height={100}
-                    alt="photo"
-                  />
-                  <div className="d-flex gap-2 w-100 justify-content-between mt-1">
-                    <div>
-                      <h6 className="fs-5 me-2">{guides.title}</h6>
-                      <h6>{guides.name}</h6>
-                      <h6>{guides.times}</h6>
-                    </div>
-                    <small className="opacity-50 text-nowrap">
-                      <h6>{guides.days}</h6>
-                      <h6>{guides.slot}</h6>
-                      <select
-                        value={selectedSlot}
-                        onChange={(e) => setSelectedSlot(e.target.value)}
-                      >
-                        <option value="">Select a time slot</option>
-                        <option value={guides.slot}>{guides.slot}</option>
-                        <option value={guides.slot2}>{guides.slot2}</option>
-                        <option value={guides.slot3}>{guides.slot3}</option>
-                        <option value={guides.slot4}>{guides.slot4}</option>
-                        <option value={guides.slot5}>{guides.slot5}</option>
-                        <option value={guides.slot6}>{guides.slot6}</option>
-                        <option value={guides.slot7}>{guides.slot7}</option>
-                      </select>
-                    </small>
+              <div className="list-group-item list-group-item-action d-flex gap-3 py-3">
+                <Image
+                  src={guides.photo || '/fallback-image.jpg'}
+                  className="small-avatar avatar rounded-circle m-auto mt-2 mx-3 my-3 border-0"
+                  width={200}
+                  height={100}
+                  alt="Guide Photo"
+                />
+                <div className="d-flex gap-2 w-100 justify-content-between mt-1">
+                  <div>
+                    <h6 className="fs-5 me-2">{guides.title}</h6>
+                    <h6>{guides.name}</h6>
+                    <h6>{guides.times}</h6>
                   </div>
+                  <small className="opacity-50 text-nowrap">
+                    <h6>{guides.days}</h6>
+                    <h6>{guides.slot}</h6>
+                    <select
+                      value={selectedSlot}
+                      onChange={(e) => setSelectedSlot(e.target.value)}
+                    >
+                      <option value="">Select a time slot</option>
+                      {[
+                        guides.slot,
+                        guides.slot2,
+                        guides.slot3,
+                        guides.slot4,
+                        guides.slot5,
+                        guides.slot6,
+                        guides.slot7,
+                      ]
+                        .filter(Boolean)
+                        .map((slot, index) => (
+                          <option key={index} value={slot}>
+                            {slot}
+                          </option>
+                        ))}
+                    </select>
+                  </small>
                 </div>
               </div>
             </div>
@@ -250,6 +273,8 @@ export default function Bookings({
           </div>
         </div>
       </div>
+
+      {/* Book Tour Button */}
       <button
         className="btn btn-md badge"
         data-bs-target="#exampleModalToggle"

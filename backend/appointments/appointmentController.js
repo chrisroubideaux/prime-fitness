@@ -143,9 +143,9 @@ const createAppointment = async (req, res) => {
   }
 };
 
-// Fetch all appointments
-
 // Get all appointments
+{
+  /*
 const getAllAppointments = async (req, res) => {
   try {
     const appointments = await Appointment.find();
@@ -161,7 +161,65 @@ const getAllAppointments = async (req, res) => {
     });
   }
 };
+*/
+}
 
+const getAllAppointments = async (req, res) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader) {
+    return res.status(401).json({ error: 'Authentication token is missing' });
+  }
+
+  const token = authHeader.split(' ')[1];
+  if (!token) {
+    return res.status(401).json({ error: 'Authentication token is missing' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log('Token Verified, User ID:', decoded._id);
+
+    const appointments = await Appointment.find();
+
+    populate('userId', 'name phone');
+
+    const formattedAppointments = appointments.map((appointment) => {
+      const date = new Date(appointment.date);
+      const formattedDate = date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      });
+      const formattedTime = date.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+
+      return {
+        _id: appointment._id,
+        name: appointment.user,
+        date: formattedDate,
+        time: formattedTime,
+        guide: appointment.guide,
+
+        user: appointment.userId,
+        slot: appointment.slot,
+        createdAt: appointment.createdAt,
+        updatedAt: appointment.updatedAt,
+        dayOfWeek: appointment.dayOfWeek,
+      };
+    });
+
+    res.status(200).json({
+      message: 'Appointments fetched successfully',
+      appointments: formattedAppointments,
+    });
+  } catch (err) {
+    console.error('Error:', err.message);
+    return res.status(401).json({ error: 'Invalid or expired token' });
+  }
+};
 // Get an appointment by ID
 const getAppointmentById = async (req, res) => {
   try {
