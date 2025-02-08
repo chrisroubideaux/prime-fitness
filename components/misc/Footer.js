@@ -1,4 +1,5 @@
 // footer component
+
 import Link from 'next/link';
 import Image from 'next/image';
 import icon1 from '@/public/images/icons/icon1.png';
@@ -13,15 +14,6 @@ export default function Footer() {
         <footer className="container-fluid pt-4 py-5">
           <div className="row py-5">
             <div className="col-12 col-md">
-              {/*}
-              <Image
-                className="mb-2"
-                src={icon1}
-                alt=""
-                width={40}
-                height={30}
-              />
-              */}
               <small className="d-block mb-3">&copy; 2025 Prime Fitness</small>
             </div>
             <div className="col-6 col-md">

@@ -141,7 +141,7 @@ export default function Promos() {
                           ></i>
                         </span>
                         <span className="ms-1 text-dark">
-                          Online YouTube Courses
+                          Online video Courses
                         </span>
                       </li>
                       <li className="mb-2">

@@ -9,7 +9,7 @@ export default function Hero({}) {
       <div className="mt-4 pt-4">
         <div className="guides">
           <div className="containter text-center mt-5 pt-5">
-            <h1 className="pt-5 mt-5">Tour guides</h1>
+            <h1 className="pt-5 mt-5 text-white">Tour guides</h1>
             <p className="fs-3 text-white">
               Schedule a tour with one of our guides.
             </p>
