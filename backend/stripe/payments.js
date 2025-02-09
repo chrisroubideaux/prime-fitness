@@ -1,6 +1,23 @@
 // crud opertions for stripe payments
 const express = require('express');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const {
+  createMonthlySubscription,
+  createAnnualSubscription,
+  cancelSubscription,
+} = require('./stripeController');
+
+const stripeRoutes = express.Router();
+stripeRoutes.post('/subscribe/monthly', createMonthlySubscription);
+stripeRoutes.post('/subscribe/annual', createAnnualSubscription);
+stripeRoutes.delete('/:id', cancelSubscription);
+
+module.exports = stripeRoutes;
+
+{
+  /*
+const express = require('express');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const stripeRoutes = express.Router();
 
 // Create a monthly subscription
@@ -107,3 +124,5 @@ stripeRoutes.delete('/:id', async (req, res) => {
 });
 
 module.exports = stripeRoutes;
+*/
+}

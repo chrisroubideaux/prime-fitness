@@ -1,4 +1,25 @@
-// crud opertaions for membership types
+// member routes
+const express = require('express');
+const memberRoutes = express.Router();
+
+const {
+  createMember,
+  getAllMembers,
+  getMemberById,
+  updateMemberById,
+  deleteMemberById,
+} = require('./memberController');
+
+memberRoutes.post('/', createMember);
+memberRoutes.get('/', getAllMembers);
+memberRoutes.get('/:id', getMemberById);
+memberRoutes.put('/:id', updateMemberById);
+memberRoutes.delete('/:id', deleteMemberById);
+
+module.exports = memberRoutes;
+
+{
+  /*
 const express = require('express');
 const memberRoutes = express.Router();
 const Member = require('./member');
@@ -83,3 +104,5 @@ memberRoutes.delete('/:id', async (req, res) => {
 });
 
 module.exports = memberRoutes;
+*/
+}

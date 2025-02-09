@@ -1,282 +1,201 @@
 // payment form component
-import React, { useState } from 'react';
+// payment form component
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { loadStripe } from '@stripe/stripe-js';
+import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 
-export default function Form({ members }) {
+export default function PaymentForm({ members }) {
+  const [stripePublishableKey, setStripePublishableKey] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('card');
+  const stripe = useStripe();
+  const elements = useElements();
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    address: '',
+    address2: '',
+    state: '',
+    zip: '',
+    cardName: '',
+    cardNumber: '',
+    cardExpiration: '',
+    cardCvv: '',
+  });
+
+  const [errors, setErrors] = useState({});
+  const [processing, setProcessing] = useState(false);
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/stripe/subscribe')
+      .then((response) => {
+        setStripePublishableKey(response.data.publishableKey);
+      })
+      .catch((error) => {
+        console.error('Error fetching publishable key:', error);
+      });
+  }, []);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Create a payment intent on your server
-    const response = await axios.post('/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ paymentMethod }),
-    });
+    if (processing) return;
 
-    if (response.ok) {
-      const clientSecret = await response.json();
+    const selectedMember =
+      members.find((member) => member.isSelected) || members[0];
 
-      // Initialize Stripe.js
-      const stripe = await stripePromise;
+    if (!selectedMember) {
+      console.error('No valid membership selected.');
+      return;
+    }
 
-      // Create a payment method
-      const { error, paymentMethod } = await stripe.createPaymentMethod({
-        type: paymentMethod,
-        card: {
-          number: document.getElementById('cc-number').value,
-          exp_month: document.getElementById('cc-expiration').value,
-          exp_year: document.getElementById('cc-expiration').value,
-          cvc: document.getElementById('cc-cvv').value,
-        },
-      });
+    const memberId = selectedMember._id;
+    const userId = localStorage.getItem('userId');
+    const priceId =
+      selectedMember.subscriptionType === 'monthly'
+        ? 'price_monthly_id' // Use your actual Stripe price ID
+        : 'price_annual_id'; // Use your actual Stripe price ID
 
-      if (error) {
-        console.error(error);
-      } else {
-        // Confirm the payment on the client side
-        const { error } = await stripe.confirmCardPayment(clientSecret, {
-          payment_method: paymentMethod.id,
-        });
+    setProcessing(true);
 
-        if (error) {
-          console.error(error);
-        } else {
-          // Payment was successful, handle success here
-          console.log('Payment successful');
+    try {
+      const response = await axios.post(
+        `http://localhost:3001/stripe/subscribe/${selectedMember.subscriptionType}`,
+        {
+          memberId,
+          priceId,
+          userId,
         }
+      );
+
+      if (response.status === 200) {
+        console.log('Subscription created:', response.data.subscription);
+        setPaymentSuccess(true);
+      } else {
+        console.error('Subscription creation failed');
+        setPaymentSuccess(false);
       }
+    } catch (error) {
+      console.error('Error creating subscription:', error);
+      setPaymentSuccess(false);
+    } finally {
+      setProcessing(false);
     }
   };
+
   return (
-    <>
-      <form className="needs-validation py-5" onSubmit={handleSubmit}>
-        <div className="row g-3">
-          <div className="col-sm-6">
-            <label for="firstName" className="form-label text-white">
-              First name
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="firstName"
-              placeholder="first name"
-              value=""
-              required
-            />
-            <div className="invalid-feedback text-white">
-              Valid first name is required.
-            </div>
-          </div>
-
-          <div className="col-sm-6">
-            <label for="lastName" className="form-label text-white">
-              Last name
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="lastName"
-              placeholder="last name"
-              value=""
-              required
-            />
-            <div className="invalid-feedback text-white">
-              Valid last name is required.
-            </div>
-          </div>
-
-          <div className="col-12">
-            <label for="address" className="form-label text-white">
-              Address
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="address"
-              placeholder="1234 Main St"
-              required
-            />
-            <div className="invalid-feedback text-white">
-              Please enter your mailing address.
-            </div>
-          </div>
-
-          <div className="col-12">
-            <label for="address2" className="form-label text-white">
-              Address 2 <span className="text-white">(Optional)</span>
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="address2"
-              placeholder="Apartment or suite"
-            />
-          </div>
-          {/* col*/}
-          <div className="col-md-4">
-            <label for="state" className="form-label text-white">
-              State
-            </label>
-            <select className="form-select" id="state" required>
-              <option value="">Choose...</option>
-              <option>California</option>
-            </select>
-            <div className="invalid-feedback text-white">
-              Please provide a valid state.
-            </div>
-          </div>
-          {/* col*/}
-          <div className="col-md-3">
-            <label for="zip" className="form-label text-white">
-              Zip
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="zip"
-              placeholder="Zip code"
-              required
-            />
-            <div className="invalid-feedback text-white">
-              Zip code required.
+    <div className="container">
+      <div className="container mt-3">
+        <h1>Payment method</h1>
+        <h6>For demo purposes only</h6>
+        Enter test cc # 4242 4242 4242 4242 for Exp: 55555
+        <div className="card card-bordered shadow-none mb-2 mt-2">
+          <div className="card-body p-6">
+            <div className="d-flex">
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="paymentMethod"
+                  id="paypal"
+                />
+                <label
+                  className="form-check-label ms-2"
+                  htmlFor="paypal"
+                ></label>
+              </div>
+              <div>
+                <h5 className="mb-1 h6">Payment with Paypal</h5>
+                <p className="mb-0 small">
+                  You will be redirected to PayPal website to complete your
+                  purchase securely.
+                </p>
+              </div>
             </div>
           </div>
         </div>
-
-        <hr className="hr mt-5 " />
-        {/* form*/}
-        <div className="form-check">
-          <input
-            type="checkbox"
-            className="form-check-input"
-            id="same-address"
-          />
-          <label className="form-check-label text-white" for="same-address">
-            Shipping address is the same as my billing address
-          </label>
-        </div>
-
-        <div className="form-check">
-          <input type="checkbox" className="form-check-input" id="save-info" />
-          <label className="form-check-label text-white" for="save-info">
-            Save this information for next time
-          </label>
-        </div>
-
-        <hr className="hr mt-5 " />
-
-        <h4 className="mb-3">Payment</h4>
-
-        <div className="my-3">
-          {/*form*/}
-          <div className="form-check">
-            <input
-              id="debit"
-              name="paymentMethod"
-              type="radio"
-              className="form-check-input"
-              required
-            />
-            <label className="form-check-label text-white" for="debit">
-              Debit card
-            </label>
-          </div>
-          <div className="form-check">
-            <input
-              id="paypal"
-              name="paymentMethod"
-              type="radio"
-              className="form-check-input"
-              required
-            />
-            <label className="form-check-label text-white" for="paypal">
-              PayPal
-            </label>
-          </div>
-        </div>
-        {/* row*/}
-        <div className="row gy-3">
-          <div className="col-md-6">
-            <label for="cc-name" className="form-label text-white">
-              Name on card
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="cc-name"
-              placeholder="Name"
-              required
-            />
-            <small className="text-white">Full name as displayed on card</small>
-            <div className="invalid-feedback text-white">
-              Name on card is required
+        <div className="card card-bordered shadow-none mb-2">
+          <div className="card-body p-6">
+            <div className="d-flex mb-4">
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="paymentMethod"
+                  id="creditdebitcard"
+                />
+                <label
+                  className="form-check-label ms-2"
+                  htmlFor="creditdebitcard"
+                ></label>
+              </div>
+              <div>
+                <h5 className="mb-1 h6">Credit / Debit Card</h5>
+                <p className="mb-0 small">
+                  Safe money transfer using your bank account. We support
+                  Mastercard, Visa, Discover, and Stripe.
+                </p>
+              </div>
             </div>
-          </div>
-          {/* col*/}
-          <div className="col-md-6">
-            <label for="cc-number" className="form-label text-white">
-              Credit card number
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="cc-number"
-              placeholder="cc-number"
-              required
-            />
-            <small className="text-white">CC Number</small>
-            <div className="invalid-feedback text-white">
-              Credit card number is required
-            </div>
-          </div>
-          {/* col*/}
-          <div className="col-md-3">
-            <label for="cc-expiration" className="form-label text-white">
-              Expiration
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="cc-expiration"
-              placeholder="Expiration"
-              required
-            />
-            <div className="invalid-feedback text-white">
-              Expiration date required
-            </div>
-          </div>
+            <div className="row g-2">
+              <div className="col-12">
+                <div className="col-md-6 col-12">
+                  <div className="mb-3 mb-lg-0">
+                    <label className="form-label" htmlFor="nameoncard">
+                      Name on card
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Enter name"
+                      id="nameoncard"
+                      value={formData.cardName}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="mb-3 mb-lg-0">
+                    <label className="form-label" htmlFor="nameoncard">
+                      Address
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Address"
+                      id="nameoncard"
+                      value={formData.cardName}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
 
-          <div className="col-md-3">
-            <label for="cc-cvv" className="form-label text-white">
-              CVV
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="cc-cvv"
-              placeholder=" CVV"
-              required
-            />
-            <div className="invalid-feedback text-white">
-              Security code required
+                <div className="mb-3">
+                  <label className="form-label">Card Number</label>
+                  <CardElement />
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-        <hr className="hr mt-5 " />
-
-        <button className="btn btn-sm btn-accent d-block " type="submit">
-          Confirm Purchase
-        </button>
-        <button className="btn btn-sm btn-accent d-block mt-2 " type="submit">
-          Cancel
-        </button>
-      </form>
-    </>
+        <div className="mt-5 d-flex justify-content-end">
+          <button type="button" className="btn btn-outline-gray-400 text-muted">
+            Prev
+          </button>
+          <button
+            type="submit"
+            className="btn btn-sm ms-2"
+            onClick={handleSubmit}
+            disabled={processing}
+          >
+            {processing ? 'Processing...' : 'Place order'}
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }

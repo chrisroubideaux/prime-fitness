@@ -1,7 +1,28 @@
-// crud opertions for owner routes
+// owner routes
 const express = require('express');
 const ownerRoutes = express.Router();
-const Owner = require('./owner');
+
+const {
+  createOwner,
+  getAllOwners,
+  getOwnerById,
+  updateOwnerById,
+  deleteOwnerById,
+} = require('./ownerController');
+
+ownerRoutes.post('/', createOwner);
+ownerRoutes.get('/', getAllOwners);
+ownerRoutes.get('/:id', getOwnerById);
+ownerRoutes.put('/:id', updateOwnerById);
+ownerRoutes.delete('/:id', deleteOwnerById);
+
+module.exports = ownerRoutes;
+
+{
+  /*
+const express = require('express');
+const ownerRoutes = express.Router();
+
 
 const {
   getAllOwners,
@@ -83,3 +104,6 @@ ownerRoutes.delete('/:id', async (req, res) => {
 });
 
 module.exports = ownerRoutes;
+
+*/
+}

@@ -1,7 +1,27 @@
-// crud operations for sessions
+// session routes
 const express = require('express');
 const sessionRoutes = express.Router();
-const Session = require('./session');
+
+const {
+  createSession,
+  getAllSessions,
+  getSessionById,
+  updateSessionById,
+  deleteSessionById,
+} = require('./sessionController');
+
+sessionRoutes.post('/', createSession);
+sessionRoutes.get('/', getAllSessions);
+sessionRoutes.get('/:id', getSessionById);
+sessionRoutes.put('/:id', updateSessionById);
+sessionRoutes.delete('/:id', deleteSessionById);
+
+module.exports = sessionRoutes;
+{
+  /*
+const express = require('express');
+const sessionRoutes = express.Router();
+
 
 const {
   getAllSessions,
@@ -83,3 +103,6 @@ sessionRoutes.delete('/:id', async (req, res) => {
 });
 
 module.exports = sessionRoutes;
+
+*/
+}

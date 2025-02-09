@@ -6,9 +6,7 @@ export default function SubDetails({ members }) {
     <>
       <h2 className=" text-center fw-bold">Your Subscription</h2>
       <div className="container mt-3">
-        {/*checkout details component */}
         <div>
-          {/*membership details */}
           <div className="box">
             <div className="list-group w-auto ">
               <Link
@@ -29,7 +27,6 @@ export default function SubDetails({ members }) {
                 </div>
               </Link>
 
-              {/*list group */}
               <div className=" ">
                 <Link
                   href="/"

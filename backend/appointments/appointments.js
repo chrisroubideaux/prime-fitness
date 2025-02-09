@@ -1,7 +1,33 @@
-// crud opertions for appointments
-
+// Appointment routes
 const express = require('express');
+const appointmentRoutes = express.Router();
+const {
+  getAllAppointments,
+  createAppointment,
+  getAppointmentById,
+  updateAppointmentById,
+  deleteAppointmentById,
+  fetchAvailableSlots,
+} = require('./appointmentController');
+const authenticateUser = require('../routes/authenticateUser');
 
+appointmentRoutes.get(
+  '/available-slots',
+  authenticateUser,
+  fetchAvailableSlots
+);
+
+appointmentRoutes.post('/', authenticateUser, createAppointment);
+appointmentRoutes.get('/', authenticateUser, getAllAppointments);
+appointmentRoutes.get('/:id', authenticateUser, getAppointmentById);
+appointmentRoutes.put('/:id', authenticateUser, updateAppointmentById);
+appointmentRoutes.delete('/:id', authenticateUser, deleteAppointmentById);
+
+module.exports = appointmentRoutes;
+
+{
+  /*
+const express = require('express');
 const appointmentRoutes = express.Router();
 const Appointment = require('./appointment');
 
@@ -93,3 +119,5 @@ appointmentRoutes.delete('/:id', async (req, res) => {
 });
 
 module.exports = appointmentRoutes;
+*/
+}

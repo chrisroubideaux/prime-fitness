@@ -1,7 +1,28 @@
-// crud opertions for trainer routes
+// trainer routes
 const express = require('express');
 const trainerRoutes = express.Router();
-const Trainer = require('./trainer');
+
+const {
+  createTrainer,
+  getAllTrainers,
+  getTrainerById,
+  updateTrainerById,
+  deleteTrainerById,
+} = require('./trainerController');
+
+trainerRoutes.post('/', createTrainer);
+trainerRoutes.get('/', getAllTrainers);
+trainerRoutes.get('/:id', getTrainerById);
+trainerRoutes.put('/:id', updateTrainerById);
+trainerRoutes.delete('/:id', deleteTrainerById);
+
+module.exports = trainerRoutes;
+
+{
+  /*
+const express = require('express');
+const trainerRoutes = express.Router();
+
 
 const {
   getAllTrainers,
@@ -83,3 +104,6 @@ trainerRoutes.delete('/:id', async (req, res) => {
 });
 
 module.exports = trainerRoutes;
+
+*/
+}

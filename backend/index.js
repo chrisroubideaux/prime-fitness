@@ -134,6 +134,11 @@ app.get('/about', (req, res) => {
   res.send('About page');
 });
 
+app.get('/stripe/subscribe', (req, res) => {
+  console.log('STRIPE_PUBLISHABLE_KEY:', process.env.STRIPE_PUBLISHABLE_KEY);
+  res.json({ publishableKey: process.env.STRIPE_PUBLISHABLE_KEY });
+});
+
 // Oauth
 app.get(
   '/auth/google/register',

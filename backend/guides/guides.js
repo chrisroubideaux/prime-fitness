@@ -1,8 +1,6 @@
-// crud operations for guide routes
-
+// guide routes
 const express = require('express');
 const guideRoutes = express.Router();
-const Guide = require('./guide');
 
 const {
   getAllGuides,
@@ -12,6 +10,16 @@ const {
   deleteGuideById,
 } = require('./guideController');
 
+guideRoutes.post('/', createGuide);
+guideRoutes.get('/', getAllGuides);
+guideRoutes.get('/:id', getGuideById);
+guideRoutes.put('/:id', updateGuideById);
+guideRoutes.delete('/:id', deleteGuideById);
+
+module.exports = guideRoutes;
+
+{
+  /*
 // Create a new guide
 guideRoutes.post('/', async (req, res) => {
   try {
@@ -82,5 +90,5 @@ guideRoutes.delete('/:id', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
-module.exports = guideRoutes;
+*/
+}
