@@ -2,9 +2,9 @@
 import Head from 'next/head';
 import Navbar from '@/components/nav/Navbar';
 import Footer from '@/components/misc/Footer';
-import About from '@/components/about/About';
+i;
 
-export default function Abouts() {
+export default function about() {
   return (
     <>
       <Head>
@@ -14,7 +14,7 @@ export default function Abouts() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <About />
+
       <Footer />
     </>
   );
