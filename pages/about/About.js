@@ -4,7 +4,7 @@ import Navbar from '@/components/nav/Navbar';
 import Footer from '@/components/misc/Footer';
 import About from '@/components/about/About';
 
-export default function AboutPage() {
+export default function Abouts() {
   return (
     <>
       <Head>

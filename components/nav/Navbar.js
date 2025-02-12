@@ -74,11 +74,6 @@ export default function Navbar() {
                   </div>
                 </li>
 
-                <li className="nav-item mt-1  ">
-                  <Link className="nav-link fs-5" href="/login/Login/">
-                    About
-                  </Link>
-                </li>
                 <li className="nav-item mt-1">
                   <Link className="nav-link fs-5" href="/contact/Contact/">
                     Contact
