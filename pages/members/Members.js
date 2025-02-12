@@ -1,8 +1,6 @@
 // membership page
 import { useState, useEffect } from 'react';
-
 import axios from 'axios';
-// component imports
 import Navbar from '@/components/nav/Navbar';
 import Head from 'next/head';
 import Hero from '@/components/memberships/Hero';

@@ -26,7 +26,7 @@ export default function Promos() {
           <div className="col-xl-10 offset-xl-1 col-md-12 col-12">
             <div className="row">
               <div className="col-xl-6 col-md-12 col-lg-6 col-12">
-                <div className="card mb-5 mb-lg-0">
+                <div className="card mb-5 mb-lg-0" style={{ maxWidth: '100%' }}>
                   <div className="card-body p-5">
                     <span className="text-uppercase text-dark">Monthly</span>
                     <div className="d-flex align-items-center mt-5">
@@ -96,7 +96,7 @@ export default function Promos() {
                 </div>
               </div>
               <div className="col-xl-6 col-md-12 col-lg-6 col-12">
-                <div className="card">
+                <div className="card" style={{ maxWidth: '100%' }}>
                   <div className="card-body p-5">
                     <span class="text-uppercase text-dark">Annual</span>
                     <div className="d-flex align-items-center mt-5">

@@ -1,16 +1,24 @@
-// crud opertions for stripe payments
 const express = require('express');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const {
-  createMonthlySubscription,
-  createAnnualSubscription,
+  createSubscription,
   cancelSubscription,
-} = require('./stripeController');
+  webhookHandler,
+} = require('./stripeController'); // Ensure this import is correct
 
 const stripeRoutes = express.Router();
-stripeRoutes.post('/subscribe/monthly', createMonthlySubscription);
-stripeRoutes.post('/subscribe/annual', createAnnualSubscription);
-stripeRoutes.delete('/:id', cancelSubscription);
+
+// Create a subscription (handles both monthly & annual)
+stripeRoutes.post('/subscribe', createSubscription);
+
+// Cancel a subscription (using user ID as a parameter)
+stripeRoutes.delete('/cancel/:userId', cancelSubscription); // Ensure userId matches in your route and controller
+
+// Stripe webhook listener (make sure the body parser is correct for webhook events)
+stripeRoutes.post(
+  '/webhook',
+  express.raw({ type: 'application/json' }), // This is required for Stripe webhook signature verification
+  webhookHandler
+);
 
 module.exports = stripeRoutes;
 

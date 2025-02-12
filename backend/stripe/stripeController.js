@@ -1,128 +1,158 @@
-// stripe controller
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const User = require('../users/userModel');
 const Member = require('../members/member');
 
-// Create a monthly subscription
-const createMonthlySubscription = async (req, res) => {
+// Create Checkout Session (Subscription)
+const createSubscription = async (req, res) => {
   try {
-    const { memberId, priceId, userId } = req.body;
+    const { userId, memberId } = req.body; // Using memberId instead of membershipId
 
-    const member = await Member.findOne({ _id: memberId, userId });
-    if (!member) {
-      return res
-        .status(404)
-        .json({ error: 'Membership not found or does not belong to user' });
+    if (!userId || !memberId) {
+      return res.status(400).json({ error: 'Missing userId or memberId' });
     }
 
-    // Retrieve user details
     const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+    if (!user) return res.status(404).json({ error: 'User not found' });
+
+    const membership = await Member.findById(memberId); // Finding membership by memberId
+    if (!membership)
+      return res.status(404).json({ error: 'Membership plan not found' });
+
+    if (!user.stripeCustomerId) {
+      const customer = await stripe.customers.create({
+        email: user.email,
+        name: user.name,
+        metadata: { userId: user._id.toString() },
+      });
+      user.stripeCustomerId = customer.id;
+      await user.save();
     }
 
-    console.log(`User ${userId} is subscribing to membership ${memberId}`);
-
-    const subscription = await stripe.subscriptions.create({
-      customer: member.stripeCustomerId,
-      items: [{ price: priceId }],
+    const session = await stripe.checkout.sessions.create({
+      customer: user.stripeCustomerId,
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price: membership.stripePriceId, // Stripe price ID from the membership
+          quantity: 1,
+        },
+      ],
+      mode: 'subscription',
+      success_url: `${process.env.YOUR_DOMAIN}/?success=true&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.YOUR_DOMAIN}?canceled=true`,
+      metadata: {
+        userId: user._id.toString(),
+        memberId: membership._id.toString(), // Storing the memberId in metadata
+      },
     });
 
-    // Update membership details in the database
-    member.stripeSubscriptionId = subscription.id;
-    member.planType = 'monthly';
-    member.status = 'active';
-    await member.save();
-
-    res.status(200).json({
-      message: 'Monthly subscription created successfully',
-      subscription,
-      redirectUrl: '/',
-    });
+    res.json({ sessionId: session.id }); // Returning session ID
   } catch (error) {
-    console.error('Error creating monthly subscription:', error);
-    res.status(500).json({
-      error: 'An error occurred while creating the monthly subscription',
-    });
+    console.error('Error creating checkout session:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 };
 
-// Create an annual subscription
-const createAnnualSubscription = async (req, res) => {
-  try {
-    const { memberId, priceId, userId } = req.body;
-
-    // Ensure the membership belongs to the correct user
-    const member = await Member.findOne({ _id: memberId, userId });
-    if (!member) {
-      return res
-        .status(404)
-        .json({ error: 'Membership not found or does not belong to user' });
-    }
-
-    // Retrieve user details
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    console.log(`User ${userId} is subscribing to membership ${memberId}`);
-
-    const subscription = await stripe.subscriptions.create({
-      customer: member.stripeCustomerId,
-      items: [{ price: priceId }],
-    });
-
-    // Update membership details in the database
-    member.stripeSubscriptionId = subscription.id;
-    member.planType = 'annual';
-    member.status = 'active';
-    await member.save();
-
-    res.status(200).json({
-      message: 'Annual subscription created successfully',
-      subscription,
-      redirectUrl: '/',
-    });
-  } catch (error) {
-    console.error('Error creating annual subscription:', error);
-    res.status(500).json({
-      error: 'An error occurred while creating the annual subscription',
-    });
-  }
-};
-
-// Cancel a subscription
+// Cancel Subscription
 const cancelSubscription = async (req, res) => {
   try {
-    const { memberId } = req.params;
+    const { userId } = req.params;
+    if (!userId) return res.status(400).json({ error: 'Missing userId' });
 
-    const member = await Member.findById(memberId);
-    if (!member) {
-      return res.status(404).json({ error: 'Membership not found' });
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+
+    if (!user.stripeSubscriptionId) {
+      return res.status(400).json({ error: 'No active subscription' });
     }
 
-    await stripe.subscriptions.del(membership.stripeSubscriptionId);
+    // Cancel subscription in Stripe
+    await stripe.subscriptions.del(user.stripeSubscriptionId);
 
-    // Update Membership status to "canceled"
-    member.status = 'canceled';
-    member.stripeSubscriptionId = null;
-    await member.save();
+    // Update user record
+    user.stripeSubscriptionId = null;
+    user.memberId = null; // Optionally set memberId to null if needed
+    await user.save();
 
-    res.status(204).send();
+    res.json({ message: 'Subscription canceled successfully' });
   } catch (error) {
     console.error('Error canceling subscription:', error);
-    res
-      .status(500)
-      .json({ error: 'An error occurred while canceling the subscription' });
+    res.status(500).json({ error: 'Internal server error' });
   }
 };
 
-module.exports = {
-  createMonthlySubscription,
-  createAnnualSubscription,
-  cancelSubscription,
+// Webhook Handler
+const webhookHandler = async (req, res) => {
+  try {
+    const sig = req.headers['stripe-signature'];
+    let event;
+
+    try {
+      event = stripe.webhooks.constructEvent(
+        req.body,
+        sig,
+        process.env.STRIPE_WEBHOOK_SECRET
+      );
+    } catch (err) {
+      console.error('Webhook signature verification failed:', err.message);
+      return res.status(400).send(`Webhook Error: ${err.message}`);
+    }
+
+    // Handle different event types
+    switch (event.type) {
+      case 'checkout.session.completed':
+        console.log('✅ Checkout session completed:', event.data.object);
+
+        const session = event.data.object;
+        const userId = session.metadata?.userId;
+
+        if (userId) {
+          const user = await User.findById(userId);
+          if (user) {
+            user.stripeSubscriptionId = session.subscription;
+            user.memberId = session.metadata?.memberId; // Updating the memberId after successful payment
+            await user.save();
+            console.log(
+              `User ${userId} updated with subscription ID: ${session.subscription}`
+            );
+          } else {
+            console.error(`User not found for ID: ${userId}`);
+          }
+        }
+        break;
+
+      case 'invoice.payment_succeeded':
+        console.log('✅ Invoice payment succeeded:', event.data.object);
+        break;
+
+      case 'customer.subscription.deleted':
+        console.log('🚨 Subscription canceled:', event.data.object);
+
+        const subscription = event.data.object;
+        const canceledUser = await User.findOne({
+          stripeSubscriptionId: subscription.id,
+        });
+
+        if (canceledUser) {
+          canceledUser.stripeSubscriptionId = null;
+          canceledUser.memberId = null; // Optionally clear the memberId
+          await canceledUser.save();
+          console.log(`Subscription removed from user ${canceledUser._id}`);
+        }
+        break;
+
+      default:
+        console.log(`Unhandled event type: ${event.type}`);
+    }
+
+    res.json({ received: true });
+  } catch (error) {
+    console.error('Error handling webhook:', error);
+    res.status(500).json({ error: 'Webhook handling error' });
+  }
 };
+
+module.exports = { createSubscription, cancelSubscription, webhookHandler };
 
 {
   /*

@@ -1,23 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
 const Success = ({
   userName,
-  membershipType,
+  members,
   nextPaymentDate,
   totalPrice,
   paymentIntentId,
 }) => {
-  const [user, setUser] = useState(userName);
-  const [membership, setMembership] = useState(membershipType);
-  const [nextPayment, setNextPayment] = useState(nextPaymentDate);
-  const [price, setPrice] = useState(totalPrice);
-  const [paymentId, setPaymentId] = useState(paymentIntentId);
-
   const today = new Date();
   const formattedDate = today.toLocaleDateString();
   const formattedTime = today.toLocaleTimeString();
 
-  // Handle CSV Export
   const handleExportCSV = () => {
     const headers = [
       'Membership Type',
@@ -28,11 +21,11 @@ const Success = ({
     ];
     const rows = [
       [
-        membership,
-        parseFloat(price || 0).toFixed(2),
+        members.title,
+        parseFloat(totalPrice || 0).toFixed(2),
         formattedDate,
         formattedTime,
-        paymentId,
+        paymentIntentId,
       ],
     ];
 
@@ -52,51 +45,38 @@ const Success = ({
     document.body.removeChild(link);
   };
 
-  // Optionally, you could update the state on mount or based on changes to props
-  useEffect(() => {
-    setUser(userName);
-    setMembership(membershipType);
-    setNextPayment(nextPaymentDate);
-    setPrice(totalPrice);
-    setPaymentId(paymentIntentId);
-  }, [userName, membershipType, nextPaymentDate, totalPrice, paymentIntentId]);
-
   return (
-    <div className="container mt-5">
-      <div className="card">
-        <div className="card-header d-flex justify-content-between align-items-center">
-          <h4>Payment Successful</h4>
-          <div className="d-flex gap-2">
-            <a
-              className="btn btn-sm"
-              href="/InventoryDashboard/InventoryDashboard"
+    <div
+      className="modal fade show"
+      style={{ display: 'block' }}
+      aria-hidden="false"
+    >
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Payment Successful</h5>
+            <button
+              type="button"
+              className="close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
             >
-              Inventory
-            </a>
-            <button onClick={handleExportCSV} className="btn btn-sm">
-              Export Invoice
+              <span>&times;</span>
             </button>
           </div>
-        </div>
-
-        <div className="card-body">
-          <p className="mb-4">Thank you for your purchase, {user}!</p>
-          <h5>Invoice</h5>
-          <div className="mb-3">
-            <strong>Date:</strong> {formattedDate} <br />
-            <strong>Time:</strong> {formattedTime} <br />
-            <strong>Payment ID:</strong> {paymentId}
+          <div className="modal-body">
+            <p>Thank you for your purchase, {userName}!</p>
+            <p>Membership Type: {members.title}</p>
+            <p>Next Payment Date: {nextPaymentDate}</p>
+            <p>Payment ID: {paymentIntentId}</p>
           </div>
-
-          {/* Display Membership Details */}
-          <div className="mb-3">
-            <strong>Membership Type:</strong> {membership} <br />
-            <strong>Next Payment:</strong> {nextPayment}
-          </div>
-
-          <div className="alert alert-success mt-4">
-            Your payment was processed successfully. We hope to see you again
-            soon!
+          <div className="modal-footer">
+            <button className="btn btn-secondary" onClick={handleExportCSV}>
+              Export Invoice
+            </button>
+            <button className="btn btn-primary" data-bs-dismiss="modal">
+              Close
+            </button>
           </div>
         </div>
       </div>

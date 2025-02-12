@@ -11,13 +11,12 @@ const authRoutes = require('./routes/auth');
 const sessionRoutes = require('./sessions/sessions');
 const trainerRoutes = require('./trainers/trainers');
 const memberRoutes = require('./members/members');
-//const profileRoutes = require('./routes/profile');
 const guideRoutes = require('./guides/guides');
 const ownerRoutes = require('./owners/owners');
-//const adminRoutes = require('./admin/admin');
 const userRoutes = require('./users/userRoutes');
-const paymentsRoute = require('./stripe/payments');
-// Load environment variables from .env file
+const stripeRoutes = require('./stripe/payments');
+
+// dotenv
 require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 3001;
@@ -36,7 +35,6 @@ mongoose
 // cors middleware
 
 const corsOptions = {
-  // origin: 'http://localhost:3000',
   origin: process.env.CLIENT_BASE_URL || 'http://localhost:3000',
   credentials: true,
   allowedHeaders: ['Authorization', 'Content-Type'],
@@ -120,16 +118,17 @@ app.use(sessionMiddleware);
 app.get('/', (req, res) => {
   res.send('cover page.');
 });
-app.use('/sessions', sessionRoutes); // sessions route
-app.use('/trainers', trainerRoutes); // trainers route
-app.use('/members', memberRoutes); // members route
-app.use('/guides', guideRoutes); // guides route
-app.use('/owners', ownerRoutes); // owners route
-app.use('/appointments', appointmentRoutes); // appointments route
+app.use('/sessions', sessionRoutes);
+app.use('/trainers', trainerRoutes);
+app.use('/members', memberRoutes);
+app.use('/guides', guideRoutes);
+app.use('/owners', ownerRoutes);
+app.use('/appointments', appointmentRoutes);
 //app.use('/admin', adminRoutes);
-app.use('/auth', authRoutes); // auth routes
-app.use('/users', userRoutes); // user routes
-app.use('/payments', paymentsRoute); // payments route
+app.use('/auth', authRoutes);
+app.use('/users', userRoutes);
+app.use('/stripe', stripeRoutes);
+
 app.get('/about', (req, res) => {
   res.send('About page');
 });

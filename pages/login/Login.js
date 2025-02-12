@@ -24,7 +24,8 @@ export default function Login() {
       [name]: value,
     });
   };
-
+  {
+    /*
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,6 +50,54 @@ export default function Login() {
         } else {
           window.location.href = `http://localhost:3000/user/${user._id}`;
         }
+      } else {
+        setError(response.data.message || 'Login failed');
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Internal server error');
+    }
+  };
+
+  // Google OAuth
+  const handleGoogleLogin = () => {
+    window.location.href =
+      'https://dakota-realtors.onrender.com/auth/google/login';
+  };
+
+  // Facebook OAuth
+  const handleFacebookLogin = () => {
+    const facebookOAuthURL =
+      'https://dakota-realtors.onrender.com/auth/facebook/login';
+    window.open(facebookOAuthURL, '_self');
+  };
+*/
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        'http://localhost:3001/users/login',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        const { token, user } = response.data;
+
+        // Save data to localStorage
+        localStorage.setItem('authToken', token);
+        localStorage.setItem('userId', user._id);
+        localStorage.setItem('userRole', user.role);
+
+        // Redirect based on role
+        window.location.href = `http://localhost:3000/user/${user._id}`;
       } else {
         setError(response.data.message || 'Login failed');
       }

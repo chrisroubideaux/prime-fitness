@@ -1,11 +1,12 @@
 /* card */
 .card {
-  border-radius: 10px;
-  border-style: none;
   background: rgb(245,245,247);
   background: linear-gradient(142deg, rgba(245,245,247,1) 0%, rgba(244,236,228,1) 100%, rgba(241,232,223,1) 100%);
+  border-radius: 10px;
+  border-style: none;
   object-fit: contain;
-
+  max-width: 250px;
+  margin: auto;
   box-shadow: 0.1rem 0.1rem 0.8rem #b3b2b2;
 }
 

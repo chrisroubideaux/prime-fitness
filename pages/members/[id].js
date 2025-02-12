@@ -1,4 +1,3 @@
-// membership details page
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -16,8 +15,10 @@ import { FaAward, FaStar } from 'react-icons/fa';
 
 export default function Details({ params }) {
   const [member, setMember] = useState([]);
+  const [user, setUser] = useState([]);
   const router = useRouter();
   const { id } = router.query;
+  const [activeComponent, setActiveComponent] = useState('Payment');
 
   useEffect(() => {
     if (id) {
@@ -31,6 +32,20 @@ export default function Details({ params }) {
         });
     }
   }, [id]);
+
+  useEffect(() => {
+    if (id) {
+      axios
+        .get(`http://localhost:3001/users/${id}`)
+        .then((response) => {
+          setUser(response.data);
+        })
+        .catch((error) => {
+          console.error('Error fetching user by id', error);
+        });
+    }
+  }, [id]);
+
   return (
     <>
       <Head>
@@ -45,7 +60,6 @@ export default function Details({ params }) {
           <Nav />
         </div>
 
-        {/* section */}
         <section className=" shadow-lg rounded-3">
           <div className="py-lg-3 py-2 px-lg-3">
             <div className="row gy-4">
@@ -67,7 +81,7 @@ export default function Details({ params }) {
                   <Member members={member} />
                 </div>
               </div>
-              {/*section */}
+
               <div className="col-lg-6">
                 <div className="ps-xl-5 ps-lg-3">
                   <div className="row row-cols-sm-2 row-cols-1 gy-3 gx-4 mb-4 pb-md-2">
@@ -83,7 +97,6 @@ export default function Details({ params }) {
                         <p className="par">{member.description}</p>
                       </div>
                     </div>
-                    {/*section */}
                   </div>
                   <div className="row row-cols-sm-2 row-cols-1 g-sm-4 g-3 mb-4">
                     <div className="col">
@@ -92,12 +105,11 @@ export default function Details({ params }) {
                       </h6>
                     </div>
                     <div className="col">
-                      <Checkout members={member} />
+                      <Checkout members={member} user={user} />
                     </div>
                   </div>
                 </div>
               </div>
-              {/*section */}
             </div>
           </div>
         </section>

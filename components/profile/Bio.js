@@ -55,7 +55,7 @@ export default function Bio({ users }) {
     <div className="mt-3">
       <div className="col-lg-9">
         <div className="d-grid gap-3 gap-lg-5">
-          <div className="card">
+          <div className="card" style={{ maxWidth: '100%' }}>
             <div className="card-header border-bottom">
               <h4 className="card-header-title">Profile</h4>
             </div>
