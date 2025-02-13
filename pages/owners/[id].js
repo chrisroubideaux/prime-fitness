@@ -18,7 +18,7 @@ export default function OwnerDetails({}) {
   useEffect(() => {
     if (id) {
       axios
-        .get(`http://localhost:3001/owners/${id}`)
+        .get(`https://prime-fitness.onrender.com/owners/${id}`)
         .then((response) => {
           setOwner(response.data);
         })

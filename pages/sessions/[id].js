@@ -21,7 +21,7 @@ function Details({}) {
   useEffect(() => {
     if (id) {
       axios
-        .get(`http://localhost:3001/sessions/${id}`)
+        .get(`https://prime-fitness.onrender.com/sessions/${id}`)
         .then((response) => {
           setSession(response.data);
         })
