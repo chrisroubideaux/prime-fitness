@@ -24,7 +24,9 @@ export default function User() {
     if (id) {
       const fetchUserData = async () => {
         try {
-          const response = await axios.get(`http://localhost:3001/users/${id}`);
+          const response = await axios.get(
+            `https://prime-fitness.onrender.com/users/${id}`
+          );
           console.log('User data:', response.data);
           setUser(response.data);
         } catch (error) {
@@ -130,7 +132,7 @@ export default function User() {
 export async function getServerSideProps({ params }) {
   try {
     const response = await axios.get(
-      `http://localhost:3001/users/${params.id}`
+      `https://prime-fitness.onrender.com/users/${params.id}`
     );
     const user = response.data;
 

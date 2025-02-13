@@ -78,7 +78,7 @@ export default Details;
 export async function getServerSideProps({ params }) {
   try {
     const response = await axios.get(
-      `http://localhost:3001/sessions/${params.id}`
+      `https://prime-fitness.onrender.com/sessions/${params.id}`
     );
     const session = response.data;
 

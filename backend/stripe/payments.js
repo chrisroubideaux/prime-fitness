@@ -1,22 +1,18 @@
+// stripe routes
 const express = require('express');
 const {
   createSubscription,
   cancelSubscription,
   webhookHandler,
-} = require('./stripeController'); // Ensure this import is correct
+} = require('./stripeController');
 
 const stripeRoutes = express.Router();
 
-// Create a subscription (handles both monthly & annual)
 stripeRoutes.post('/subscribe', createSubscription);
-
-// Cancel a subscription (using user ID as a parameter)
-stripeRoutes.delete('/cancel/:userId', cancelSubscription); // Ensure userId matches in your route and controller
-
-// Stripe webhook listener (make sure the body parser is correct for webhook events)
+stripeRoutes.delete('/cancel/:userId', cancelSubscription);
 stripeRoutes.post(
   '/webhook',
-  express.raw({ type: 'application/json' }), // This is required for Stripe webhook signature verification
+  express.raw({ type: 'application/json' }),
   webhookHandler
 );
 

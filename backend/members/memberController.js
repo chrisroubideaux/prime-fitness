@@ -1,5 +1,4 @@
 // membership controller
-
 const Member = require('./member');
 
 // Get a list of all members

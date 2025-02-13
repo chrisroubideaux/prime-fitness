@@ -12,7 +12,7 @@ export default function Owner() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/owners')
+      .get('https://prime-fitness.onrender.com/owners')
       .then((response) => {
         setOwners(response.data);
       })
@@ -65,7 +65,9 @@ export default function Owner() {
 // Fetch data using server side using getServerSideProps
 export async function getServerSideProps() {
   try {
-    const response = await axios.get('http://localhost:3001/owners');
+    const response = await axios.get(
+      'https://prime-fitness.onrender.com/owners'
+    );
     const owners = response.data;
 
     return {

@@ -1,4 +1,5 @@
 // main app
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const express = require('express');
 const session = require('express-session');
 const { json, urlencoded } = require('body-parser');
@@ -156,7 +157,7 @@ app.get(
   '/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
-    res.redirect(`http://localhost:3000/users/${userId}`);
+    res.redirect(`https://prime-jet.vercel.app/users/${userId}`);
   }
 );
 
@@ -175,9 +176,9 @@ app.get(
       const { role, id } = req.user;
 
       if (role === 'guide') {
-        res.redirect(`http://localhost:3000/guides/${id}`);
+        res.redirect(`https://prime-jet.vercel.app/guides/${id}`);
       } else if (role === 'user') {
-        res.redirect(`http://localhost:3000/users/${id}`);
+        res.redirect(`https://prime-jet.vercel.app/users/${id}`);
       } else {
         res.redirect('/login');
       }

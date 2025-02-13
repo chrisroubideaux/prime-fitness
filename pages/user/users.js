@@ -12,7 +12,7 @@ export default function Users({}) {
   useEffect(() => {
     const token = localStorage.getItem('token');
     axios
-      .get(`https://fitness-server-c1a2fb04992c.herokuapp.com/users/Users`, {
+      .get(`https://prime-fitness.onrender.com/users`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

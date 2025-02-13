@@ -123,7 +123,7 @@ const createUser = async (req, res) => {
       message: 'User created successfully.',
       user: newUser,
       token,
-      redirectTo: `http://localhost:3000/user/${newUser._id}`,
+      redirectTo: `https://prime-jet.vercel.app/user/${newUser._id}`,
     });
   } catch (err) {
     console.error(err);
@@ -202,7 +202,7 @@ const login = async (req, res) => {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
-    const redirectTo = `http://localhost:3000/user/${user._id}`;
+    const redirectTo = `https://prime-jet.vercel.app/user/${user._id}`;
     console.log('Generated Token:', token);
 
     res

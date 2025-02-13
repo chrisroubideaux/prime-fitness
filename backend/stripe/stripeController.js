@@ -1,3 +1,4 @@
+// Stripe controller
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const User = require('../users/userModel');
 const Member = require('../members/member');
@@ -5,7 +6,7 @@ const Member = require('../members/member');
 // Create Checkout Session (Subscription)
 const createSubscription = async (req, res) => {
   try {
-    const { userId, memberId } = req.body; // Using memberId instead of membershipId
+    const { userId, memberId } = req.body;
 
     if (!userId || !memberId) {
       return res.status(400).json({ error: 'Missing userId or memberId' });
@@ -14,7 +15,7 @@ const createSubscription = async (req, res) => {
     const user = await User.findById(userId);
     if (!user) return res.status(404).json({ error: 'User not found' });
 
-    const membership = await Member.findById(memberId); // Finding membership by memberId
+    const membership = await Member.findById(memberId);
     if (!membership)
       return res.status(404).json({ error: 'Membership plan not found' });
 
@@ -33,7 +34,7 @@ const createSubscription = async (req, res) => {
       payment_method_types: ['card'],
       line_items: [
         {
-          price: membership.stripePriceId, // Stripe price ID from the membership
+          price: membership.stripePriceId,
           quantity: 1,
         },
       ],
@@ -42,11 +43,11 @@ const createSubscription = async (req, res) => {
       cancel_url: `${process.env.YOUR_DOMAIN}?canceled=true`,
       metadata: {
         userId: user._id.toString(),
-        memberId: membership._id.toString(), // Storing the memberId in metadata
+        memberId: membership._id.toString(),
       },
     });
 
-    res.json({ sessionId: session.id }); // Returning session ID
+    res.json({ sessionId: session.id });
   } catch (error) {
     console.error('Error creating checkout session:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -66,12 +67,10 @@ const cancelSubscription = async (req, res) => {
       return res.status(400).json({ error: 'No active subscription' });
     }
 
-    // Cancel subscription in Stripe
     await stripe.subscriptions.del(user.stripeSubscriptionId);
 
-    // Update user record
     user.stripeSubscriptionId = null;
-    user.memberId = null; // Optionally set memberId to null if needed
+    user.memberId = null;
     await user.save();
 
     res.json({ message: 'Subscription canceled successfully' });
@@ -110,7 +109,7 @@ const webhookHandler = async (req, res) => {
           const user = await User.findById(userId);
           if (user) {
             user.stripeSubscriptionId = session.subscription;
-            user.memberId = session.metadata?.memberId; // Updating the memberId after successful payment
+            user.memberId = session.metadata?.memberId;
             await user.save();
             console.log(
               `User ${userId} updated with subscription ID: ${session.subscription}`
@@ -135,7 +134,7 @@ const webhookHandler = async (req, res) => {
 
         if (canceledUser) {
           canceledUser.stripeSubscriptionId = null;
-          canceledUser.memberId = null; // Optionally clear the memberId
+          canceledUser.memberId = null;
           await canceledUser.save();
           console.log(`Subscription removed from user ${canceledUser._id}`);
         }

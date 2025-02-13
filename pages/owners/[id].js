@@ -76,7 +76,7 @@ export default function OwnerDetails({}) {
 export async function getServerSideProps({ params }) {
   try {
     const response = await axios.get(
-      `http://localhost:3001/owners/${params.id}`
+      `https://prime-fitness.onrender.com/owners/${params.id}`
     );
     const owner = response.data;
 

@@ -25,7 +25,7 @@ export default function Guide() {
 
     // Fetch tour guide data
     axios
-      .get('http://localhost:3001/guides')
+      .get('https://prime-fitness.onrender.com/guides')
       .then((response) => {
         setGuides(response.data);
       })

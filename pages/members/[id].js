@@ -23,7 +23,7 @@ export default function Details({ params }) {
   useEffect(() => {
     if (id) {
       axios
-        .get(`http://localhost:3001/members/${id}`)
+        .get(`https://prime-fitness.onrender.com/members/${id}`)
         .then((response) => {
           setMember(response.data);
         })
@@ -36,7 +36,7 @@ export default function Details({ params }) {
   useEffect(() => {
     if (id) {
       axios
-        .get(`http://localhost:3001/users/${id}`)
+        .get(`https://prime-fitness.onrender.com/users/${id}`)
         .then((response) => {
           setUser(response.data);
         })
@@ -129,7 +129,7 @@ export default function Details({ params }) {
 export async function getServerSideProps({ params }) {
   try {
     const response = await axios.get(
-      `http://localhost:3001/members/${params.id}`
+      `https://prime-fitness.onrender.com/members/${params.id}`
     );
     const member = response.data;
 

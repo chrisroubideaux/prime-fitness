@@ -19,7 +19,7 @@ export default function Team() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/owners')
+      .get('https://prime-fitness.onrender.com/owners')
       .then((response) => {
         setOwners(response.data);
       })
@@ -30,7 +30,7 @@ export default function Team() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/guides')
+      .get('https://prime-fitness.onrender.com/guides')
       .then((response) => {
         setGuides(response.data);
       })
@@ -41,7 +41,7 @@ export default function Team() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/sessions')
+      .get('https://prime-fitness.onrender.com/sessions')
       .then((response) => {
         setSessions(response.data);
       })
@@ -52,7 +52,7 @@ export default function Team() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/trainers')
+      .get('https://prime-fitness.onrender.com/trainers')
       .then((response) => {
         setTrainers(response.data);
       })

@@ -53,7 +53,7 @@ export default function Register() {
 
     try {
       const response = await axios.post(
-        'http://localhost:3001/users',
+        'https://prime-fitness.onrender.com/users',
         formData
       );
 
@@ -76,7 +76,8 @@ export default function Register() {
   };
   // Facebook registeration
   const handleFacebookRegister = () => {
-    const facebookOAuthURL = 'http://localhost:3001/auth/facebook/register';
+    const facebookOAuthURL =
+      'https://prime-fitness.onrender.com/auth/facebook/register';
 
     window.open(
       facebookOAuthURL,
@@ -87,7 +88,8 @@ export default function Register() {
   };
   // Google registration
   const handleGoogleRegister = () => {
-    const googleOAuthURL = 'http://localhost:3001/auth/google/login';
+    const googleOAuthURL =
+      'https://prime-fitness.onrender.com/auth/google/login';
     window.open(
       googleOAuthURL,
       'Google OAuth',

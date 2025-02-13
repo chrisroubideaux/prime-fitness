@@ -17,7 +17,7 @@ const Session = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/sessions')
+      .get('https://prime-fitness.onrender.com/sessions')
       .then((response) => {
         setSessions(response.data);
       })
@@ -28,7 +28,7 @@ const Session = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/trainers')
+      .get('https://prime-fitness.onrender.com/trainers')
       .then((response) => {
         setTrainers(response.data);
       })
@@ -102,7 +102,9 @@ export default Session;
 // getServerSideProps
 export async function getServerSideProps() {
   try {
-    const response = await axios.get('http://localhost:3001/sessions');
+    const response = await axios.get(
+      'https://prime-fitness.onrender.com/sessions'
+    );
     const sessions = response.data;
 
     return {

@@ -19,22 +19,7 @@ export default function Details({}) {
   const [appointment, setAppointment] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  {
-    /*
-  useEffect(() => {
-    if (id) {
-      axios
-        .get(`http://localhost:3001/guides/${id}`)
-        .then((response) => {
-          setGuide(response.data);
-        })
-        .catch((error) => {
-          console.error('Error fetching guide by id', error);
-        });
-    }
-  }, [id]);
-*/
-  }
+  // Fetch auth token
   useEffect(() => {
     const authToken = localStorage.getItem('authToken');
     if (authToken) {
@@ -45,7 +30,7 @@ export default function Details({}) {
 
     // Fetch tour guide details
     axios
-      .get(`http://localhost:3001/guides/${id}`)
+      .get(`https://prime-fitness.onrender.com/guides/${id}`)
       .then((response) => {
         setGuide(response.data);
       })
@@ -55,7 +40,7 @@ export default function Details({}) {
 
     // Fetch appointment by ud
     axios
-      .get(`http://localhost:3001/appointments/${id}`)
+      .get(`https://prime-fitness.onrender.com/appointments/${id}`)
       .then((response) => {
         setAppointment(response.data);
       })
@@ -122,7 +107,7 @@ export default function Details({}) {
 export async function getServerSideProps({ params }) {
   try {
     const response = await axios.get(
-      `http://localhost:3001/guides/${params.id}`
+      `https://prime-fitness.onrender.com/guides/${params.id}`
     );
     const guide = response.data;
 

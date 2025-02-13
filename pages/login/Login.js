@@ -6,7 +6,8 @@ import Image from 'next/image';
 import Head from 'next/head';
 import Navbar from '@/components/nav/Navbar';
 import jumbotron2 from '@/public/images/jumbotron/jumbotron2.jpg';
-import { FaFacebook, FaGoogle } from 'react-icons/fa';
+//import { FaFacebook, FaGoogle } from 'react-icons/fa';
+
 export default function Login() {
   // Form data
   const [formData, setFormData] = useState({
@@ -24,62 +25,13 @@ export default function Login() {
       [name]: value,
     });
   };
-  {
-    /*
-  // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await axios.post(
-        'http://localhost:3001/users/login',
-        formData
-      );
-
-      if (response.status === 200) {
-        const { token, user } = response.data;
-
-        // Save data to localStorage
-        localStorage.setItem('authToken', token);
-        localStorage.setItem('userId', user._id);
-        localStorage.setItem('userRole', user.role);
-
-        // Redirect based on role
-        if (user.role === 'guide') {
-          window.location.href = `http://localhost:3000/guides/${user._id}`;
-        } else {
-          window.location.href = `http://localhost:3000/user/${user._id}`;
-        }
-      } else {
-        setError(response.data.message || 'Login failed');
-      }
-    } catch (err) {
-      console.error(err);
-      setError('Internal server error');
-    }
-  };
-
-  // Google OAuth
-  const handleGoogleLogin = () => {
-    window.location.href =
-      'https://dakota-realtors.onrender.com/auth/google/login';
-  };
-
-  // Facebook OAuth
-  const handleFacebookLogin = () => {
-    const facebookOAuthURL =
-      'https://dakota-realtors.onrender.com/auth/facebook/login';
-    window.open(facebookOAuthURL, '_self');
-  };
-*/
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const response = await axios.post(
-        'http://localhost:3001/users/login',
+        'https://prime-fitness.onrender.com/users/login',
         formData,
         {
           headers: {
@@ -110,13 +62,13 @@ export default function Login() {
   // Google OAuth
   const handleGoogleLogin = () => {
     window.location.href =
-      'https://dakota-realtors.onrender.com/auth/google/login';
+      'https://prime-fitness.onrender.com/auth/google/login';
   };
 
   // Facebook OAuth
   const handleFacebookLogin = () => {
     const facebookOAuthURL =
-      'https://dakota-realtors.onrender.com/auth/facebook/login';
+      'https://prime-fitness.onrender.com/auth/facebook/login';
     window.open(facebookOAuthURL, '_self');
   };
 

@@ -17,7 +17,7 @@ authRoutes.get(
   (req, res) => {
     console.log('req.user:', req.user);
     if (req.user) {
-      res.redirect(`http://localhost:3000/users/${req.user.id}`);
+      res.redirect(`https://prime-jet.vercel.app/users/${req.user.id}`);
     } else {
       res.redirect('/');
     }
@@ -32,7 +32,7 @@ authRoutes.get('/logout', (req, res, next) => {
     }
     res.clearCookie('token');
     res.status(200).json({ message: 'Logged out successfully' });
-    res.redirect('http://localhost:3000/login');
+    res.redirect('https://prime-jet.vercel.app/login');
   });
 });
 
@@ -53,9 +53,9 @@ authRoutes.get(
       console.log(`Role: ${role}, ID: ${id}`);
 
       if (role === 'guide') {
-        res.redirect(`http://localhost:3000/guides/${id}`);
+        res.redirect(`https://prime-jet.vercel.app/guides/${id}`);
       } else {
-        res.redirect(`http://localhost:3000/users/${id}`);
+        res.redirect(`https://prime-jet.vercel.app/users/${id}`);
       }
     } else {
       res.redirect('/login');

@@ -15,7 +15,7 @@ export default function Memberships() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/members')
+      .get('https://prime-fitness.onrender.com/members')
       .then((response) => {
         setMembers(response.data);
       })
@@ -73,7 +73,9 @@ export default function Memberships() {
 // getServerSideProps
 export async function getServerSideProps() {
   try {
-    const response = await axios.get('http://localhost:3001/members');
+    const response = await axios.get(
+      'https://prime-fitness.onrender.com/members'
+    );
     const members = response.data;
 
     return {

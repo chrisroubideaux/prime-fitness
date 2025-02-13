@@ -17,7 +17,7 @@ export default function Home() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/sessions')
+      .get('https://prime-fitness.onrender.com/sessions')
       .then((response) => {
         setSessions(response.data);
       })
@@ -28,7 +28,7 @@ export default function Home() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/trainers')
+      .get('https://prime-fitness.onrender.com/trainers')
       .then((response) => {
         setTrainers(response.data);
       })
@@ -101,19 +101,24 @@ export default function Home() {
 // getServerSideProps
 export async function getServerSideProps() {
   try {
-    const response = await axios.get('http://localhost:3001/sessions');
-    const sessions = response.data;
+    // Fetch both sessions and trainers
+    const [sessionsRes, trainersRes] = await Promise.all([
+      axios.get('https://prime-fitness.onrender.com/sessions'),
+      axios.get('https://prime-fitness.onrender.com/trainers'),
+    ]);
 
     return {
       props: {
-        sessions,
+        sessions: sessionsRes.data,
+        trainers: trainersRes.data,
       },
     };
   } catch (error) {
-    console.error('Error fetching sessions:', error);
+    console.error('Error fetching data:', error);
     return {
       props: {
         sessions: [],
+        trainers: [],
       },
     };
   }
