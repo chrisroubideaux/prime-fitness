@@ -1,30 +1,26 @@
 // google maps component
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
-import GoogleMapReact from 'google-map-react';
+const containerStyle = {
+  width: '100%',
+  height: '100vh',
+};
+
+const center = {
+  lat: 41.8781,
+  lng: -87.6298,
+};
 
 export default function SimpleMap() {
-  const chicagoTimeZoneOffset = -5 * 60;
-
-  const defaultProps = {
-    center: {
-      lat: 41.8781,
-      lng: -87.6298,
-    },
-    zoom: 11,
-  };
-
   return (
-    <div
-      className="container-fluid mt-5 "
-      style={{ height: '100vh', width: '100%' }}
-    >
-      <GoogleMapReact
-        bootstrapURLKeys={{ key: 'AIzaSyByGr3iMNbXEJCBZhv5N5Y5cuBCkMBtvYE' }}
-        defaultCenter={defaultProps.center}
-        defaultZoom={defaultProps.zoom}
+    <div className="container-fluid mt-5">
+      <LoadScript
+        googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
       >
-        <div lat={41.8781} lng={-87.6298} text="My Marker" />
-      </GoogleMapReact>
+        <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={11}>
+          <Marker position={center} />
+        </GoogleMap>
+      </LoadScript>
     </div>
   );
 }

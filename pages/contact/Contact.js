@@ -11,6 +11,7 @@ import {
 
 import Map from '@/components/maps/Maps';
 import Footer from '@/components/misc/Footer';
+import { max } from 'date-fns';
 
 function Contact() {
   return (
@@ -27,7 +28,10 @@ function Contact() {
             <div className="pt-1 pt-md-4 pb-4 text-center">
               <h6 className="text-center fs-3">Contact Us</h6>
               <div className="">
-                <div className="card card-body blur d-flex justify-content-center shadow-lg p-5 mt-5">
+                <div
+                  className="card card-body blur d-flex justify-content-center shadow-lg p-5 mt-5"
+                  style={{ maxWidth: '100%' }}
+                >
                   <div className="lead pe-5 me-5 fw-normal">
                     <h6 className="text-center fw-bold">
                       We would love to meet you!
