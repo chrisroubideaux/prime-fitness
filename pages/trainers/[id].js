@@ -21,7 +21,7 @@ const Details = ({}) => {
   useEffect(() => {
     if (id) {
       axios
-        .get(`http://localhost:3001/trainers/${id}`)
+        .get(`https://prime-fitness.onrender.com/trainers/${id}`)
         .then((response) => {
           setTrainer(response.data);
         })
@@ -73,7 +73,7 @@ export default Details;
 export async function getServerSideProps({ params }) {
   try {
     const response = await axios.get(
-      `http://localhost:3001/trainers/${params.id}`
+      `https://prime-fitness.onrender.com/trainers/${params.id}`
     );
     const trainer = response.data;
 
