@@ -1,9 +1,8 @@
 import React from 'react';
 
 export default function SubDetails({ members, setSelectedMembershipId }) {
-  // Handle the click event to set the selected membership ID
   const handleSelectMembership = () => {
-    setSelectedMembershipId(members._id); // Set the selected membership ID when clicked
+    setSelectedMembershipId(members._id);
   };
 
   return (
@@ -14,7 +13,7 @@ export default function SubDetails({ members, setSelectedMembershipId }) {
           <div className="box">
             <div className="list-group w-auto">
               <div
-                onClick={handleSelectMembership} // Handle click to select
+                onClick={handleSelectMembership}
                 className="list-group-item list-group-item-action d-flex gap-3 py-3 bg-transparent"
                 aria-current="true"
               >

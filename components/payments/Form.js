@@ -1,20 +1,20 @@
 import { useState, useEffect } from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import { FaCcPaypal, FaCreditCard, FaStripe } from 'react-icons/fa';
-import Success from './Success'; // Import Success component
+import Success from './Success';
 
 export default function Form({ members, user, selectedMemberId }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState('stripe');
-  const [paymentSuccess, setPaymentSuccess] = useState(false); // Track if payment is successful
-  const [paymentData, setPaymentData] = useState(null); // Store payment details to pass to Success component
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [paymentData, setPaymentData] = useState(null);
 
   const stripe = useStripe();
   const elements = useElements();
 
   useEffect(() => {
-    setError(null); // Reset error if payment method changes
+    setError(null);
   }, [paymentMethod]);
 
   const handleSubmit = async (event) => {
@@ -26,7 +26,6 @@ export default function Form({ members, user, selectedMemberId }) {
 
     const cardElement = elements.getElement(CardElement);
 
-    // Create payment method and handle Stripe submission
     const { error: stripeError, paymentMethod: stripePaymentMethod } =
       await stripe.createPaymentMethod({
         type: 'card',
@@ -47,7 +46,6 @@ export default function Form({ members, user, selectedMemberId }) {
       return;
     }
 
-    // Send paymentMethod and user/member data to your backend for processing
     try {
       const response = await fetch('http://localhost:3001/stripe/subscribe', {
         method: 'POST',
@@ -55,23 +53,22 @@ export default function Form({ members, user, selectedMemberId }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          userId: user.id, // Dynamically use the userId
-          memberId: selectedMemberId, // Dynamically use the memberId
+          userId: user.id,
+          memberId: selectedMemberId,
           paymentMethodId: stripePaymentMethod.id,
         }),
       });
 
       const session = await response.json();
 
-      // Handle successful session creation
       if (session.success) {
         setPaymentSuccess(true);
         setPaymentData({
-          userName: user.name, // User's name from user object
-          members: members, // The selected membership details
-          paymentIntentId: session.paymentIntentId, // From backend response
-          totalPrice: members.price, // Assuming the price is in the membership details
-          nextPaymentDate: session.nextPaymentDate, // From backend response
+          userName: user.name,
+          members: members,
+          paymentIntentId: session.paymentIntentId,
+          totalPrice: members.price,
+          nextPaymentDate: session.nextPaymentDate,
         });
       } else {
         setError('There was an error processing your payment.');
@@ -196,7 +193,6 @@ export default function Form({ members, user, selectedMemberId }) {
         </div>
       </form>
 
-      {/* Conditionally render Success modal after payment is successful */}
       {paymentSuccess && paymentData && (
         <Success
           userName={paymentData.userName}

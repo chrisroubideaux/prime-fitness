@@ -21,10 +21,8 @@ export default function Checkout({ members, user }) {
     }
 
     try {
-      // The userId should come from the logged-in user (e.g., user object passed as props or retrieved from authentication context)
-      const userId = user.id; // Dynamically use the user's ID
+      const userId = user.id;
 
-      // Call the backend to create a checkout session
       const response = await fetch('http://localhost:3001/stripe/subscribe', {
         method: 'POST',
         headers: {
@@ -32,13 +30,12 @@ export default function Checkout({ members, user }) {
         },
         body: JSON.stringify({
           userId,
-          memberId: members._id, // Use the member's ID directly from the passed object
+          memberId: members._id,
         }),
       });
 
       const session = await response.json();
 
-      // Redirect the user to Stripe Checkout
       const stripe = await stripePromise;
       const { error } = await stripe.redirectToCheckout({
         sessionId: session.id,
