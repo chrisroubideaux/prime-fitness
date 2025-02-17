@@ -4,6 +4,7 @@ import members from '@/data/members';
 
 export default function Modal({ params }) {
   const member = members.find((member) => member.id === params.id);
+
   return (
     <div>
       <Link
@@ -282,4 +283,17 @@ export default function Modal({ params }) {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps({ params }) {
+  const res = await fetch(
+    `https://prime-fitness.onrender.com/members/${params.id}`
+  );
+  const member = await res.json();
+
+  return {
+    props: {
+      member,
+    },
+  };
 }
