@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-// components
 import Navbar from '@/components/nav/Navbar';
 import Nav from '@/components/sessions/Nav';
 import Toolbar from '@/components/sessions/Toolbar';
@@ -73,26 +72,3 @@ function Details({}) {
 }
 
 export default Details;
-
-//getServerSideProps
-export async function getServerSideProps({ params }) {
-  try {
-    const response = await axios.get(
-      `https://prime-fitness.onrender.com/sessions/${params.id}`
-    );
-    const session = response.data;
-
-    return {
-      props: {
-        session,
-      },
-    };
-  } catch (error) {
-    console.error('Error fetching session details:', error);
-    return {
-      props: {
-        session: {},
-      },
-    };
-  }
-}

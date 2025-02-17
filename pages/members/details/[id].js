@@ -283,15 +283,3 @@ export default function Modal({ params }) {
     </div>
   );
 }
-
-export async function getStaticPaths() {
-  const paths = members.map((member) => ({
-    params: { id: member.id.toString() },
-  }));
-
-  return { paths, fallback: false };
-}
-
-export async function getStaticProps({ params }) {
-  return { props: { params } };
-}

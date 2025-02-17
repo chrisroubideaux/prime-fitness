@@ -71,26 +71,3 @@ export default function OwnerDetails({}) {
     </>
   );
 }
-
-// getServerSideProps
-export async function getServerSideProps({ params }) {
-  try {
-    const response = await axios.get(
-      `https://prime-fitness.onrender.com/owners/${params.id}`
-    );
-    const owner = response.data;
-
-    return {
-      props: {
-        owner,
-      },
-    };
-  } catch (error) {
-    console.error('Error fetching owner details', error);
-    return {
-      props: {
-        owner: {},
-      },
-    };
-  }
-}

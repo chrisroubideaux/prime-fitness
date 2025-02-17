@@ -97,29 +97,3 @@ export default function Home() {
     </>
   );
 }
-
-// getServerSideProps
-export async function getServerSideProps() {
-  try {
-    // Fetch both sessions and trainers
-    const [sessionsRes, trainersRes] = await Promise.all([
-      axios.get('https://prime-fitness.onrender.com/sessions'),
-      axios.get('https://prime-fitness.onrender.com/trainers'),
-    ]);
-
-    return {
-      props: {
-        sessions: sessionsRes.data,
-        trainers: trainersRes.data,
-      },
-    };
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    return {
-      props: {
-        sessions: [],
-        trainers: [],
-      },
-    };
-  }
-}

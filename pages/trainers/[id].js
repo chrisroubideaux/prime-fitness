@@ -1,16 +1,13 @@
-//trainer bio page
+// trainer bio page
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Navbar from '@/components/nav/Navbar';
 import Nav from '@/components/trainers/Nav';
-import Toolbar from '@/components/trainers/Toolbar';
-import Trainer from '@/components/trainers/Trainer';
 import Avatar from '@/components/trainers/Avatar';
 import Amenities from '@/components/trainers/Amenities';
 import Maps from '@/components/maps/Maps';
-import Iconbar from '@/components/trainers/Iconbar';
 import Footer from '@/components/misc/Footer';
 
 const Details = ({}) => {
@@ -68,26 +65,3 @@ const Details = ({}) => {
 };
 
 export default Details;
-
-// Fetch data using server side using getServerSideProps
-export async function getServerSideProps({ params }) {
-  try {
-    const response = await axios.get(
-      `https://prime-fitness.onrender.com/trainers/${params.id}`
-    );
-    const trainer = response.data;
-
-    return {
-      props: {
-        trainer,
-      },
-    };
-  } catch (error) {
-    console.error('Error fetching trainer details', error);
-    return {
-      props: {
-        trainer: {},
-      },
-    };
-  }
-}

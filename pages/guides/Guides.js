@@ -82,24 +82,3 @@ export default function Guide() {
     </>
   );
 }
-
-// getServerSideProps
-export async function getServerSideProps() {
-  try {
-    const response = await axios.get('http://localhost:3001/guides');
-    const guides = response.data;
-
-    return {
-      props: {
-        guides,
-      },
-    };
-  } catch (error) {
-    console.error('Error fetching guides', error);
-    return {
-      props: {
-        guides: [],
-      },
-    };
-  }
-}

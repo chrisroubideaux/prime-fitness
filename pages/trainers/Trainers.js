@@ -65,26 +65,3 @@ export default function Trainer() {
     </>
   );
 }
-
-// getServerSideProps
-export async function getServerSideProps() {
-  try {
-    const response = await axios.get(
-      'https://prime-fitness.onrender.com/trainers'
-    );
-    const trainers = response.data;
-
-    return {
-      props: {
-        trainers,
-      },
-    };
-  } catch (error) {
-    console.error('Error fetching training sessions:', error);
-    return {
-      props: {
-        trainers: [],
-      },
-    };
-  }
-}

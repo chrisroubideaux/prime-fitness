@@ -61,26 +61,3 @@ export default function Owner() {
     </>
   );
 }
-
-// Fetch data using server side using getServerSideProps
-export async function getServerSideProps() {
-  try {
-    const response = await axios.get(
-      'https://prime-fitness.onrender.com/owners'
-    );
-    const owners = response.data;
-
-    return {
-      props: {
-        owners,
-      },
-    };
-  } catch (error) {
-    console.error('Error fetching owners', error);
-    return {
-      props: {
-        owners: [],
-      },
-    };
-  }
-}

@@ -9,8 +9,6 @@ import Member from '@/components/memberships/Member';
 import Checkout from '@/components/payments/Checkout';
 import Maps from '@/components/maps/Maps';
 import Footer from '@/components/misc/Footer';
-
-// react icon imports
 import { FaAward, FaStar } from 'react-icons/fa';
 
 export default function Details({ params }) {
@@ -123,27 +121,4 @@ export default function Details({ params }) {
       </div>
     </>
   );
-}
-
-// getServerSideProps
-export async function getServerSideProps({ params }) {
-  try {
-    const response = await axios.get(
-      `https://prime-fitness.onrender.com/members/${params.id}`
-    );
-    const member = response.data;
-
-    return {
-      props: {
-        member,
-      },
-    };
-  } catch (error) {
-    console.error('Error fetching trainer details', error);
-    return {
-      props: {
-        member: {},
-      },
-    };
-  }
 }

@@ -98,26 +98,3 @@ const Session = () => {
 };
 
 export default Session;
-
-// getServerSideProps
-export async function getServerSideProps() {
-  try {
-    const response = await axios.get(
-      'https://prime-fitness.onrender.com/sessions'
-    );
-    const sessions = response.data;
-
-    return {
-      props: {
-        sessions,
-      },
-    };
-  } catch (error) {
-    console.error('Error fetching sessions:', error);
-    return {
-      props: {
-        sessions: [],
-      },
-    };
-  }
-}

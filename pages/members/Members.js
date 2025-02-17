@@ -69,26 +69,3 @@ export default function Memberships() {
     </>
   );
 }
-
-// getServerSideProps
-export async function getServerSideProps() {
-  try {
-    const response = await axios.get(
-      'https://prime-fitness.onrender.com/members'
-    );
-    const members = response.data;
-
-    return {
-      props: {
-        members,
-      },
-    };
-  } catch (error) {
-    console.error('Error fetching memberships', error);
-    return {
-      props: {
-        members: [],
-      },
-    };
-  }
-}

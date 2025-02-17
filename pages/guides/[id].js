@@ -102,26 +102,3 @@ export default function Details({}) {
     </>
   );
 }
-
-// getServerSideProps
-export async function getServerSideProps({ params }) {
-  try {
-    const response = await axios.get(
-      `https://prime-fitness.onrender.com/guides/${params.id}`
-    );
-    const guide = response.data;
-
-    return {
-      props: {
-        guide,
-      },
-    };
-  } catch (error) {
-    console.error('Error fetching tour guide details', error);
-    return {
-      props: {
-        guide: {},
-      },
-    };
-  }
-}
