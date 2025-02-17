@@ -1,4 +1,6 @@
 // trainers page
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import Head from 'next/head';
 import Navbar from '@/components/nav/Navbar';
 import Hero from '@/components/owners/Hero';

@@ -3,7 +3,6 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-// component imports
 import Navbar from '@/components/nav/Navbar';
 import Nav from '@/components/guides/Nav';
 import Avatar from '@/components/guides/Avatar';
